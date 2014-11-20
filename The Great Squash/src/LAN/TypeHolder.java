@@ -11,5 +11,8 @@ package LAN;
 public class TypeHolder {
     public static final String PLAYER = "Player";
     public static final String MONSTER = "Monster";
+    public static final String OB_WALL = "Wall";
+    public static final String OB_DOOR = "Floor";
+    public static final String OB_CHEST = "Chest";
     public static final char ERROR_CHAR = 'X';
 }

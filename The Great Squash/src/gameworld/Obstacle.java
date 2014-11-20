@@ -18,10 +18,11 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
     Board BOARD;
     char SPRITE;
     double HEALTH;
+    String TYPE;
     
-     public Obstacle(char sprite, String label, boolean passable, Board board, int y, int x) {
-        //BOARD.getClient().getHandler()
+     public Obstacle(char sprite, String label, boolean passable, Board board, int y, int x,String type) {
         LABEL = label;
+        TYPE = type;
         PASSABLE = passable;
         SPRITE = sprite;
         LOCATION_X = x;

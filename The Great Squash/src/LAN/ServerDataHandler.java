@@ -88,7 +88,7 @@ public class ServerDataHandler implements Runnable {
                 boolean passable = messageScanner.nextBoolean();
                 double health = messageScanner.nextDouble();
                 char sprite = messageScanner.next().charAt(0);
-                System.out.println("TODO implement types of obstacles");
+                
             }
             WAIT_FOR_OBSTACLES = false;
         } else if (theCommand.equals(CommandHolder.THE_FLOORS)) {

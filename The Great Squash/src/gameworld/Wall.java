@@ -4,13 +4,15 @@
  */
 package gameworld;
 
+import LAN.TypeHolder;
+
 /**
  *
  * @author ros_dmlamarca
  */
 public class Wall extends Obstacle implements Cloneable {
     public Wall(Board board, int y, int x) {
-        super('#',"",false,board,y,x);
+        super('#',"",false,board,y,x,TypeHolder.OB_WALL);
     }
     
     public Wall() {

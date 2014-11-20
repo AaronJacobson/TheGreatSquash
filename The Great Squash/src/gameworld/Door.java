@@ -16,7 +16,7 @@ public class Door extends Obstacle implements Interactive, Cloneable {
     private char OPEN_SPRITE = '_';
     
     public Door(Board board, boolean open, int y, int x) {
-        super(TypeHolder.ERROR_CHAR,"",open, board, y, x);
+        super(TypeHolder.ERROR_CHAR,"",open, board, y, x,TypeHolder.OB_DOOR);
         if(open) {
             super.setSprite(OPEN_SPRITE);
         } else {
@@ -53,6 +53,6 @@ public class Door extends Obstacle implements Interactive, Cloneable {
 
     @Override
     public String toServerData() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return super.getServerData();
     }
 }

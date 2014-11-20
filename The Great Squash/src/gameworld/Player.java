@@ -31,10 +31,6 @@ public class Player extends Creature {
         }
     }
     
-    public Player(String name,char sprite,int health,int level,int speed,int endurance,int strength,int intelligence,int dexterity){
-        super(name,sprite,health,level,speed,endurance,strength,intelligence,dexterity);
-    }
-    
     public void loadFromFile(Scanner playerScanner){
         boolean statsLoaded = false;
         boolean equipmentLoaded = false;
@@ -43,6 +39,7 @@ public class Player extends Creature {
         while(playerScanner.hasNext()){
             if(!statsLoaded){
                 loadStats(playerScanner);
+                statsLoaded = true;
             }else if(!equipmentLoaded){
                 
             }else if(!inventoryLoaded){
@@ -58,21 +55,16 @@ public class Player extends Creature {
         String name = playerScanner.next();
         playerScanner.next();
         char symbol = playerScanner.next().charAt(0);
-        playerScanner.next();
-        int health = playerScanner.nextInt();
-        playerScanner.next();
-        int level = playerScanner.nextInt();
-        playerScanner.next();
-        int xp = playerScanner.nextInt();
-        playerScanner.next();
-        int movement = playerScanner.nextInt();
-        playerScanner.next();
-        int endurance = playerScanner.nextInt();
-        playerScanner.next();
-        int strength = playerScanner.nextInt();
-        playerScanner.next();
-        int intelligence = playerScanner.nextInt();
-        playerScanner.next();
-        int dexterity = playerScanner.nextInt();
+        System.out.println(playerScanner.next());
+        System.out.println(playerScanner.next());
+        
+    }
+    
+    public void loadTest(Scanner playerScanner){
+        int tokenNumber = 0;
+        while(playerScanner.hasNext()){
+            tokenNumber++;
+            System.out.println(tokenNumber + " " + playerScanner.next());
+        }
     }
 }
