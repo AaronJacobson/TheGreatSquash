@@ -36,6 +36,5 @@ public class TestBoard {
         //  64 = @
         //board.show();  
 
-        gui.getBoard().updateDisplay();
     }
 }

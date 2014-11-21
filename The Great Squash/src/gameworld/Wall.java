@@ -11,14 +11,17 @@ import LAN.TypeHolder;
  * @author ros_dmlamarca
  */
 public class Wall extends Obstacle implements Cloneable {
+
     public Wall(Board board, int y, int x) {
-        super('#',"",false,board,y,x,TypeHolder.OB_WALL);
+        super('#', "", false, board, y, x, TypeHolder.OB_WALL);
     }
-    
+    public Wall(char sprite, String label, boolean passable, Board board, int y, int x,String type){
+        super(sprite,label,passable,board,y,x,type);
+    }
     public Wall() {
-        super('#',"",false);
+        super('#', "", false);
     }
-    
+
     public Wall clone() {
         Wall clone = new Wall();
         clone.setLocation(BOARD, LOCATION_Y, LOCATION_X);
@@ -27,6 +30,6 @@ public class Wall extends Obstacle implements Cloneable {
 
     @Override
     public String toServerData() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return super.getServerData();
     }
 }
