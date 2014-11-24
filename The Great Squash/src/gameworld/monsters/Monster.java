@@ -2,6 +2,7 @@ package gameworld.monsters;
 
 import gameworld.Board;
 import gameworld.Creature;
+import gameworld.tools.CreatureCounter;
 import java.util.Scanner;
 
 /**
@@ -27,7 +28,9 @@ public class Monster extends Creature {
     
 
     private void makeFromFile(Scanner scanFile) {
-        super.setType(scanFile.nextLine());
+        String type = scanFile.nextLine();
+        super.setType(type);
+        super.setName(CreatureCounter.getCount(type));
         super.setSprite(scanFile.nextLine().charAt(0));
         super.setSpeedMod(generateStat(scanFile.nextLine()));
         super.setEnduranceMod(generateStat(scanFile.nextLine()));
