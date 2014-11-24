@@ -23,17 +23,19 @@ public abstract class Creature implements Displayable, Sendable {
     int LOCATION_X;
     int LOCATION_Y;
     int LEVEL;
-    double HEALTH = 0;
+    int XP;
+    int MAX_HEALTH = 0;
+    double CURRENT_HEALTH;
     int ENDURANCE_MODIFIER;
-    double ENDURANCE;
+    int ENDURANCE;
     int SPEED_MODIFIER;
-    double SPEED;
+    int SPEED;
     int STRENGTH_MODIFIER;
-    double STRENGTH;
+    int STRENGTH;
     int INTELLIGENCE_MODIFIER;
-    double INTELLIGENCE;
+    int INTELLIGENCE;
     int DEXTERITY_MODIFIER;
-    double DEXTERITY;
+    int DEXTERITY;
 
     public Creature(char sprite, Board board, int y, int x, String name, String type) {
         TYPE = type;
@@ -51,12 +53,16 @@ public abstract class Creature implements Displayable, Sendable {
         NAME = name;
         SPRITE = sprite;
         LEVEL = level;
-        HEALTH = health;
+        MAX_HEALTH = health;
         SPEED = speed;
         ENDURANCE = endurance;
         STRENGTH = strength;
         INTELLIGENCE = intelligence;
         DEXTERITY = dexterity;
+    }
+    
+    public Creature(String name){
+        NAME = name;
     }
 
     public Creature() {
@@ -133,11 +139,11 @@ public abstract class Creature implements Displayable, Sendable {
     }
 
     private void updateStats() {
-        SPEED = SPEED_MODIFIER + (LEVEL * ((double) (SPEED_MODIFIER) / 8));
-        ENDURANCE = ENDURANCE_MODIFIER + (LEVEL * ((double) (ENDURANCE_MODIFIER) / 2));
-        STRENGTH = STRENGTH_MODIFIER + (LEVEL * ((double) (STRENGTH_MODIFIER) / 3));
-        INTELLIGENCE = INTELLIGENCE_MODIFIER + (LEVEL * ((double) (INTELLIGENCE_MODIFIER) / 3));
-        DEXTERITY = DEXTERITY_MODIFIER + (LEVEL * ((double) (DEXTERITY_MODIFIER) / 2));
+        SPEED = (int)(SPEED_MODIFIER + (LEVEL * ((double) (SPEED_MODIFIER) / 8)));
+        ENDURANCE = (int)(ENDURANCE_MODIFIER + (LEVEL * ((double) (ENDURANCE_MODIFIER) / 2)));
+        STRENGTH = (int)(STRENGTH_MODIFIER + (LEVEL * ((double) (STRENGTH_MODIFIER) / 3)));
+        INTELLIGENCE = (int)(INTELLIGENCE_MODIFIER + (LEVEL * ((double) (INTELLIGENCE_MODIFIER) / 3)));
+        DEXTERITY = (int)(DEXTERITY_MODIFIER + (LEVEL * ((double) (DEXTERITY_MODIFIER) / 2)));
     }
 
     @Override
@@ -221,7 +227,7 @@ public abstract class Creature implements Displayable, Sendable {
         return ENDURANCE_MODIFIER;
     }
 
-    public void setDexterity(double dexterity) {
+    public void setDexterity(int dexterity) {
         DEXTERITY = dexterity;
     }
 
@@ -229,7 +235,7 @@ public abstract class Creature implements Displayable, Sendable {
         return DEXTERITY;
     }
 
-    public void setIntelligence(double intelligence) {
+    public void setIntelligence(int intelligence) {
         INTELLIGENCE = intelligence;
     }
 
@@ -237,7 +243,7 @@ public abstract class Creature implements Displayable, Sendable {
         return INTELLIGENCE;
     }
 
-    public void setStrength(double strength) {
+    public void setStrength(int strength) {
         STRENGTH = strength;
     }
 
@@ -245,7 +251,7 @@ public abstract class Creature implements Displayable, Sendable {
         return STRENGTH;
     }
 
-    public void setSpeed(double speed) {
+    public void setSpeed(int speed) {
         SPEED = speed;
     }
 
@@ -253,7 +259,7 @@ public abstract class Creature implements Displayable, Sendable {
         return SPEED;
     }
 
-    public void setEndurance(double endurance) {
+    public void setEndurance(int endurance) {
         ENDURANCE = endurance;
     }
 
@@ -262,6 +268,30 @@ public abstract class Creature implements Displayable, Sendable {
     }
 
     public String toServerData() {
-        return " | " + NAME + " " + LOCATION_Y + "  " + LOCATION_X + " " + HEALTH + " " + TYPE + " " + SPRITE;
+        return " | " + NAME + " " + LOCATION_Y + " " + LOCATION_X + " " + MAX_HEALTH + " " + TYPE + " " + SPRITE;
+    }
+    
+    public int getMaxHealth(){
+        return MAX_HEALTH;
+    }
+    
+    public void setMaxHealth(int health){
+        MAX_HEALTH = health;
+    }
+    
+    public double getCurrentHealth(){
+        return CURRENT_HEALTH;
+    }
+    
+    public void setCurrentHealth(double newHealth){
+        CURRENT_HEALTH = newHealth;
+    }
+    
+    public int getXP(){
+        return XP;
+    }
+    
+    public void setXP(int newXp){
+        XP = newXp;
     }
 }

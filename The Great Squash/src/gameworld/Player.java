@@ -22,6 +22,7 @@ public class Player extends Creature {
     }
     
     public Player(String name){
+        super(name);
         String fileDirectory = "src/gameworld/players/" + name + ".player";
         try {
             Scanner fileScanner = new Scanner(new File(fileDirectory));
@@ -36,18 +37,19 @@ public class Player extends Creature {
         boolean equipmentLoaded = false;
         boolean inventoryLoaded = false;
         boolean spellsLoaded = false;
-        while(playerScanner.hasNext()){
-            if(!statsLoaded){
-                loadStats(playerScanner);
-                statsLoaded = true;
-            }else if(!equipmentLoaded){
-                
-            }else if(!inventoryLoaded){
-                
-            }else if(!spellsLoaded){
-                //we need to implement spells
-            }
-        }
+        loadStats(playerScanner);
+//        while(playerScanner.hasNext()){
+//            if(!statsLoaded){
+//                loadStats(playerScanner);
+//                statsLoaded = true;
+//            }else if(!equipmentLoaded){
+//                
+//            }else if(!inventoryLoaded){
+//                
+//            }else if(!spellsLoaded){
+//                //we need to implement spells
+//            }
+//        }
     }
     
     public void loadStats(Scanner playerScanner){
@@ -55,9 +57,30 @@ public class Player extends Creature {
         String name = playerScanner.next();
         playerScanner.next();
         char symbol = playerScanner.next().charAt(0);
-        System.out.println(playerScanner.next());
-        System.out.println(playerScanner.next());
-        
+        super.setSprite(symbol);
+        playerScanner.next();
+        int health = playerScanner.nextInt();
+        super.setMaxHealth(health);
+        playerScanner.next();
+        int xp = playerScanner.nextInt();
+        super.setXP(xp);
+        playerScanner.next();
+        int speed = playerScanner.nextInt();
+        super.setSpeed(speed);
+        playerScanner.next();
+        int endurance = playerScanner.nextInt();
+        super.setEndurance(endurance);
+        playerScanner.next();
+        int strength = playerScanner.nextInt();
+        super.setStrength(strength);
+        playerScanner.next();
+        int intelligence = playerScanner.nextInt();
+        super.setIntelligence(intelligence);
+        playerScanner.next();
+        int dexterity = playerScanner.nextInt();
+        super.setDexterity(dexterity);
+        playerScanner.next();
+        System.out.println(this.toServerData());
     }
     
     public void loadTest(Scanner playerScanner){
