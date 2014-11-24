@@ -3,21 +3,19 @@
  */
 package GUI;
 
-import GUI.listeners.MessangerEnterKeyListener;
+import GUI.listeners.MessengerEnterKeyListener;
+import gameworld.Board;
 import gameworld.Creature;
 import gameworld.Inventory;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
@@ -31,6 +29,7 @@ public class GameGUI {
     private Border DISPLAY_BORDER = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
     private Font DISPLAY_FONT = new Font("Monospaced", Font.PLAIN, 12);
     private JFrame FRAME = new JFrame("The Great Squash");
+    private MessengerEnterKeyListener CHAT_LISTENER;
     private JTextArea INVENTORY_DISPLAY;
     private JPanel INVENTORY_PANEL;
     private JPanel BUTTONS_PANEL;
@@ -42,6 +41,7 @@ public class GameGUI {
     private JPanel BASE = new JPanel();
     
     private Creature CONTAINED_CREATURE;
+    private Board BOARD;
 
     public GameGUI() {
         formatInventory();
@@ -60,7 +60,6 @@ public class GameGUI {
         INVENTORY_DISPLAY.setBorder(DISPLAY_BORDER);
         
         INVENTORY_PANEL = new JPanel();
-        //INVENTORY_PANEL.setBackground(Color.PINK);
         INVENTORY_PANEL.setBounds(2, 2, 200, 500);
         INVENTORY_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER,"Inventory"));
         INVENTORY_PANEL.add(INVENTORY_DISPLAY);
@@ -84,6 +83,7 @@ public class GameGUI {
         BOARD_DISPLAY.setPreferredSize(new Dimension(20,20));
         BOARD_DISPLAY.setLineWrap(true);
         BOARD_DISPLAY.setBorder(DISPLAY_BORDER);
+        BOARD_DISPLAY.setEditable(false);
         
         BOARD_PANEL = new JPanel();
         //BOARD_PANEL.setBackground(Color.RED);
@@ -95,23 +95,23 @@ public class GameGUI {
     private void formatChat() {
         CHAT_DISPLAY = new JTextArea(7,130);
         CHAT_DISPLAY.setFont(DISPLAY_FONT);
-        CHAT_DISPLAY.setPreferredSize(new Dimension(20,20));
         CHAT_DISPLAY.setEditable(false);
         CHAT_DISPLAY.setLineWrap(true);
         CHAT_DISPLAY.setBorder(DISPLAY_BORDER);
         
         CHAT_INPUT = new JTextField(83);
         CHAT_INPUT.setEditable(true);
-        CHAT_INPUT.addKeyListener(new MessangerEnterKeyListener(this));
+        CHAT_LISTENER = new MessengerEnterKeyListener(this);
+        CHAT_INPUT.addKeyListener(CHAT_LISTENER);
         
         CHAT_PANEL = new JPanel();
-        CHAT_PANEL.setBounds(2, 504, 940, 170);     
+        CHAT_PANEL.setBounds(2, 504, 940, 170);   
+        CHAT_PANEL.setBorder(PANEL_BORDER);
         
         JScrollPane chatScroll = new JScrollPane(CHAT_DISPLAY);
         chatScroll.setBorder(PANEL_BORDER);
         chatScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        JScrollBar bar = new JScrollBar();  
-        chatScroll.add(bar);  
+        chatScroll.setPreferredSize(new Dimension(920,130));  
                 
         CHAT_PANEL.add(chatScroll);
         CHAT_PANEL.add(CHAT_INPUT);
@@ -132,9 +132,26 @@ public class GameGUI {
         FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
+    public void updateDisplay() {
+        
+    }
+    
     public void setCreature(Creature creature) {
         CONTAINED_CREATURE = creature;
+        CHAT_LISTENER.setCreature(creature);
         INVENTORY_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER,"Inventory - " + CONTAINED_CREATURE.getName()));
+    }
+    
+    public Creature getCreature() {
+        return CONTAINED_CREATURE;
+    }
+    
+    public void setBoard(Board board) {
+        BOARD = board;
+    }
+    
+    public Board getBoard() {
+        return BOARD;
     }
     
     public void updateBoard(String board) {

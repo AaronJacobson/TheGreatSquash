@@ -4,7 +4,7 @@
  */
 package LAN;
 
-import GUI.TestMovementGUI;
+import GUI.tests.TestMovementGUI;
 import gameworld.Board;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
