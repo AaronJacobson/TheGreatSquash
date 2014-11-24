@@ -16,6 +16,18 @@ import java.util.Scanner;
  */
 public class DocumentToBoard {
 
+    public static Board getFromMaps(String mapName) {
+        String filePath = "";
+        if(!mapName.endsWith(".map")) {
+            filePath = "src/gameworld/maps/" + mapName + ".map";
+        } else {
+            filePath = "src/gameworld/maps/" + mapName;
+        }
+        //filePath = "src/gameworld/maps/";
+        Board board = createBoard(filePath);
+        return board;
+    }
+    
     public static Board createBoard(String filePath) {
         System.out.println(filePath);
         Board board = null;
@@ -141,7 +153,6 @@ public class DocumentToBoard {
             int x = readLine.nextInt();
             int y = readLine.nextInt();
             Monster monster = new Monster(type, board, y, x);
-            board.addCreature(monster);
         }
     }
 }

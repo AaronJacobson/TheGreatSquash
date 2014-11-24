@@ -4,7 +4,7 @@
  */
 package gameworld;
 
-import GUI.TestMovementGUI;
+import GUI.tests.TestMovementGUI;
 import LAN.Client;
 import LAN.CommandHolder;
 import LAN.Server;
@@ -123,9 +123,10 @@ public class Board {
     }
 
     public Creature getCreature(String name) {
+        name = name.toLowerCase();
         for (int i = 0; i < CREATURES.size(); i++) {
             Creature current = CREATURES.get(i);
-            if (current.getName().equals(name)) {
+            if (current.getName().toLowerCase().equals(name)) {
                 return current;
             }
         }

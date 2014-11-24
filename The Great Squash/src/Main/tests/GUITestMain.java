@@ -4,7 +4,7 @@
  */
 package Main.tests;
 
-import GUI.GameGUI;
+import GUI.*;
 import gameworld.Board;
 import gameworld.DocumentToBoard;
 import gameworld.tools.CreatureCounter;
@@ -20,15 +20,18 @@ public class GUITestMain {
         GameGUI gui = new GameGUI();
         
         Monster fluffy = new Monster("liger");
+        System.out.println(fluffy);
         
         gui.setCreature(fluffy);
         gui.updateInventoryDisplay();
         Inventory inventory = new Inventory(27, 3, 4, 5);
         //System.out.println(inventory);
         
-        Board board = DocumentToBoard.createBoard("H:\\testboard.txt");
+        Board board = DocumentToBoard.getFromMaps("map01.map");
         board.show();
         
         gui.updateBoard(board.toString());
+        
+//        StartMenu gui = new StartMenu();
     }
 }

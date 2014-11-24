@@ -4,7 +4,7 @@
  */
 package Main.tests;
 
-import GUI.TestMovementGUI;
+import GUI.tests.TestMovementGUI;
 import gameworld.Board;
 import gameworld.CreateDungeon;
 import gameworld.Creature;
