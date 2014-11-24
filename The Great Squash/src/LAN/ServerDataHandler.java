@@ -1,16 +1,17 @@
 package LAN;
 
 import gameworld.Board;
+import gameworld.Chest;
 import gameworld.Creature;
 import gameworld.Displayable;
+import gameworld.Door;
 import gameworld.Obstacle;
 import gameworld.Player;
+import gameworld.Wall;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ServerDataHandler implements Runnable {
 
@@ -88,7 +89,14 @@ public class ServerDataHandler implements Runnable {
                 boolean passable = messageScanner.nextBoolean();
                 double health = messageScanner.nextDouble();
                 char sprite = messageScanner.next().charAt(0);
-                
+                String type = messageScanner.next();
+                if(type.equals(TypeHolder.OB_CHEST)){
+                    Chest chest = new Chest(MY_CLIENT.getBoard(),newY,newX);
+                }else if(type.equals(TypeHolder.OB_DOOR)){
+                    Door door = new Door(MY_CLIENT.getBoard(),passable,newY,newX);
+                }else if(type.equals(TypeHolder.OB_WALL)){
+                    Wall wall = new Wall(MY_CLIENT.getBoard(),newY,newX);
+                }
             }
             WAIT_FOR_OBSTACLES = false;
         } else if (theCommand.equals(CommandHolder.THE_FLOORS)) {
@@ -104,7 +112,6 @@ public class ServerDataHandler implements Runnable {
                 if (type.equals(TypeHolder.PLAYER)) {
                     Player john = new Player(sprite, MY_CLIENT.getBoard(), locY, locX, name);
                     MY_CLIENT.getBoard().addCreature(john);
-                    MY_CLIENT.getBoard().getCreatures().add(john);
                 }
             }
         } else if (theCommand.equals(CommandHolder.BOARD_SIZE)) {
@@ -113,7 +120,6 @@ public class ServerDataHandler implements Runnable {
             MY_CLIENT.setBoard(new Board(boardy, boardx));
             WAIT_FOR_PARAMETERS = false;
         }
-        MY_CLIENT.getBoard().updateDisplay();
     }
 
     public void sendCreature(Creature toSend) {
@@ -148,7 +154,7 @@ public class ServerDataHandler implements Runnable {
             STREAM_OUT.writeUTF(CommandHolder.SEND_THE_BOARD_PARAMETERS);
             while (WAIT_FOR_PARAMETERS) {
             }
-            //STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_FLOORS);
+//            STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_FLOORS);
 //            while (WAIT_FOR_FLOORS) {
 //            }
             STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_OBSTACLES);

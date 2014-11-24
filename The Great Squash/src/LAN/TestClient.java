@@ -8,7 +8,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-import GUI.LANMessanger;
+import GUI.tests.LANMessanger;
 
 public class TestClient {
 
@@ -66,7 +66,7 @@ class Input implements Runnable {
                 try {
                     LANMessanger messanger = client.getMessanger();
                     String message = STREAM_IN.readUTF();
-                    messanger.printToDisplay(message);
+                    //messanger.printToDisplay(message);
                 } catch (SocketException se) {
                     System.out.println("\nConnection Terminated.\nBeat it Fucker");
                     break;

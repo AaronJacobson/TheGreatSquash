@@ -1,4 +1,4 @@
-package GUI;
+package GUI.tests;
 
 import GUI.listeners.MovementListener;
 import LAN.Client;

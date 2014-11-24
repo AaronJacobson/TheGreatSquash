@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Paths;
 import java.util.Hashtable;
 import java.util.Scanner;
@@ -20,51 +21,78 @@ import java.util.logging.Logger;
  * @author ros_dmlamarca
  */
 public class CreatureCounter {
+    private static final File COUNT_FILE = new File("src\\gameworld\\tools\\countlog.tgs");
 
     public static String getCount(String type) {
-        String name = "";
-        File file = new File("." + "\\build\\classes\\gameworld\\tools");
-        File countlog = null;
-        for (int i = 0; i < file.listFiles().length; i++) {
-            if (file.listFiles()[i].getName().equals("countlog")) {
-                countlog = file.listFiles()[i];
+        String countLog = getFileText(COUNT_FILE);
+        String finalLog = "";
+        Scanner scanLog = new Scanner(countLog);
+        boolean containsType = false;
+        int typeCount = 0;
+
+        while (scanLog.hasNextLine()) {
+            String current = scanLog.nextLine();
+            if (current.startsWith(type + " ")) {
+                int spacePlace = current.indexOf(" ");
+                typeCount = Integer.decode((String) (current.subSequence(spacePlace + 1, current.length()))) + 1;
+                containsType = true;
+
+                current = current.substring(0, spacePlace) + " " + typeCount;
             }
+            finalLog += current + "\n";
         }
 
-
-        FileWriter writeFile;
-        try {
-            writeFile = new FileWriter(countlog);
-            writeFile.write("I have 7 testicles");
-        } catch (IOException ex) {
-            Logger.getLogger(CreatureCounter.class.getName()).log(Level.SEVERE, null, ex);
+        if (!containsType) {
+            finalLog += type + " " + 0;
         }
 
+        setFileText(COUNT_FILE, finalLog);
 
+        return generateName(type, typeCount);
+    }
 
+    public static void clearCounter() {
+        setFileText(COUNT_FILE, "");
+    }
+
+    private static String generateName(String type, int count) {
+        String name = type + "_";
+        if (count / 100 > 0) {
+            name += count;
+        } else if (count / 10 > 0) {
+            name += "0" + count;
+        } else {
+            name += "00" + count;
+        }
         return name;
     }
-//    public CreatureCounter() {
-//        counterTable = new Hashtable<String,Integer>();
-//    }
-//    public String getCount(String creatureType) {
-//        String name = "";
-//        if(!counterTable.containsKey(creatureType)) {
-//            counterTable.put(creatureType,0);
-//        } else {
-//            int count = counterTable.get(creatureType);
-//            counterTable.remove(creatureType);
-//            counterTable.put(creatureType,count + 1);
-//        }
-//        
-//        int creatureCount = counterTable.get(creatureType);
-//        if(((double)(creatureCount)) / 100 >= 1) {
-//            name = creatureType + "_" + creatureCount;
-//        } else if(((double)(creatureCount)) / 10 >= 1) {
-//            name = creatureType + "_0" + creatureCount;
-//        } else {
-//            name = creatureType + "_00" + creatureCount;
-//        }
-//        return name;
-//    }
+
+    private static void setFileText(File file, String text) {
+        PrintWriter fileWriter = null;
+        try {
+            fileWriter = new PrintWriter(file, "UTF-8");
+        } catch (FileNotFoundException ex) {
+        } catch (UnsupportedEncodingException ex) {
+        }
+
+        fileWriter.println(text);
+        fileWriter.close();
+    }
+
+    private static String getFileText(File file) {
+        Scanner fileScanner = null;
+        try {
+            fileScanner = new Scanner(file);
+
+        } catch (FileNotFoundException ex) {
+        }
+        String countLog = "";
+        while (fileScanner.hasNextLine()) {
+            String current = fileScanner.nextLine();
+            if (!current.equals("")) {
+                countLog += current + "\n";
+            }
+        }
+        return countLog;
+    }
 }

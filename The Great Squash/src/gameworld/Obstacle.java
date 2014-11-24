@@ -11,14 +11,14 @@ import LAN.Sendable;
  * @author ros_aljacobson001
  */
 public abstract class Obstacle implements Displayable, Sendable, Cloneable {
-    String LABEL;
+    String LABEL = "Obstacle";
+    String TYPE = "Abstract Obstacle";
     boolean PASSABLE;
     int LOCATION_X;
     int LOCATION_Y;
     Board BOARD;
     char SPRITE;
     double HEALTH;
-    String TYPE;
     
      public Obstacle(char sprite, String label, boolean passable, Board board, int y, int x,String type) {
         LABEL = label;
@@ -28,12 +28,11 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
         LOCATION_X = x;
         LOCATION_Y = y;
         BOARD = board;
-
         BOARD.getTile(y, x).setObstacle(this);
+        BOARD.getObstacles().add(this);
     }
      
      public Obstacle(char sprite, String label, boolean passable) {
-        //BOARD.getClient().getHandler()
         LABEL = label;
         PASSABLE = passable;
         SPRITE = sprite;
@@ -81,6 +80,6 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
     }
     
     public String getServerData(){
-        return " | " + LABEL + " " + LOCATION_Y + " " + LOCATION_X + " " + PASSABLE + " " + HEALTH + " " + SPRITE;
+        return " | " + LABEL + " " + LOCATION_Y + " " + LOCATION_X + " " + PASSABLE + " " + HEALTH + " " + SPRITE + " " + TYPE;
     }
 }

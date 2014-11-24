@@ -4,7 +4,7 @@
  */
 package GUI.listeners;
 
-import GUI.TestMovementGUI;
+import GUI.tests.TestMovementGUI;
 import LAN.ServerDataHandler;
 import gameworld.Creature;
 import java.awt.event.KeyEvent;

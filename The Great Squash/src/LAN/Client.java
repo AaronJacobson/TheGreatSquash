@@ -4,7 +4,7 @@
  */
 package LAN;
 
-import GUI.tests.TestMovementGUI;
+import GUI.GameGUI;
 import gameworld.Board;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -28,7 +28,7 @@ public class Client {
     private DataOutputStream CHAT_OUT;
     private Socket CHAT_SOCKET;
     private Board MY_BOARD;
-    private TestMovementGUI GUI;
+    private GameGUI GUI;
     private ServerDataHandler DATA_HANDLER;
 
     public Client(String ip) {
@@ -80,7 +80,7 @@ public class Client {
         return MY_BOARD;
     }
 
-    public TestMovementGUI getGUI() {
+    public GameGUI getGUI() {
         return GUI;
     }
 

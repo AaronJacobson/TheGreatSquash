@@ -201,10 +201,6 @@ class ServerClientConnection implements Runnable {
     public void sendCreatures() {
         String toSend = CommandHolder.THE_CREATURES + " " + THE_SERVER.getBoard().getCreatures().size();
         for (int currentCreature = 0; currentCreature < THE_SERVER.getBoard().getCreatures().size(); currentCreature++) {
-            System.out.println(THE_SERVER);
-            System.out.println(THE_SERVER.getBoard().getCreatures());
-            System.out.println(THE_SERVER.getBoard().getCreatures().get(currentCreature));
-            System.out.println(THE_SERVER.getBoard().getCreatures().get(currentCreature).toServerData());
             toSend += THE_SERVER.getBoard().getCreatures().get(currentCreature).toServerData();
         }
         Scanner messageScanner = new Scanner(toSend);

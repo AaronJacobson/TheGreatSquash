@@ -56,10 +56,6 @@ public class Board {
         setBoardTilesNull();
     }
 
-    public void updateDisplay() {
-        MY_CLIENT.getGUI().getDisplay().setText(this.toString());
-    }
-
     public void show() {
         for (int i = 0; i < SIZE_X; i++) {
             for (int j = 0; j < SIZE_Y; j++) {
