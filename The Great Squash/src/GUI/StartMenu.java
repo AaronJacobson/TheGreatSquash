@@ -1,7 +1,10 @@
 package GUI;
 
+import Main.GameRunner;
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,8 +28,10 @@ public class StartMenu {
     private JPanel BASE;
     private JPanel SERVER_PANEL;
     private JPanel CLIENT_PANEL;
+    private AL ACTION_LISTENER;
 
     public StartMenu() {
+        ACTION_LISTENER = new AL();
         formatClient();
         formatServer();
         formatFrame();
@@ -37,6 +42,7 @@ public class StartMenu {
         CLIENT_IP.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER,"Server IP"));
         
         CLIENT_CONNECT = new Button("Connect to Server");
+        CLIENT_CONNECT.addActionListener(ACTION_LISTENER);
         
         CLIENT_PANEL = new JPanel();
         CLIENT_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER,"Client"));
@@ -50,6 +56,7 @@ public class StartMenu {
         SERVER_MAP.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER,"Map Name"));
         
         SERVER_CREATE = new Button("Create Server");
+        SERVER_CREATE.addActionListener(ACTION_LISTENER);
 
         SERVER_PANEL = new JPanel();
         SERVER_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER,"Server"));
@@ -68,5 +75,19 @@ public class StartMenu {
         FRAME.setVisible(true);
         FRAME.setResizable(false);
         FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    
+    public class AL implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            String action = ae.getActionCommand();
+            if(action.equals(CLIENT_CONNECT.getActionCommand())){
+                GameRunner.connectToServer(CLIENT_IP.getText());
+            }else if(action.equals(SERVER_CREATE.getActionCommand())){
+                GameRunner.createServer(SERVER_MAP.getText());
+            }
+        }
+        
     }
 }

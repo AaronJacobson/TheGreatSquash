@@ -1,5 +1,6 @@
 Name: Guardian
-Symbol: G
+Sprite: G
+Race: Human
 Health: 15
 Level: 1
 XP: 0

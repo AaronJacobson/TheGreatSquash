@@ -30,13 +30,14 @@ public class Client {
     private Board MY_BOARD;
     private GameGUI GUI;
     private ServerDataHandler DATA_HANDLER;
+    private String IP;
 
     public Client(String ip) {
-        connectToServer(ip);
+        IP = ip;
     }
 
-    public void connectToServer(String ip) {
-        ConnectToServerThread connectToServerThread = new ConnectToServerThread(this, ip);
+    public void connectToServer() {
+        ConnectToServerThread connectToServerThread = new ConnectToServerThread(this, IP);
         Thread serverConnection = new Thread(connectToServerThread);
         serverConnection.start();
     }
