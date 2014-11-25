@@ -17,6 +17,7 @@ import gameworld.monsters.Monster;
  */
 public class GUITestMain {
     public static void main(String[] args) {
+        CreatureCounter.clearCounter();
         GameGUI gui = new GameGUI();
         
         Monster fluffy = new Monster("liger");
