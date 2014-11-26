@@ -3,7 +3,11 @@ package gameworld.monsters;
 import gameworld.Board;
 import gameworld.Creature;
 import gameworld.tools.CreatureCounter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -12,12 +16,22 @@ import java.util.Scanner;
 public class Monster extends Creature {
 
     public Monster(String type) {
-        Scanner scanFile = new Scanner(getClass().getResourceAsStream((type.toLowerCase()) + ".txt"));
+        Scanner scanFile = null;
+        try {
+            scanFile = new Scanner(getFile(type));
+        } catch (FileNotFoundException ex) {
+            System.out.println("Sorry Bro, no Monster File Scanner");
+        }
         makeFromFile(scanFile);
     }
     
      public Monster(String type, Board board, int y, int x) {
-        Scanner scanFile = new Scanner(getClass().getResourceAsStream((type.toLowerCase()) + ".txt"));
+        Scanner scanFile = null;
+        try {
+            scanFile = new Scanner(getFile(type));
+        } catch (FileNotFoundException ex) {
+            System.out.println("Sorry Bro, no Monster File Scanner");
+        }
         makeFromFile(scanFile);
         super.setBoard(board);
         super.setY(y);
@@ -45,5 +59,18 @@ public class Monster extends Creature {
         int highEdge = readLine.nextInt();
         int randomStat = (int)(Math.random() * (highEdge - lowEdge + 1) + lowEdge);
         return randomStat;
+    }
+    
+    private File getFile(String name) {
+        name = name.toLowerCase();
+        String filePath = "";
+        if(!name.endsWith(".monster")) {
+            filePath = "src/gameworld/monsters/" + name + ".monster";
+        } else {
+            filePath = "src/gameworld/monsters/" + name;
+        }
+        //filePath = "src/gameworld/maps/";
+        File file = new File(filePath);
+        return file;
     }
 }

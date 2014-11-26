@@ -7,7 +7,7 @@ package Main.tests;
 import GUI.*;
 import gameworld.Board;
 import gameworld.Creature;
-import gameworld.DocumentToBoard;
+import gameworld.tools.DocumentToBoard;
 import gameworld.tools.CreatureCounter;
 import gameworld.Inventory;
 import gameworld.monsters.Monster;

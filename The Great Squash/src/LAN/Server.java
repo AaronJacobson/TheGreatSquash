@@ -5,7 +5,7 @@
 package LAN;
 
 import gameworld.Board;
-import gameworld.DocumentToBoard;
+import gameworld.tools.DocumentToBoard;
 import gameworld.Player;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

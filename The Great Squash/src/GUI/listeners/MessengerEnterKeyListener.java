@@ -57,7 +57,7 @@ public class MessengerEnterKeyListener implements KeyListener {
         Calendar cal = Calendar.getInstance();
 
 //        String header = System.getProperty("user.name") + " [" + dateFormat.format(cal.getTime()) + "]: ";
-        System.out.println(CREATURE);
+//        System.out.println(CREATURE);
         String header = CREATURE.getName() + " [" + dateFormat.format(cal.getTime()) + "]: ";
         
         return header + input;
