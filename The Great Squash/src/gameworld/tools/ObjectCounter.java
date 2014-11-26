@@ -21,11 +21,35 @@ import java.util.logging.Logger;
  * @author ros_dmlamarca
  */
 public class ObjectCounter {
-    private static final File COUNT_FILE = new File("src\\gameworld\\tools\\countlog.tgs");
+    private static final File CREATURE_FILE = new File("src\\gameworld\\tools\\creaturelog.tgs");
+    private static final File OBSTACLE_FILE = new File("src\\gameworld\\tools\\obstaclelog.tgs");
+    private static String NAME = "";
 
-    public static String getCount(String type) {
-        String countLog = getFileText(COUNT_FILE);
-        String finalLog = "";
+    public static String getCreatureCount(String type) {
+        String countLog = getFileText(CREATURE_FILE);
+        String finalLog = getCount(countLog,type);
+
+        setFileText(CREATURE_FILE, finalLog);
+
+        return NAME;
+    }
+    
+    public static String getObstacleCount(String type) {
+        String countLog = getFileText(OBSTACLE_FILE);
+        String finalLog = getCount(countLog,type);
+
+        setFileText(OBSTACLE_FILE, finalLog);
+
+        return NAME;
+    }
+
+    public static void clearCounters() {
+        setFileText(CREATURE_FILE, "");
+        setFileText(OBSTACLE_FILE, "");
+    }
+    
+    private static String getCount(String countLog, String type) {
+       String finalLog = "";
         Scanner scanLog = new Scanner(countLog);
         boolean containsType = false;
         int typeCount = 0;
@@ -45,14 +69,10 @@ public class ObjectCounter {
         if (!containsType) {
             finalLog += type + " " + 0;
         }
-
-        setFileText(COUNT_FILE, finalLog);
-
-        return generateName(type, typeCount);
-    }
-
-    public static void clearCounter() {
-        setFileText(COUNT_FILE, "");
+        
+        NAME = generateName(type, typeCount);
+        
+        return finalLog;
     }
 
     private static String generateName(String type, int count) {

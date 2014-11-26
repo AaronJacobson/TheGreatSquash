@@ -18,7 +18,7 @@ import gameworld.monsters.Monster;
  */
 public class GUITestMain {
     public static void main(String[] args) {
-        ObjectCounter.clearCounter();
+        ObjectCounter.clearCounters();
         GameGUI gui = new GameGUI();
         
         Board board = DocumentToBoard.getFromMaps("map01.map");

@@ -14,7 +14,7 @@ public class GameRunner {
     public static Server SERVER;
     
     public static void main(String[] args) {
-        ObjectCounter.clearCounter();
+        ObjectCounter.clearCounters();
         StartMenu startMenu = new StartMenu();
     }
     

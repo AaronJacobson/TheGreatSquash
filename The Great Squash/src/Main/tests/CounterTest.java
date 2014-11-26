@@ -5,6 +5,8 @@
  */
 package Main.tests;
 
+import gameworld.Door;
+import gameworld.Wall;
 import gameworld.monsters.Monster;
 import gameworld.tools.ObjectCounter;
 
@@ -13,33 +15,17 @@ import gameworld.tools.ObjectCounter;
  * @author Dylan
  */
 public class CounterTest {
+
     public static void main(String[] args) {
-        ObjectCounter.clearCounter();
-        for(int i = 0; i < 50; i++) {
-            Monster ghosty = null;
+        ObjectCounter.clearCounters();
+        for (int i = 0; i < 10; i++) {
             if(i%2 == 0) {
-                ghosty = new Monster("human");
-                System.out.println(ghosty.getName());
+                Wall wally = new Wall();
+                ObjectCounter.getObstacleCount("Wall");
             }
-            if(i%3 == 0) {
-                ghosty = new Monster("kobold");
-                System.out.println(ghosty.getName());
-            }
-            if(i%4 == 0) {
-                ghosty = new Monster("liger");
-                System.out.println(ghosty.getName());
-            }
-            if(i%5 == 0) {
-                ghosty = new Monster("alot");
-                System.out.println(ghosty.getName());
-            }
-            if(i%6 == 0) {
-                ghosty = new Monster("landshark");
-                System.out.println(ghosty.getName());
-            }
-            if(i%7 == 0) {
-                ghosty = new Monster("tarrasque");
-                System.out.println(ghosty.getName());
+            if(i%2 == 0) {
+                Door wally = new Door(true);
+                ObjectCounter.getObstacleCount("Door");
             }
         }
     }

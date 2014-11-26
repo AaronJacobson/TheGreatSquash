@@ -44,7 +44,7 @@ public class Monster extends Creature {
     private void makeFromFile(Scanner scanFile) {
         String type = scanFile.nextLine();
         super.setType(type);
-        super.setName(ObjectCounter.getCount(type));
+        super.setName(ObjectCounter.getCreatureCount(type));
         super.setSprite(scanFile.nextLine().charAt(0));
         super.setSpeedMod(generateStat(scanFile.nextLine()));
         super.setEnduranceMod(generateStat(scanFile.nextLine()));
