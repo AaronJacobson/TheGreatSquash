@@ -11,6 +11,7 @@ import gameworld.Wall;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ServerDataHandler implements Runnable {
@@ -81,21 +82,24 @@ public class ServerDataHandler implements Runnable {
         } else if (theCommand.equals(CommandHolder.THE_OBSTACLES)) {
             System.out.println("Client: Recieved the obstacles");
             int numberOfObstacles = messageScanner.nextInt();
+            //| LABEL LOCATION_Y LOCATION_X PASSABLE HEALTH SPRITE TYPE;
             for (int currentObject = 0; currentObject < numberOfObstacles; currentObject++) {
                 messageScanner.next();
                 String label = messageScanner.next();
                 int newY = messageScanner.nextInt();
-                int newX = messageScanner.nextInt();
+                int newX = 1;
+//                System.out.println("wub: " + messageScanner.next());
+                newX = messageScanner.nextInt();
                 boolean passable = messageScanner.nextBoolean();
                 double health = messageScanner.nextDouble();
                 char sprite = messageScanner.next().charAt(0);
                 String type = messageScanner.next();
-                if(type.equals(TypeHolder.OB_CHEST)){
-                    Chest chest = new Chest(MY_CLIENT.getBoard(),newY,newX);
-                }else if(type.equals(TypeHolder.OB_DOOR)){
-                    Door door = new Door(MY_CLIENT.getBoard(),passable,newY,newX);
-                }else if(type.equals(TypeHolder.OB_WALL)){
-                    Wall wall = new Wall(MY_CLIENT.getBoard(),newY,newX);
+                if (type.equals(TypeHolder.OB_CHEST)) {
+                    Chest chest = new Chest(MY_CLIENT.getBoard(), newY, newX);
+                } else if (type.equals(TypeHolder.OB_DOOR)) {
+                    Door door = new Door(MY_CLIENT.getBoard(), passable, newY, newX);
+                } else if (type.equals(TypeHolder.OB_WALL)) {
+                    Wall wall = new Wall(MY_CLIENT.getBoard(), newY, newX);
                 }
             }
             WAIT_FOR_OBSTACLES = false;
