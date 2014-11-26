@@ -8,7 +8,7 @@ import GUI.*;
 import gameworld.Board;
 import gameworld.Creature;
 import gameworld.tools.DocumentToBoard;
-import gameworld.tools.CreatureCounter;
+import gameworld.tools.ObjectCounter;
 import gameworld.Inventory;
 import gameworld.monsters.Monster;
 
@@ -18,7 +18,7 @@ import gameworld.monsters.Monster;
  */
 public class GUITestMain {
     public static void main(String[] args) {
-        CreatureCounter.clearCounter();
+        ObjectCounter.clearCounter();
         GameGUI gui = new GameGUI();
         
         Board board = DocumentToBoard.getFromMaps("map01.map");

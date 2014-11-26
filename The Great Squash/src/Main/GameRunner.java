@@ -4,7 +4,7 @@ import GUI.StartMenu;
 import LAN.Client;
 import LAN.Server;
 import gameworld.Board;
-import gameworld.tools.CreatureCounter;
+import gameworld.tools.ObjectCounter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,7 +14,7 @@ public class GameRunner {
     public static Server SERVER;
     
     public static void main(String[] args) {
-        CreatureCounter.clearCounter();
+        ObjectCounter.clearCounter();
         StartMenu startMenu = new StartMenu();
     }
     

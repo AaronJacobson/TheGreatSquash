@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author ros_dmlamarca
  */
-public class CreatureCounter {
+public class ObjectCounter {
     private static final File COUNT_FILE = new File("src\\gameworld\\tools\\countlog.tgs");
 
     public static String getCount(String type) {
