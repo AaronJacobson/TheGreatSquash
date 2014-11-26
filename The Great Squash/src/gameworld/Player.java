@@ -17,6 +17,7 @@ import java.util.logging.Logger;
  */
 public class Player extends Creature {
     
+    private String SPECIES;
     public Player(char sprite, Board board, int y, int x,String name) {
          super(sprite,board,y,x,name,TypeHolder.PLAYER);
     }
@@ -58,6 +59,9 @@ public class Player extends Creature {
         playerScanner.next();
         char symbol = playerScanner.next().charAt(0);
         super.setSprite(symbol);
+        playerScanner.next();
+        String species = playerScanner.next();
+        SPECIES = species;
         playerScanner.next();
         int health = playerScanner.nextInt();
         super.setMaxHealth(health);

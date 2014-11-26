@@ -42,12 +42,10 @@ public class Server {
     private int CONNECTIONS;
     private String SERVER_NAME = "";
 
-    public Server(int connections) {
+    public Server(int connections,String mapName) {
         CONNECTIONS = connections;
         //This is where the board would be read from a txt file
-        Scanner askForMap = new Scanner(System.in);
-        System.out.println("Please enter the name of the map file:");
-        THE_BOARD = DocumentToBoard.createBoard("src/gameworld/maps/" + askForMap.next());
+        THE_BOARD = DocumentToBoard.getFromMaps(mapName);
         IPS = new ArrayList<String>();
         INITS = new boolean[connections];
         for (int currentInit = 0; currentInit < CONNECTIONS; currentInit++) {
@@ -279,4 +277,16 @@ class ServerClientChat implements Runnable {
             }
         }
     }
+}
+
+class ServerThread implements Runnable{
+    private Server SERVER;
+    
+    public ServerThread(Server server){
+        SERVER = server;
+    }
+    @Override
+    public void run() {
+    }
+    
 }
