@@ -6,7 +6,7 @@
 package Main.tests;
 
 import gameworld.monsters.Monster;
-import gameworld.tools.CreatureCounter;
+import gameworld.tools.ObjectCounter;
 
 /**
  *
@@ -14,7 +14,7 @@ import gameworld.tools.CreatureCounter;
  */
 public class CounterTest {
     public static void main(String[] args) {
-        CreatureCounter.clearCounter();
+        ObjectCounter.clearCounter();
         for(int i = 0; i < 50; i++) {
             Monster ghosty = null;
             if(i%2 == 0) {

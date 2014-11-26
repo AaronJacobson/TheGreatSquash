@@ -6,7 +6,6 @@ package Main.tests;
 
 import GUI.tests.TestMovementGUI;
 import gameworld.Board;
-import gameworld.CreateDungeon;
 import gameworld.Creature;
 import gameworld.Door;
 import gameworld.Player;
