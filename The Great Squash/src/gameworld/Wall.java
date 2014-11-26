@@ -18,8 +18,9 @@ public class Wall extends Obstacle implements Cloneable {
     public Wall(char sprite, String label, boolean passable, Board board, int y, int x,String type){
         super(sprite,label,passable,board,y,x,type);
     }
+    //char sprite, String label, boolean passable, Board board, int y, int x,String type
     public Wall() {
-        super('#', "", false);
+        super('#', "wall", false);
     }
 
     public Wall clone() {

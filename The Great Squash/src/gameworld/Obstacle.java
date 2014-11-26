@@ -12,7 +12,7 @@ import LAN.Sendable;
  */
 public abstract class Obstacle implements Displayable, Sendable, Cloneable {
     String LABEL = "Obstacle";
-    String TYPE = "Abstract Obstacle";
+    String TYPE = "Abstract";
     boolean PASSABLE;
     int LOCATION_X;
     int LOCATION_Y;

@@ -18,8 +18,8 @@ public class CommandHolder {
     public static final String THE_OBSTACLES = "HERE_ARE_THE_OBSTACLES";
     public static final String THE_FLOORS = "HERE_ARE_THE_FLOORS";
     public static final String CREATE_CREATURE = "CREATURE_THIS_CREATURE";
-    public static final String BOARD_SIZE = "Here are the board parameters.";
-    public static final String SEND_THE_BOARD_PARAMETERS = "May I have the board parameters?";
+    public static final String BOARD_SIZE = "HERE_ARE_THE_BOARD_PARAMETERS";
+    public static final String SEND_THE_BOARD_PARAMETERS = "MAY_I_HAVE_THE_BOARD_PARAMETERS";
     public static final int COMMAND_PORT_NUMBER = 45005;
     public static final int CHAT_PORT_NUMBER = 45006;
     public static final String AARON_WORK_IP = "10.135.66.52";
