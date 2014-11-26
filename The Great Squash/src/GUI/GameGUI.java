@@ -154,8 +154,8 @@ public class GameGUI {
         return BOARD;
     }
     
-    public void updateBoard(String board) {
-        BOARD_DISPLAY.setText(board);
+    public void updateBoard(Board board) {
+        BOARD_DISPLAY.setText(board.toString());
     }
     
     public JTextArea getChatDisplay() {

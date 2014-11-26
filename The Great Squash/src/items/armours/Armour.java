@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package items;
+package items.armours;
 
 import Auras.Aura;
 import Bonuses.Bonus;
 import LAN.Sendable;
 import gameworld.Displayable;
+import items.Item;
 import items.Item;
 import java.util.ArrayList;
 

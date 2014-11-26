@@ -1,10 +1,10 @@
 package gameworld;
 
-import items.Armour;
-import items.Consumable;
+import items.armours.Armour;
+import items.consumables.Consumable;
 import items.Item;
-import items.SpellBook;
-import items.Weapon;
+import items.spellbooks.SpellBook;
+import items.weapons.Weapon;
 import java.util.ArrayList;
 
 /**
