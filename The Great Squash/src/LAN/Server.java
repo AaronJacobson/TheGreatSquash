@@ -194,7 +194,7 @@ class ServerClientConnection implements Runnable {
     public void sendObstacles() {
         String toSend = CommandHolder.THE_OBSTACLES + " " + THE_SERVER.getBoard().getObstacles().size();
         for (int currentObstacle = 0; currentObstacle < THE_SERVER.getBoard().getObstacles().size(); currentObstacle++) {
-            toSend += THE_SERVER.getBoard().getObstacles().get(currentObstacle).getServerData();
+            toSend += THE_SERVER.getBoard().getObstacles().get(currentObstacle).toServerData();
         }
         sendBoardInit(toSend);
     }

@@ -4,6 +4,7 @@
  */
 package items.consumables;
 
+import LAN.Sendable;
 import gameworld.Displayable;
 import items.Item;
 
@@ -11,7 +12,7 @@ import items.Item;
  *
  * @author ros_dmlamarca
  */
-public abstract class Consumable implements Item, Displayable {
+public abstract class Consumable implements Item, Displayable, Sendable {
     private char SPRITE = (char)(164);
     // 164 = ¤
     
@@ -21,5 +22,10 @@ public abstract class Consumable implements Item, Displayable {
     
     public char getSprite() {
         return SPRITE;
+    }
+    
+    public String toServerData(){
+        String serverData = "";
+        return serverData;
     }
 }

@@ -32,6 +32,6 @@ public class Chest extends Obstacle implements Interactive,HasInventory {
 
     @Override
     public String toServerData() {
-        return super.getServerData();
+        return super.toServerData();
     }
 }
