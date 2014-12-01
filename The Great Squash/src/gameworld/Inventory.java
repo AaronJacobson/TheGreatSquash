@@ -1,6 +1,6 @@
 package gameworld;
 
-import items.armours.Armour;
+import items.armours.Armor;
 import items.consumables.Consumable;
 import items.Item;
 import items.spellbooks.SpellBook;
@@ -17,7 +17,7 @@ public class Inventory {
     int CONSUMABLES_SIZE_LIMIT;
     ArrayList<SpellBook> SPELLBOOKS;
     int SPELLBOOKS_SIZE_LIMIT;
-    ArrayList<Armour> ARMOURS;
+    ArrayList<Armor> ARMOURS;
     int ARMOURS_SIZE_LIMIT;
     ArrayList<Weapon> WEAPONS;
     int WEAPONS_SIZE_LIMIT;
@@ -25,7 +25,7 @@ public class Inventory {
     public Inventory(int weaponSize, int armourSize, int spellbookSize , int consumableSize) {
         CONSUMABLES = new ArrayList<Consumable>();
         SPELLBOOKS = new ArrayList<SpellBook>();
-        ARMOURS = new ArrayList<Armour>();
+        ARMOURS = new ArrayList<Armor>();
         WEAPONS = new ArrayList<Weapon>();
 
         CONSUMABLES_SIZE_LIMIT = consumableSize;
@@ -37,8 +37,8 @@ public class Inventory {
     public void addToInventory(Item item) {
         if (item instanceof Weapon && WEAPONS.size() < WEAPONS_SIZE_LIMIT) {
             WEAPONS.add((Weapon) (item));
-        } else if (item instanceof Armour && ARMOURS.size() < ARMOURS_SIZE_LIMIT) {
-            ARMOURS.add((Armour) (item));
+        } else if (item instanceof Armor && ARMOURS.size() < ARMOURS_SIZE_LIMIT) {
+            ARMOURS.add((Armor) (item));
         } else if (item instanceof SpellBook && SPELLBOOKS.size() < SPELLBOOKS_SIZE_LIMIT) {
             SPELLBOOKS.add((SpellBook) (item));
         } else if (item instanceof Consumable && CONSUMABLES.size() < CONSUMABLES_SIZE_LIMIT) {
@@ -50,7 +50,7 @@ public class Inventory {
         return WEAPONS;
     }
 
-    public ArrayList<Armour> getArmourList() {
+    public ArrayList<Armor> getArmourList() {
         return ARMOURS;
     }
 

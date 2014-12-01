@@ -16,14 +16,14 @@ import java.util.ArrayList;
  *
  * @author ros_dmlamarca
  */
-public abstract class Armour implements Item, Displayable, Sendable {
+public abstract class Armor implements Item, Displayable, Sendable {
     private char SPRITE = (char)(177);// 177 = ±
     private int ARMOR_CLASS = 10;//must finalize
     private double DURABILITY = 100;//must finalize
     private ArrayList<Bonus> BONUSES;
     private ArrayList<Aura> AURAS;
     
-    public Armour(char sprite,int ac,double dur){
+    public Armor(char sprite,int ac,double dur){
         SPRITE = sprite;
         ARMOR_CLASS = ac;
         DURABILITY = dur;
