@@ -80,7 +80,7 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
         //BOARD.getTile(y, x).setObstacle(this);
     }
     
-    public String getServerData(){
+    public String toServerData(){
         return " | " + LABEL + " " + LOCATION_Y + " " + LOCATION_X + " " + PASSABLE + " " + HEALTH + " " + SPRITE + " " + TYPE;
     }
 }

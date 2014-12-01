@@ -4,6 +4,7 @@
  */
 package items.weapons;
 
+import LAN.Sendable;
 import gameworld.Displayable;
 import items.Item;
 
@@ -11,7 +12,7 @@ import items.Item;
  *
  * @author ros_dmlamarca
  */
-public abstract class Weapon implements Item, Displayable {
+public abstract class Weapon implements Item, Displayable, Sendable {
      private char SPRITE = (char)(167);
      // 167 = §
      private int DEFENSE;
@@ -24,5 +25,10 @@ public abstract class Weapon implements Item, Displayable {
     
     public char getSprite() {
         return SPRITE;
+    }
+    
+    public String toServerData(){
+        String serverData = "";
+        return serverData;
     }
 }

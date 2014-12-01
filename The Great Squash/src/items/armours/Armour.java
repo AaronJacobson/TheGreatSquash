@@ -53,7 +53,7 @@ public abstract class Armour implements Item, Displayable, Sendable {
         return DURABILITY;
     }
     
-    public String getServerData(){
-        return ""+SPRITE;
+    public String toServerData(){
+        return " | " + SPRITE + " " + ARMOR_CLASS + " " + DURABILITY;
     }
 }

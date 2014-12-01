@@ -107,4 +107,9 @@ public class Inventory {
         output += listToString("consumable");
         return output;
     }
+    
+    public String getServerData(){
+        String serverData = "";
+        return serverData;
+    }
 }

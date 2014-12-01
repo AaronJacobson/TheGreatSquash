@@ -8,8 +8,6 @@ import LAN.TypeHolder;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -93,5 +91,10 @@ public class Player extends Creature {
             tokenNumber++;
             System.out.println(tokenNumber + " " + playerScanner.next());
         }
+    }
+    
+    public String toServerData(){
+        String toReturn = super.toServerData() + " ";
+        return toReturn;
     }
 }

@@ -53,6 +53,6 @@ public class Door extends Obstacle implements Interactive, Cloneable {
 
     @Override
     public String toServerData() {
-        return super.getServerData();
+        return super.toServerData();
     }
 }
