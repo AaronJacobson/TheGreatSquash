@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -35,6 +36,9 @@ public class StartMenu {
         formatClient();
         formatServer();
         formatFrame();
+        
+        JFileChooser choosy = new JFileChooser();
+        choosy.showOpenDialog(choosy);
     }
 
     private void formatClient() {
@@ -75,6 +79,10 @@ public class StartMenu {
         FRAME.setVisible(true);
         FRAME.setResizable(false);
         FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    
+    public void closeMenu() {
+        FRAME.dispose();
     }
     
     public class AL implements ActionListener{
