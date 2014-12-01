@@ -4,7 +4,6 @@
  */
 package gameworld;
 
-import GUI.tests.TestMovementGUI;
 import LAN.Client;
 import LAN.CommandHolder;
 import LAN.Server;
