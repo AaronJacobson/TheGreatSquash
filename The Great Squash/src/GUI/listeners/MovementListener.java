@@ -5,7 +5,6 @@
 package GUI.listeners;
 
 import GUI.GameGUI;
-import GUI.tests.TestMovementGUI;
 import Main.tests.GUITestMain;
 import gameworld.Creature;
 import java.awt.event.KeyEvent;

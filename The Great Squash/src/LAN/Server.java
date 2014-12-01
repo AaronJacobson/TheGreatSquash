@@ -53,6 +53,9 @@ public class Server {
         }
         SERVER_CLIENT_CONNECTIONS = new ServerClientConnection[CONNECTIONS];
         SERVER_CHAT_CONNECTIONS = new ServerClientChat[CONNECTIONS];
+    }
+    
+    public void makeServer(){
         System.out.println("Server: Starting server...");
         //keeps creating the server on different ports until an unused one is found
         while (true) {
@@ -70,7 +73,8 @@ public class Server {
         } catch (UnknownHostException ex) {
             System.out.println("Server: Could not get local host address.");
         }
-        
+    }
+    public void waitForClientConnections(){
         //waits for all the clients to connect
         for (int currentConnection = 0; currentConnection < CONNECTIONS; currentConnection++) {
             try {
@@ -87,7 +91,6 @@ public class Server {
                 ex.printStackTrace();
             }
         }
-        
     }
 
     public Board getBoard() {
@@ -277,16 +280,4 @@ class ServerClientChat implements Runnable {
             }
         }
     }
-}
-
-class ServerThread implements Runnable{
-    private Server SERVER;
-    
-    public ServerThread(Server server){
-        SERVER = server;
-    }
-    @Override
-    public void run() {
-    }
-    
 }

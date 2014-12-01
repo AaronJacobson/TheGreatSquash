@@ -118,10 +118,8 @@ public class DocumentToBoard {
             }
             sizeY++;
         }
-        System.out.println(sizeX + "x" + sizeY);
         Board board = new Board(sizeY, sizeX);
         board.setBoardTilesNull();
-        //System.out.println(sizeX + "|" + sizeY);
         Scanner getBoard = new Scanner(stringBoard);
         int y = 0;
         while (getBoard.hasNextLine()) {
