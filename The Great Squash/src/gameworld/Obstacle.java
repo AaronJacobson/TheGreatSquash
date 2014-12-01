@@ -5,6 +5,7 @@
 package gameworld;
 
 import LAN.Sendable;
+import gameworld.tools.ObjectCounter;
 
 /**
  *
@@ -21,7 +22,7 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
     double HEALTH;
     
      public Obstacle(char sprite, String label, boolean passable, Board board, int y, int x,String type) {
-        LABEL = label;
+        LABEL = ObjectCounter.getObstacleCount(label);
         TYPE = type;
         PASSABLE = passable;
         SPRITE = sprite;
@@ -33,7 +34,7 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
     }
      
      public Obstacle(char sprite, String label, boolean passable) {
-        LABEL = label;
+        LABEL = ObjectCounter.getObstacleCount(label);
         PASSABLE = passable;
         SPRITE = sprite;
     }

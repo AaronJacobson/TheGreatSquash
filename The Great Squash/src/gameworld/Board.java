@@ -34,26 +34,11 @@ public class Board {
         GRAPHICS = graphics;
     }
 
-    public Board(int y, int x, TestMovementGUI gui) {
-        GAME_BOARD = new Tile[x][y];
-        SIZE_X = y;
-        SIZE_Y = x;
-        GRAPHICS = null;
-    }
-
     public Board(int y, int x) {
         GAME_BOARD = new Tile[x][y];
         SIZE_X = y;
         SIZE_Y = x;
         GRAPHICS = null;
-    }
-
-    public Board(Board board, TestMovementGUI gui) {
-        GAME_BOARD = board.getGameBoard();
-        SIZE_X = board.getY();
-        SIZE_Y = board.getX();
-        GRAPHICS = null;
-        setBoardTilesNull();
     }
 
     public void show() {
@@ -101,6 +86,14 @@ public class Board {
 
     public Obstacle getTileObstacle(int y, int x) {
         return getTile(y, x).getObstacle();
+    }
+    
+    public void setTileCreature(Creature creature, int y, int x) {
+        getTile(y,x).setCreature(null);
+    }
+    
+    public Creature getTileCreature(int y, int x) {
+        return getTile(y,x).getCreature();
     }
 
     public String toString() {

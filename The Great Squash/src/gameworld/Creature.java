@@ -68,25 +68,38 @@ public abstract class Creature implements Displayable, Sendable {
     public Creature() {
     }
 
-    public void moveSelf(int y, int x) {
+    public void moveSelf(int x, int y) {
+        System.out.println("Start");
+        System.out.println(y + "|" + x);
         try {
             try {
+                System.out.print("Test Obstacle: ");
                 Obstacle moveTo = BOARD.getTileObstacle(y, x);
                 if (moveTo.getPassable()) {
-                    move(y, x);
+                    System.out.print("Passable\n");
+                    move(x,y);
+                } else {
+                    System.out.print("Inpassable\n");
                 }
             } catch (NullPointerException e) {
-                move(y, x);
+                System.out.print("No Obstacle\n");
+                move(x,y);
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
-            BOARD.getClient().getHandler().sendMove(LOCATION_Y, LOCATION_X, LOCATION_Y, LOCATION_X, this);
+            System.out.println("Out of bounds");
+            //BOARD.getClient().getHandler().sendMove(LOCATION_Y, LOCATION_X, LOCATION_Y, LOCATION_X, this);
         }
     }
 
     private void move(int y, int x) {
-        BOARD.getClient().getHandler().sendMove(y, x, LOCATION_Y, LOCATION_X, this);
+        //BOARD.getClient().getHandler().sendMove(y, x, LOCATION_Y, LOCATION_X, this);
+        System.out.println("move");
+        BOARD.removeCreature(LOCATION_Y, LOCATION_X);
+        
         LOCATION_Y = y;
         LOCATION_X = x;
+        System.out.println(LOCATION_Y + "|" + LOCATION_X);
+        BOARD.getTile(LOCATION_Y, LOCATION_X).setCreature(this);
     }
 
     @Override

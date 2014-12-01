@@ -13,14 +13,14 @@ import LAN.TypeHolder;
 public class Wall extends Obstacle implements Cloneable {
 
     public Wall(Board board, int y, int x) {
-        super('#', "", false, board, y, x, TypeHolder.OB_WALL);
+        super('#', "Wall", false, board, y, x, TypeHolder.OB_WALL);
     }
-    public Wall(char sprite, String label, boolean passable, Board board, int y, int x,String type){
-        super(sprite,label,passable,board,y,x,type);
+    public Wall(char sprite, boolean passable, Board board, int y, int x,String type){
+        super(sprite,"Wall",passable,board,y,x,type);
     }
     //char sprite, String label, boolean passable, Board board, int y, int x,String type
     public Wall() {
-        super('#', "wall", false);
+        super('#', "Wall", false);
     }
 
     public Wall clone() {

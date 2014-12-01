@@ -4,25 +4,21 @@
  */
 package GUI.listeners;
 
+import GUI.GameGUI;
 import GUI.tests.TestMovementGUI;
-import LAN.ServerDataHandler;
+import Main.tests.GUITestMain;
 import gameworld.Creature;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.activation.DataHandler;
 
 /**
  *
  * @author ros_dmlamarca
  */
 public class MovementListener implements KeyListener {
-    private ServerDataHandler DATA_HANDLER;
     private Creature CREATURE;
-    private TestMovementGUI GUI;
     
-    public MovementListener(TestMovementGUI gui) {
-        GUI = gui;
-        DATA_HANDLER = GUI.getBoard().getClient().getHandler();
+    public MovementListener() {
     }
     
     public void setCreature(Creature creature) {
@@ -39,16 +35,20 @@ public class MovementListener implements KeyListener {
         int keyCode = key.getExtendedKeyCode();
         if(keyCode == 37) {
             //move left
-            CREATURE.moveSelf(CREATURE.getY() - 1, CREATURE.getX());
+            CREATURE.moveSelf(4,4);
+            GUITestMain.updateGUI();
         } else if(keyCode == 38) {
             //move up
-            CREATURE.moveSelf(CREATURE.getY(), CREATURE.getX() - 1);
+            CREATURE.moveSelf(4,4);
+            GUITestMain.updateGUI();
         } else if(keyCode == 39) {
             //move right
-            CREATURE.moveSelf(CREATURE.getY() + 1, CREATURE.getX());
+            CREATURE.moveSelf(4,4);
+            GUITestMain.updateGUI();
         } else if(keyCode == 40) {
             //move down
-            CREATURE.moveSelf(CREATURE.getY(), CREATURE.getX() + 1);
+            CREATURE.moveSelf(4,4);
+            GUITestMain.updateGUI();
         }  
         
         if(keyCode == 32) {

@@ -16,7 +16,7 @@ public class Door extends Obstacle implements Interactive, Cloneable {
     private char OPEN_SPRITE = '_';
     
     public Door(Board board, boolean open, int y, int x) {
-        super(TypeHolder.ERROR_CHAR,"door",open, board, y, x,TypeHolder.OB_DOOR);
+        super(TypeHolder.ERROR_CHAR,"Door",open, board, y, x,TypeHolder.OB_DOOR);
         if(open) {
             super.setSprite(OPEN_SPRITE);
         } else {
@@ -26,7 +26,7 @@ public class Door extends Obstacle implements Interactive, Cloneable {
     }
     
     public Door(boolean open) {
-        super(TypeHolder.ERROR_CHAR,"door",open);
+        super(TypeHolder.ERROR_CHAR,"Door",open);
         if(open) {
             super.setSprite(OPEN_SPRITE);
         } else {

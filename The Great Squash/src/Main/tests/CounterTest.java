@@ -5,6 +5,7 @@
  */
 package Main.tests;
 
+import gameworld.Chest;
 import gameworld.Door;
 import gameworld.Wall;
 import gameworld.monsters.Monster;
@@ -18,14 +19,18 @@ public class CounterTest {
 
     public static void main(String[] args) {
         ObjectCounter.clearCounters();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 50; i++) {
             if(i%2 == 0) {
                 Wall wally = new Wall();
-                ObjectCounter.getObstacleCount("Wall");
+                System.out.println(wally.getLabel());
             }
-            if(i%2 == 0) {
+            if(i%3 == 0) {
                 Door wally = new Door(true);
-                ObjectCounter.getObstacleCount("Door");
+                System.out.println(wally.getLabel());
+            }
+            if(i%4 == 0) {
+                Chest wally = new Chest();
+                System.out.println(wally.getLabel());
             }
         }
     }

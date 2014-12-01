@@ -17,23 +17,21 @@ import gameworld.monsters.Monster;
  * @author ros_Dmlamarca
  */
 public class GUITestMain {
+    private static GameGUI GUI; 
+    private static Board BOARD = DocumentToBoard.getFromMaps("map01.map");
+    
     public static void main(String[] args) {
-        ObjectCounter.clearCounters();
-        GameGUI gui = new GameGUI();
+        ObjectCounter.clearCounters(); 
         
-        Board board = DocumentToBoard.getFromMaps("map01.map");
-        board.show();
+        BOARD.show();
         
-        gui.updateBoard(board);
+        Creature jerry = BOARD.getCreature("Alot_000");
         
-        Creature jerry = board.getCreature("Human_002");
-        gui.setCreature(jerry);
-        gui.updateInventoryDisplay();
-        Inventory inventory = new Inventory(27, 3, 4, 5);
-        //System.out.println(inventory);
-        
-        
-        
-//        StartMenu gui = new StartMenu();
+        GUI = new GameGUI(jerry);
+        GUI.updateBoard(BOARD);
+    }
+    
+    public static void updateGUI() {
+        GUI.updateBoard(BOARD);
     }
 }

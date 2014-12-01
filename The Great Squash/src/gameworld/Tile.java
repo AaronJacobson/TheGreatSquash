@@ -24,22 +24,14 @@ public class Tile {
         CREATURE = creature;
     }
     
-    public void clearTileCreature() {
-        CREATURE = null;
+    public Creature getCreature() {
+        return CREATURE;
     }
 
-    /**
-     *
-     * @param obstacle
-     */
     public void setObstacle(Obstacle obstacle) {
         OBSTACLE = obstacle;
     }
     
-    /**
-     *
-     * @return
-     */
     public Obstacle getObstacle() {
         return OBSTACLE;
     }

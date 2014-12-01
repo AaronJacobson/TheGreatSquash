@@ -4,6 +4,7 @@
 package GUI;
 
 import GUI.listeners.MessengerEnterKeyListener;
+import GUI.listeners.MovementListener;
 import gameworld.Board;
 import gameworld.Creature;
 import gameworld.Inventory;
@@ -30,6 +31,7 @@ public class GameGUI {
     private Font DISPLAY_FONT = new Font("Monospaced", Font.PLAIN, 12);
     private JFrame FRAME = new JFrame("The Great Squash");
     private MessengerEnterKeyListener CHAT_LISTENER;
+    private MovementListener MOVEMENT_LISTENER;
     private JTextArea INVENTORY_DISPLAY;
     private JPanel INVENTORY_PANEL;
     private JPanel BUTTONS_PANEL;
@@ -44,12 +46,18 @@ public class GameGUI {
     private Board BOARD;
 
     public GameGUI() {
+        MOVEMENT_LISTENER = new MovementListener();
         formatInventory();
         formatButtons();
         formatBoard();
         formatChat();
 
         formatFrame();
+    }
+    
+    public GameGUI(Creature creature) {
+        this();
+        setCreature(creature);
     }
 
     private void formatInventory() {
@@ -58,11 +66,14 @@ public class GameGUI {
         INVENTORY_DISPLAY.setPreferredSize(new Dimension(27,26));
         INVENTORY_DISPLAY.setLineWrap(true);
         INVENTORY_DISPLAY.setBorder(DISPLAY_BORDER);
+        INVENTORY_DISPLAY.setEditable(false);
+        INVENTORY_DISPLAY.addKeyListener(MOVEMENT_LISTENER);
         
         INVENTORY_PANEL = new JPanel();
         INVENTORY_PANEL.setBounds(2, 2, 200, 500);
         INVENTORY_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER,"Inventory"));
         INVENTORY_PANEL.add(INVENTORY_DISPLAY);
+        INVENTORY_PANEL.addKeyListener(MOVEMENT_LISTENER);
     }
     
     public void updateInventoryDisplay() {
@@ -75,6 +86,7 @@ public class GameGUI {
         //BUTTONS_PANEL.setBackground(Color.BLUE);
         BUTTONS_PANEL.setBounds(204, 2, 738, 50);
         BUTTONS_PANEL.setBorder(PANEL_BORDER);
+        BUTTONS_PANEL.addKeyListener(MOVEMENT_LISTENER);
     }
 
     private void formatBoard() {
@@ -84,12 +96,14 @@ public class GameGUI {
         BOARD_DISPLAY.setLineWrap(true);
         BOARD_DISPLAY.setBorder(DISPLAY_BORDER);
         BOARD_DISPLAY.setEditable(false);
+        BOARD_DISPLAY.addKeyListener(MOVEMENT_LISTENER);
         
         BOARD_PANEL = new JPanel();
         //BOARD_PANEL.setBackground(Color.RED);
         BOARD_PANEL.setBounds(204, 54, 738, 448);
         BOARD_PANEL.setBorder(PANEL_BORDER);
         BOARD_PANEL.add(BOARD_DISPLAY);
+        BOARD_PANEL.addKeyListener(MOVEMENT_LISTENER);
     }
 
     private void formatChat() {
@@ -122,6 +136,7 @@ public class GameGUI {
         FRAME.add(BUTTONS_PANEL);
         FRAME.add(BOARD_PANEL);
         FRAME.add(CHAT_PANEL);
+        FRAME.addKeyListener(MOVEMENT_LISTENER);
         
         //BASE.setBorder(BASE_BORDER);
         FRAME.add(BASE);
@@ -132,14 +147,12 @@ public class GameGUI {
         FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
-    public void updateDisplay() {
-        
-    }
-    
     public void setCreature(Creature creature) {
         CONTAINED_CREATURE = creature;
         CHAT_LISTENER.setCreature(creature);
         INVENTORY_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER,"Inventory - " + CONTAINED_CREATURE.getName()));
+        updateInventoryDisplay();
+        MOVEMENT_LISTENER.setCreature(creature);
     }
     
     public Creature getCreature() {
