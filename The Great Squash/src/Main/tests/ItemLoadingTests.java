@@ -6,6 +6,7 @@
 
 package Main.tests;
 
+import bonuses.Bonus;
 import items.armours.Armor;
 import items.consumables.Consumable;
 import items.weapons.Weapon;
@@ -16,7 +17,8 @@ import items.weapons.Weapon;
  */
 public class ItemLoadingTests {
     public static void main(String [] args){
-        loadConsumable("pancake");
+//        loadConsumable("pancake");
+        loadBonus("bloodSoaked");
     }
     
     public static void loadConsumable(String name){
@@ -27,5 +29,9 @@ public class ItemLoadingTests {
     }
     
     public static void loadArmor(String name){
+    }
+    
+    public static void loadBonus(String name){
+        Bonus bloodSoaked = new Bonus(name);
     }
 }

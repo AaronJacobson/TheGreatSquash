@@ -5,7 +5,7 @@
 package items.armours;
 
 import Auras.Aura;
-import Bonuses.Bonus;
+import bonuses.Bonus;
 import LAN.Sendable;
 import gameworld.Displayable;
 import items.Item;

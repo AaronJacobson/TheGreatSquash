@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class Consumable implements Item, Displayable, Sendable {
     private char SPRITE = (char)(164);// 164 = ¤
-    private String NAME = "unitialized consumable";
+    private String NAME = "UNITIALIZED_CONSUMABLE";
     private int HEALTH_ADDED = 0;
     private int MANA_ADDED = 0;
     private int STRENGTH_BONUS = 0;
@@ -34,6 +34,7 @@ public class Consumable implements Item, Displayable, Sendable {
             System.out.println("Consumable: File not found at this location:");
             System.out.println(fileDirectory);
         }
+        System.out.println("Consumable: " + toServerData());
     }
     
     public void loadFromFile(Scanner fileScanner){
@@ -64,7 +65,6 @@ public class Consumable implements Item, Displayable, Sendable {
     }
     
     public String toServerData(){
-        String serverData = "";
-        return serverData;
+        return " | " + NAME + " " + SPRITE + " " + HEALTH_ADDED + " " + MANA_ADDED + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS + " " + BONUS_LENGTH;
     }
 }
