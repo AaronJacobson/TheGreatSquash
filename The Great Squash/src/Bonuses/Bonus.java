@@ -16,19 +16,21 @@ import java.util.Scanner;
 public class Bonus implements Sendable{
     private int A_C_BONUS = 0;
     private int M_P_BONUS = 0;
-    private double HEALTH_BONUS = 0;
+    private int HEALTH_BONUS = 0;
     private int MANA_BONUS = 0;
     private int STRENGTH_BONUS = 0;
     private int ENDURANCE_BONUS = 0;
     private int INTELLIGENCE_BONUS = 0;
     private int DEXTERITY_BONUS = 0;
+    private boolean ACTIVE = true;
     private String NAME = "UNITIALIZED_BONUS";
     
-    public Bonus(int ac,int mp,double health,int mana,int manaBonus,int strengthBonus,int enduranceBonus,int intelligenceBonus,int dexterityBonus){
+    public Bonus(String name,int ac,int mp,int health,int manaBonus,int strengthBonus,int enduranceBonus,int intelligenceBonus,int dexterityBonus){
+        NAME = name;
         A_C_BONUS = ac;
         M_P_BONUS = mp;
         HEALTH_BONUS = health;
-        MANA_BONUS = mana;
+        MANA_BONUS = manaBonus;
         STRENGTH_BONUS = strengthBonus;
         ENDURANCE_BONUS = enduranceBonus;
         INTELLIGENCE_BONUS = intelligenceBonus;
@@ -68,12 +70,76 @@ public class Bonus implements Sendable{
         DEXTERITY_BONUS = fileScanner.nextInt();
     }
     
-    public void setACBonus(int aCBonus){
-        A_C_BONUS = aCBonus;
+    public String getName(){
+        return NAME;
     }
     
-    public int getACBONUS(){
+    public void setName(String newName){
+        NAME = newName;
+    }
+    
+    public void setACBonus(int newACBonus){
+        A_C_BONUS = newACBonus;
+    }
+    
+    public int getACBonus(){
         return A_C_BONUS;
+    }
+    
+    public int getMPBonus(){
+        return M_P_BONUS;
+    }
+    
+    public void setMPBonus(int newMPBonus){
+        M_P_BONUS = newMPBonus;
+    }
+    
+    public int getHealthBonus(){
+        return HEALTH_BONUS;
+    }
+    
+    public void setHealthBonus(int newHealthBonus){
+        HEALTH_BONUS = newHealthBonus;
+    }
+    
+    public int getManaBonus(){
+        return MANA_BONUS;
+    }
+    
+    public void setManaBonus(int newManaBonus){
+        MANA_BONUS = newManaBonus;
+    }
+    
+    public int getStrengthBonus(){
+        return STRENGTH_BONUS;
+    }
+    
+    public void setStrengthBonus(int newStrengthBonus){
+        STRENGTH_BONUS = newStrengthBonus;
+    }
+    
+    public int getEnduranceBonus(){
+        return ENDURANCE_BONUS;
+    }
+    
+    public void setEnduranceBonus(int newEnduranceBonus){
+        ENDURANCE_BONUS = newEnduranceBonus;
+    }
+    
+    public int getIntelligenceBonus(){
+        return INTELLIGENCE_BONUS;
+    }
+    
+    public void setIntelligenceBonus(int newIntelligenceBonus){
+        INTELLIGENCE_BONUS = newIntelligenceBonus;
+    }
+    
+    public int getDexterityBonus(){
+        return DEXTERITY_BONUS;
+    }
+    
+    public void setDexterityBonus(int newDexterityBonus){
+        DEXTERITY_BONUS = newDexterityBonus;
     }
 
     @Override

@@ -1,0 +1,15 @@
+Name: Slimefork
+Symbol: Y
+Attack: 2
+Defense: 2
+Range: 1
+-----Bonuses-----
+NAME: Battle_Hardened
+A_C_BONUS 0
+M_P_BONUS 0
+HEALTH_BONUS 10
+MANA_BONUS 0
+STRENGTH_BONUS 5
+ENDURANCE_BONUS 2
+INTELLIGENCE_BONUS 0
+DEXTERITY_BONUS -2
