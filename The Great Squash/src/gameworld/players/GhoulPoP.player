@@ -1,14 +1,14 @@
-Name: GhoulPoP
-Symbol: @
-Race: Human
-Health: 10
-Level: 1
-XP: 0
-Speed: 3
-Endurance: 1
-Strength: 1
-Intelligence: 3
-Dexterity: 2
+GhoulPoP *Name*
+@ *Sprite*
+Human *Race*
+10 *Health*
+1 *Level*
+0 *Experience Points*
+3 *Speed*
+1 *Endurance*
+1 *Strength*
+3 *Intelligence*
+2 *Dexterity*
 -Equiped-
 Main:
 Quarterstaff Jared 5

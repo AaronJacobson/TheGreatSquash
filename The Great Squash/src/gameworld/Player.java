@@ -65,37 +65,28 @@ public class Player extends Creature {
     }
     
     public void loadStats(Scanner playerScanner){
-        playerScanner.next();
-        String name = playerScanner.next();
-        playerScanner.next();
-        char symbol = playerScanner.next().charAt(0);
-        super.setSprite(symbol);
-        playerScanner.next();
-        String species = playerScanner.next();
-        SPECIES = species;
-        playerScanner.next();
-        int health = playerScanner.nextInt();
-        super.setMaxHealth(health);
-        playerScanner.next();
-        int xp = playerScanner.nextInt();
-        super.setXP(xp);
-        playerScanner.next();
-        int speed = playerScanner.nextInt();
-        super.setSpeed(speed);
-        playerScanner.next();
-        int endurance = playerScanner.nextInt();
-        super.setEndurance(endurance);
-        playerScanner.next();
-        int strength = playerScanner.nextInt();
-        super.setStrength(strength);
-        playerScanner.next();
-        int intelligence = playerScanner.nextInt();
-        super.setIntelligence(intelligence);
-        playerScanner.next();
-        int dexterity = playerScanner.nextInt();
-        super.setDexterity(dexterity);
-        playerScanner.next();
-        System.out.println(this.toServerData());
+        super.setName(getLineElement(playerScanner.nextLine()));
+        super.setSprite(getLineElement(playerScanner.nextLine()).charAt(0));
+        this.SPECIES = getLineElement(playerScanner.nextLine());
+        System.out.println(getLineElement(playerScanner.nextLine()));
+    }
+    
+    private String getLineElement(String line) {
+        String output = "";
+        Scanner lineScanner = new Scanner(line);
+        boolean first = true;
+        while(lineScanner.hasNext()) {
+            String current = lineScanner.next();
+            System.out.println(current);
+            if(!current.contains("*") && first) {
+                output += current;
+                first = false;
+            } else if(!current.contains("*")) {
+                output += " " + current;
+            }
+        }
+        System.out.println(output);
+        return output;
     }
     
     public void loadTest(Scanner playerScanner){
