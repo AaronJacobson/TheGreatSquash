@@ -6,6 +6,7 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -109,9 +110,14 @@ public class StartMenu {
         FRAME.dispose();
     }
     
-//    public Player createPlayer() {
-//        Player player = new Player();
-//    }
+    public void createPlayer() {
+        String fileName = PLAYER_NAME.getText();
+        if(!fileName.contains(".player") && !fileName.contains("\\")) {
+            fileName = "src\\gameworld\\players\\" + fileName + ".player";
+        } 
+        File playerFile = new File(fileName);
+        
+    }
 
     public class AL implements ActionListener {
 
@@ -129,7 +135,8 @@ public class StartMenu {
                 int returnVal = chooser.showOpenDialog(chooser);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     PLAYER_NAME.setText(chooser.getSelectedFile().getAbsoluteFile() + "");
-                }
+                } 
+                createPlayer();
             }
 
         }
