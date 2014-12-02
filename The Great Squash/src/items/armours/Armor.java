@@ -5,10 +5,9 @@
 package items.armours;
 
 import Auras.Aura;
-import bonuses.Bonus;
 import LAN.Sendable;
+import enchantments.Enchantment;
 import gameworld.Displayable;
-import items.Item;
 import items.Item;
 import java.util.ArrayList;
 
@@ -20,7 +19,7 @@ public abstract class Armor implements Item, Displayable, Sendable {
     private char SPRITE = (char)(177);// 177 = ±
     private int ARMOR_CLASS = 10;//must finalize
     private double DURABILITY = 100;//must finalize
-    private ArrayList<Bonus> BONUSES;
+    private ArrayList<Enchantment> BONUSES;
     private ArrayList<Aura> AURAS;
     
     public Armor(char sprite,int ac,double dur){

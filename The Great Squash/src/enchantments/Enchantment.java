@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package bonuses;
+package enchantments;
 
 import LAN.Sendable;
 import java.io.File;
@@ -13,7 +13,8 @@ import java.util.Scanner;
  *
  * @author ros_aljacobson001
  */
-public class Bonus implements Sendable{
+public class Enchantment implements Sendable{
+    private int DAMAGE_BONUS = 0;
     private int A_C_BONUS = 0;
     private int M_P_BONUS = 0;
     private int HEALTH_BONUS = 0;
@@ -25,7 +26,8 @@ public class Bonus implements Sendable{
     private boolean ACTIVE = true;
     private String NAME = "UNITIALIZED_BONUS";
     
-    public Bonus(String name,int ac,int mp,int health,int manaBonus,int strengthBonus,int enduranceBonus,int intelligenceBonus,int dexterityBonus){
+    public Enchantment(int damageBonus,String name,int ac,int mp,int health,int manaBonus,int strengthBonus,int enduranceBonus,int intelligenceBonus,int dexterityBonus){
+        DAMAGE_BONUS = damageBonus;
         NAME = name;
         A_C_BONUS = ac;
         M_P_BONUS = mp;
@@ -37,7 +39,7 @@ public class Bonus implements Sendable{
         DEXTERITY_BONUS = dexterityBonus;
     }
     
-    public Bonus(String name){
+    public Enchantment(String name){
         String fileDirectory = "src/bonuses/" + name + ".bonus";
         try {
             Scanner fileScanner = new Scanner(new File(fileDirectory));
@@ -50,6 +52,8 @@ public class Bonus implements Sendable{
     }
     
     public void loadStats(Scanner fileScanner){
+        fileScanner.next();
+        DAMAGE_BONUS = fileScanner.nextInt();
         fileScanner.next();
         NAME = fileScanner.next();
         fileScanner.next();
@@ -141,9 +145,17 @@ public class Bonus implements Sendable{
     public void setDexterityBonus(int newDexterityBonus){
         DEXTERITY_BONUS = newDexterityBonus;
     }
+    
+    public boolean getActive(){
+        return ACTIVE;
+    }
+    
+    public void setActive(boolean newActive){
+        ACTIVE = newActive;
+    }
 
     @Override
     public String toServerData() {
-        return " | " + NAME + " " + A_C_BONUS + " " + M_P_BONUS + " " + HEALTH_BONUS + " " + MANA_BONUS + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS;
+        return " BONUS " + NAME + " " + A_C_BONUS + " " + M_P_BONUS + " " + HEALTH_BONUS + " " + MANA_BONUS + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS;
     }
 }
