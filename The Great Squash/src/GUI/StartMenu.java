@@ -110,13 +110,20 @@ public class StartMenu {
         FRAME.dispose();
     }
     
-    public void createPlayer() {
+    public Player createPlayer() {
         String fileName = PLAYER_NAME.getText();
         if(!fileName.contains(".player") && !fileName.contains("\\")) {
             fileName = "src\\gameworld\\players\\" + fileName + ".player";
         } 
-        File playerFile = new File(fileName);
-        
+        Player player = new Player(new File(fileName));
+        System.out.println(player.getName());
+        System.out.println(player.getSprite());
+        System.out.println(player.getMaxHealth());
+        System.out.println(player.getEndurance());
+        System.out.println(player.getStrength());
+        System.out.println(player.getDexterity());
+        System.out.println(player.getIntelligence());
+        return player;
     }
 
     public class AL implements ActionListener {
