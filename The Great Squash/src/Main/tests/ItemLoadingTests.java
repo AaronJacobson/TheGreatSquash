@@ -18,14 +18,16 @@ import items.weapons.Weapon;
 public class ItemLoadingTests {
     public static void main(String [] args){
 //        loadConsumable("pancake");
-        loadBonus("bloodSoaked");
+//        loadBonus("bloodSoaked");
+        loadWeapon("slimefork");
     }
     
     public static void loadConsumable(String name){
-        Consumable ted = new Consumable(name);
+        Consumable pancake = new Consumable(name);
     }
     
     public static void loadWeapon(String name){
+        Weapon slimeFork = new Weapon(name);
     }
     
     public static void loadArmor(String name){
