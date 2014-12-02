@@ -8,6 +8,8 @@ import LAN.TypeHolder;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,6 +20,17 @@ public class Player extends Creature {
     private String SPECIES;
     public Player(char sprite, Board board, int y, int x,String name) {
          super(sprite,board,y,x,name,TypeHolder.PLAYER);
+    }
+    
+    public Player(File theFile){
+        super();
+        try {
+            Scanner fileScanner = new Scanner(theFile);
+            loadFromFile(fileScanner);
+        } catch (FileNotFoundException ex) {
+            System.out.println("Player: The file that was given isn't working.");
+        }
+        
     }
     
     public Player(String name){
