@@ -5,6 +5,7 @@
 package enchantments;
 
 import LAN.Sendable;
+import LAN.TypeHolder;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -26,7 +27,7 @@ public class Enchantment implements Sendable{
     private boolean ACTIVE = true;
     private String NAME = "UNITIALIZED_BONUS";
     
-    public Enchantment(int damageBonus,String name,int ac,int mp,int health,int manaBonus,int strengthBonus,int enduranceBonus,int intelligenceBonus,int dexterityBonus){
+    public Enchantment(String name,int damageBonus,int ac,int mp,int health,int manaBonus,int strengthBonus,int enduranceBonus,int intelligenceBonus,int dexterityBonus){
         DAMAGE_BONUS = damageBonus;
         NAME = name;
         A_C_BONUS = ac;
@@ -40,22 +41,21 @@ public class Enchantment implements Sendable{
     }
     
     public Enchantment(String name){
-        String fileDirectory = "src/bonuses/" + name + ".bonus";
+        String fileDirectory = "src/enchantments/" + name + ".enchantment";
         try {
             Scanner fileScanner = new Scanner(new File(fileDirectory));
             loadStats(fileScanner);
         } catch (FileNotFoundException ex) {
-            System.out.println("Bonus: File not found at this location: ");
+            System.out.println("Enchantment: File not found at this location: ");
             System.out.println(fileDirectory);
         }
-        System.out.println(toServerData());
     }
     
     public void loadStats(Scanner fileScanner){
         fileScanner.next();
-        DAMAGE_BONUS = fileScanner.nextInt();
-        fileScanner.next();
         NAME = fileScanner.next();
+        fileScanner.next();
+        DAMAGE_BONUS = fileScanner.nextInt();
         fileScanner.next();
         A_C_BONUS = fileScanner.nextInt();
         fileScanner.next();
@@ -156,6 +156,6 @@ public class Enchantment implements Sendable{
 
     @Override
     public String toServerData() {
-        return " BONUS " + NAME + " " + A_C_BONUS + " " + M_P_BONUS + " " + HEALTH_BONUS + " " + MANA_BONUS + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS;
+        return TypeHolder.ENCHANTMENT + NAME + " " + DAMAGE_BONUS + " " + A_C_BONUS + " " + M_P_BONUS + " " + HEALTH_BONUS + " " + MANA_BONUS + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS;
     }
 }

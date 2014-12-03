@@ -5,6 +5,7 @@
 package items.consumables;
 
 import LAN.Sendable;
+import LAN.TypeHolder;
 import gameworld.Displayable;
 import items.Item;
 import java.io.File;
@@ -34,7 +35,6 @@ public class Consumable implements Item, Displayable, Sendable {
             System.out.println("Consumable: File not found at this location:");
             System.out.println(fileDirectory);
         }
-        System.out.println("Consumable: " + toServerData());
     }
     
     public void loadFromFile(Scanner fileScanner){
@@ -65,6 +65,6 @@ public class Consumable implements Item, Displayable, Sendable {
     }
     
     public String toServerData(){
-        return " | " + NAME + " " + SPRITE + " " + HEALTH_ADDED + " " + MANA_ADDED + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS + " " + BONUS_LENGTH;
+        return TypeHolder.CONSUMABLE + NAME + " " + SPRITE + " " + HEALTH_ADDED + " " + MANA_ADDED + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS + " " + BONUS_LENGTH;
     }
 }

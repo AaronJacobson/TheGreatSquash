@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author ros_aljacobson001
  */
 //Feel free to move this class to another package. I put it here because creatures go on the board.
-public abstract class Creature implements Displayable, Sendable {
+public class Creature implements Displayable, Sendable {
 
     char SPRITE = 'X';
     Board BOARD;

@@ -5,6 +5,7 @@
 package items.weapons;
 
 import LAN.Sendable;
+import LAN.TypeHolder;
 import enchantments.Enchantment;
 import gameworld.Displayable;
 import items.Item;
@@ -25,7 +26,7 @@ public class Weapon implements Item, Displayable, Sendable {
     private int DEFENSE;
     private int ATTACK;
     private int RANGE;
-    private ArrayList<Enchantment> BONUSES;
+    private ArrayList<Enchantment> ENCHANTMENTS;
 
     public class DamageStats {
 
@@ -42,11 +43,11 @@ public class Weapon implements Item, Displayable, Sendable {
         DEFENSE = defense;
         ATTACK = attack;
         RANGE = range;
-        BONUSES = new ArrayList<Enchantment>();
+        ENCHANTMENTS = new ArrayList<Enchantment>();
     }
 
     public Weapon(String name) {
-        BONUSES = new ArrayList<Enchantment>();
+        ENCHANTMENTS = new ArrayList<Enchantment>();
         String fileDirectory = "src/items/weapons/" + name + ".weapon";
         try {
             Scanner fileScanner = new Scanner(new File(fileDirectory));
@@ -55,7 +56,6 @@ public class Weapon implements Item, Displayable, Sendable {
             System.out.println("Weapon: Unable to load file from: ");
             System.out.println(fileDirectory);
         }
-        System.out.println(toServerData());
     }
 
     public void loadStats(Scanner fileScanner) {
@@ -71,10 +71,10 @@ public class Weapon implements Item, Displayable, Sendable {
         DEFENSE = fileScanner.nextInt();
         fileScanner.next();
         RANGE = fileScanner.nextInt();
-        loadBonuses(fileScanner);
+        loadEnchantments(fileScanner);
     }
 
-    public void loadBonuses(Scanner fileScanner) {
+    public void loadEnchantments(Scanner fileScanner) {
         fileScanner.next();
         while (fileScanner.hasNext()) {
             fileScanner.next();
@@ -97,19 +97,19 @@ public class Weapon implements Item, Displayable, Sendable {
             int intelligenceBonus = fileScanner.nextInt();
             fileScanner.next();
             int dexterityBonus = fileScanner.nextInt();
-            Enchantment bonus = new Enchantment(damageBonus,name, acBonus, mPBonus, healthBonus, manaBonus, strengthBonus, enduranceBonus, intelligenceBonus, dexterityBonus);
-            addBonus(bonus);
+            Enchantment bonus = new Enchantment(name,damageBonus, acBonus, mPBonus, healthBonus, manaBonus, strengthBonus, enduranceBonus, intelligenceBonus, dexterityBonus);
+            addEnchantment(bonus);
         }
     }
 
-    public void addBonus(Enchantment bonusToAdd) {
-        BONUSES.add(bonusToAdd);
+    public void addEnchantment(Enchantment bonusToAdd) {
+        ENCHANTMENTS.add(bonusToAdd);
     }
 
-    public boolean removeBonus(String name) {
-        for (int currentBonus = 0; currentBonus < BONUSES.size(); currentBonus++) {
-            if (BONUSES.get(currentBonus).getName().equals(name)) {
-                BONUSES.remove(currentBonus);
+    public boolean removeEnchantment(String name) {
+        for (int currentBonus = 0; currentBonus < ENCHANTMENTS.size(); currentBonus++) {
+            if (ENCHANTMENTS.get(currentBonus).getName().equals(name)) {
+                ENCHANTMENTS.remove(currentBonus);
                 return true;
             }
         }
@@ -124,19 +124,19 @@ public class Weapon implements Item, Displayable, Sendable {
         return SPRITE;
     }
 
-    public String bonusServerData() {
+    public String enchantmentServerData() {
         String toReturn = "";
-        if (BONUSES.size() == 0) {
+        if (ENCHANTMENTS.size() == 0) {
             toReturn = "NO_BONUSES";
         } else {
-            for (int currentBonus = 0; currentBonus < BONUSES.size(); currentBonus++) {
-                toReturn += BONUSES.get(currentBonus).toServerData();
+            for (int currentBonus = 0; currentBonus < ENCHANTMENTS.size(); currentBonus++) {
+                toReturn += ENCHANTMENTS.get(currentBonus).toServerData();
             }
         }
         return toReturn;
     }
 
     public String toServerData() {
-        return " | " + NAME + " " + SPRITE + " " + DEFENSE + " " + ATTACK + " " + RANGE + " " + bonusServerData();
+        return TypeHolder.WEAPON + NAME + " " + SPRITE + " " + DEFENSE + " " + ATTACK + " " + RANGE + " " + enchantmentServerData();
     }
 }
