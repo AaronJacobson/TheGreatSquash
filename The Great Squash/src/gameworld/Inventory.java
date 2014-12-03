@@ -1,6 +1,6 @@
 package gameworld;
 
-import items.armours.Armor;
+import items.armors.Armor;
 import items.consumables.Consumable;
 import items.Item;
 import items.spellbooks.SpellBook;
@@ -17,28 +17,28 @@ public class Inventory {
     int CONSUMABLES_SIZE_LIMIT;
     ArrayList<SpellBook> SPELLBOOKS;
     int SPELLBOOKS_SIZE_LIMIT;
-    ArrayList<Armor> ARMOURS;
-    int ARMOURS_SIZE_LIMIT;
+    ArrayList<Armor> ARMORS;
+    int ARMORS_SIZE_LIMIT;
     ArrayList<Weapon> WEAPONS;
     int WEAPONS_SIZE_LIMIT;
 
     public Inventory(int weaponSize, int armourSize, int spellbookSize , int consumableSize) {
         CONSUMABLES = new ArrayList<Consumable>();
         SPELLBOOKS = new ArrayList<SpellBook>();
-        ARMOURS = new ArrayList<Armor>();
+        ARMORS = new ArrayList<Armor>();
         WEAPONS = new ArrayList<Weapon>();
 
         CONSUMABLES_SIZE_LIMIT = consumableSize;
         SPELLBOOKS_SIZE_LIMIT = spellbookSize;
-        ARMOURS_SIZE_LIMIT = armourSize;
+        ARMORS_SIZE_LIMIT = armourSize;
         WEAPONS_SIZE_LIMIT = weaponSize;
     }
 
     public void addToInventory(Item item) {
         if (item instanceof Weapon && WEAPONS.size() < WEAPONS_SIZE_LIMIT) {
             WEAPONS.add((Weapon) (item));
-        } else if (item instanceof Armor && ARMOURS.size() < ARMOURS_SIZE_LIMIT) {
-            ARMOURS.add((Armor) (item));
+        } else if (item instanceof Armor && ARMORS.size() < ARMORS_SIZE_LIMIT) {
+            ARMORS.add((Armor) (item));
         } else if (item instanceof SpellBook && SPELLBOOKS.size() < SPELLBOOKS_SIZE_LIMIT) {
             SPELLBOOKS.add((SpellBook) (item));
         } else if (item instanceof Consumable && CONSUMABLES.size() < CONSUMABLES_SIZE_LIMIT) {
@@ -51,7 +51,7 @@ public class Inventory {
     }
 
     public ArrayList<Armor> getArmourList() {
-        return ARMOURS;
+        return ARMORS;
     }
 
     public ArrayList<SpellBook> getSpellBookList() {
@@ -70,8 +70,8 @@ public class Inventory {
             list.addAll(WEAPONS);
             listLimit = WEAPONS_SIZE_LIMIT;
         } else if(title.toLowerCase().equals("armour") || title.toLowerCase().equals("armours")) {
-            list.addAll(ARMOURS);
-            listLimit = ARMOURS_SIZE_LIMIT;
+            list.addAll(ARMORS);
+            listLimit = ARMORS_SIZE_LIMIT;
         } else if(title.toLowerCase().equals("consumable") || title.toLowerCase().equals("consumables")) {
             list.addAll(CONSUMABLES);
             listLimit = CONSUMABLES_SIZE_LIMIT;
@@ -108,8 +108,17 @@ public class Inventory {
         return output;
     }
     
-    public String getServerData(){
+    public String toServerData(){
         String serverData = "";
+        for(int currentConsumable = 0;currentConsumable < CONSUMABLES.size();currentConsumable++){
+            serverData += CONSUMABLES.get(currentConsumable).toServerData();
+        }
+        for(int currentArmor = 0;currentArmor < ARMORS.size();currentArmor++){
+            serverData += ARMORS.get(currentArmor).toServerData();
+        }
+        for(int currentWeapon = 0;currentWeapon < WEAPONS.size();currentWeapon++){
+            serverData += WEAPONS.get(currentWeapon).toServerData();
+        }
         return serverData;
     }
 }

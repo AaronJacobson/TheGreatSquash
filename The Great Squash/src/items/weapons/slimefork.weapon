@@ -4,7 +4,7 @@ Stat: DAMAGE_IS_DONE_WITH_DEXTERITY
 Attack: 2
 Defense: 2
 Range: 1
------Bonuses-----
+-----Enchantments-----
 NAME: Battle_Hardened
 DAMAGE_BONUS 5
 A_C_BONUS 0

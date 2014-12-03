@@ -7,7 +7,7 @@
 package Main.tests;
 
 import enchantments.Enchantment;
-import items.armours.Armor;
+import items.armors.Armor;
 import items.consumables.Consumable;
 import items.weapons.Weapon;
 
@@ -17,23 +17,29 @@ import items.weapons.Weapon;
  */
 public class ItemLoadingTests {
     public static void main(String [] args){
-        loadConsumable("pancake");
-//        loadBonus("bloodSoaked");
+//        loadConsumable("pancake");
+//        loadEnchantment("bloodSoaked");
 //        loadWeapon("slimefork");
+//        loadArmor("battletuxedo");
     }
     
     public static void loadConsumable(String name){
         Consumable pancake = new Consumable(name);
+        System.out.println(pancake.toServerData());
     }
     
     public static void loadWeapon(String name){
         Weapon slimeFork = new Weapon(name);
+        System.out.println(slimeFork.toServerData());
     }
     
     public static void loadArmor(String name){
+        Armor battleTuxedo = new Armor(name);
+        System.out.println(battleTuxedo.toServerData());
     }
     
-    public static void loadBonus(String name){
+    public static void loadEnchantment(String name){
         Enchantment bloodSoaked = new Enchantment(name);
+        System.out.println(bloodSoaked.toServerData());
     }
 }
