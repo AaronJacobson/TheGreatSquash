@@ -68,7 +68,14 @@ public class Player extends Creature {
         super.setName(getLineElement(playerScanner.nextLine()));
         super.setSprite(getLineElement(playerScanner.nextLine()).charAt(0));
         this.SPECIES = getLineElement(playerScanner.nextLine());
-        System.out.println(getLineElement(playerScanner.nextLine()));
+        super.setMaxHealth(Integer.parseInt(getLineElement(playerScanner.nextLine())));
+        super.setLevel(Integer.parseInt(getLineElement(playerScanner.nextLine())));
+        super.setXP(Integer.parseInt(getLineElement(playerScanner.nextLine())));
+        super.setSpeed(Integer.parseInt(getLineElement(playerScanner.nextLine())));
+        super.setEndurance(Integer.parseInt(getLineElement(playerScanner.nextLine())));
+        super.setStrength(Integer.parseInt(getLineElement(playerScanner.nextLine())));
+        super.setIntelligence(Integer.parseInt(getLineElement(playerScanner.nextLine())));
+        super.setDexterity(Integer.parseInt(getLineElement(playerScanner.nextLine())));
     }
     
     private String getLineElement(String line) {
@@ -77,7 +84,7 @@ public class Player extends Creature {
         boolean first = true;
         while(lineScanner.hasNext()) {
             String current = lineScanner.next();
-            System.out.println(current);
+            //System.out.println(current);
             if(!current.contains("*") && first) {
                 output += current;
                 first = false;
@@ -85,8 +92,12 @@ public class Player extends Creature {
                 output += " " + current;
             }
         }
-        System.out.println(output);
+        //System.out.println(output);
         return output;
+    }
+    
+    public String getSpecies() {
+        return SPECIES;
     }
     
     public void loadTest(Scanner playerScanner){

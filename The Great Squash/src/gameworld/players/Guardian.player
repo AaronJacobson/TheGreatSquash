@@ -1,14 +1,14 @@
-Name: Guardian
-Sprite: G
-Race: Human
-Health: 15
-Level: 1
-XP: 0
-Speed: 2
-Endurance: 2
-Strength: 3
-Intelligence: 2
-Dexterity: 1
+Guardian *Name*
+G *Sprite*
+Human *Race*
+15 *Health*
+1 *Level*
+0 *Experience Points*
+2 *Speed*
+2 *Endurance*
+3 *Strength*
+2 *Intelligence*
+1 *Dexterity*
 -Equiped-
 Main:
 Longsword Billy 5

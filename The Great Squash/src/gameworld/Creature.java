@@ -150,6 +150,10 @@ public abstract class Creature implements Displayable, Sendable {
     public int getLevel() {
         return LEVEL;
     }
+    
+    public void setLevel(int level) {
+        LEVEL = level;
+    }
 
     private void updateStats() {
         SPEED = (int)(SPEED_MODIFIER + (LEVEL * ((double) (SPEED_MODIFIER) / 8)));

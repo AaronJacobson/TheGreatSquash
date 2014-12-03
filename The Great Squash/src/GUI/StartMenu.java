@@ -118,11 +118,14 @@ public class StartMenu {
         Player player = new Player(new File(fileName));
         System.out.println(player.getName());
         System.out.println(player.getSprite());
+        System.out.println(player.getSpecies());
+        System.out.println(player.getLevel());
+        System.out.println(player.getXP());
         System.out.println(player.getMaxHealth());
         System.out.println(player.getEndurance());
         System.out.println(player.getStrength());
-        System.out.println(player.getDexterity());
-        System.out.println(player.getIntelligence());
+         System.out.println(player.getIntelligence());
+        System.out.println(player.getDexterity());       
         return player;
     }
 
