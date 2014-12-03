@@ -14,9 +14,5 @@ public class TypeHolder {
     public static final String OB_WALL = "Wall";
     public static final String OB_DOOR = "Floor";
     public static final String OB_CHEST = "Chest";
-    public static final String CONSUMABLE = " Consumable ";
-    public static final String WEAPON = " Weapon ";
-    public static final String ARMOR = " Armor ";
-    public static final String ENCHANTMENT = " Enchantment ";
     public static final char ERROR_CHAR = 'X';
 }
