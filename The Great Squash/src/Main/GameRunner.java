@@ -6,6 +6,7 @@ import GUI.StartMenu;
 import LAN.Client;
 import LAN.Server;
 import gameworld.Board;
+import gameworld.Player;
 import gameworld.tools.ObjectCounter;
 
 public class GameRunner {
@@ -17,32 +18,53 @@ public class GameRunner {
     
     public static void main(String[] args) {
         ObjectCounter.clearCounters();
-        CreateCharacter gui = new CreateCharacter();
-        //START_MENU = new StartMenu();
+        START_MENU = new StartMenu();
+    }
+    
+    public static void setBoard(Board newBoard){
+        GAME_BOARD = newBoard;
+    }
+    
+    public static Board getBoard(){
+        return GAME_BOARD;
+    }
+    
+    public static Client getClient(){
+        return CLIENT;
+    }
+    
+    public static Server getServer(){
+        return SERVER;
     }
     
     public static void createServer(String mapName){
-        START_MENU.closeMenu();
         System.out.println("Map: " + mapName);
         SERVER = new Server(10,mapName);
         SERVER.makeServer();
         ClientConnectionsThread clientConnections = new ClientConnectionsThread(SERVER);
         Thread clientConnectionsThread = new Thread(clientConnections);
         clientConnectionsThread.start();
-        System.out.println(SERVER);
         CLIENT = new Client("127.0.0.1");
         CLIENT.connectToServer();
-        System.out.println(CLIENT);
+        startGame(START_MENU.createPlayer());
+        START_MENU.closeMenu();
     }
     
-    public static void startGame() {
+    public static void startGame(Player player) {
         GAME_BOARD = CLIENT.getBoard();
         GAME_GUI = new GameGUI();
+        GAME_GUI.setBoard(GAME_BOARD);
+        GAME_GUI.setCreature(player);
     } 
     
     public static void connectToServer(String ip){
+        startGame(START_MENU.createPlayer());
         START_MENU.closeMenu();
         CLIENT = new Client(ip);
+    }
+    
+    public static void updateBoard(){
+        GAME_GUI.updateBoard(GAME_BOARD);
     }
 }
 class ClientConnectionsThread implements Runnable{

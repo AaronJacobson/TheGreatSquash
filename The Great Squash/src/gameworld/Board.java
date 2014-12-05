@@ -31,6 +31,7 @@ public class Board {
         SIZE_X = x;
         SIZE_Y = y;
         GRAPHICS = graphics;
+        setBoardTilesNull();
     }
 
     public Board(int y, int x) {
@@ -38,6 +39,7 @@ public class Board {
         SIZE_X = y;
         SIZE_Y = x;
         GRAPHICS = null;
+        setBoardTilesNull();
     }
 
     public void show() {

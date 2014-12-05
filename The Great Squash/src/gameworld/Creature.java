@@ -15,27 +15,27 @@ import java.util.ArrayList;
 //Feel free to move this class to another package. I put it here because creatures go on the board.
 public class Creature implements Displayable, Sendable {
 
-    char SPRITE = 'X';
-    Board BOARD;
-    private String NAME = "Creature";
-    private String TYPE = "abstract";
-    private Inventory INVENTORY = new Inventory(2, 6, 5, 10);
-    int LOCATION_X;
-    int LOCATION_Y;
-    int LEVEL;
-    int XP;
-    int MAX_HEALTH = 0;
-    double CURRENT_HEALTH;
-    int ENDURANCE_MODIFIER;
-    int ENDURANCE;
-    int SPEED_MODIFIER;
-    int SPEED;
-    int STRENGTH_MODIFIER;
-    int STRENGTH;
-    int INTELLIGENCE_MODIFIER;
-    int INTELLIGENCE;
-    int DEXTERITY_MODIFIER;
-    int DEXTERITY;
+    protected char SPRITE = 'X';
+    protected Board BOARD;
+    protected String NAME = "Creature";
+    protected String TYPE = "abstract";
+    protected Inventory INVENTORY = new Inventory(2, 6, 5, 10);
+    protected int LOCATION_X;
+    protected int LOCATION_Y;
+    protected int LEVEL;
+    protected int XP;
+    protected int MAX_HEALTH = 0;
+    protected double CURRENT_HEALTH;
+    protected int ENDURANCE_MODIFIER;
+    protected int ENDURANCE;
+    protected int SPEED_MODIFIER;
+    protected int SPEED;
+    protected int STRENGTH_MODIFIER;
+    protected int STRENGTH;
+    protected int INTELLIGENCE_MODIFIER;
+    protected int INTELLIGENCE;
+    protected int DEXTERITY_MODIFIER;
+    protected int DEXTERITY;
 
     public Creature(char sprite, Board board, int y, int x, String name, String type) {
         TYPE = type;
@@ -92,7 +92,6 @@ public class Creature implements Displayable, Sendable {
     }
 
     private void move(int y, int x) {
-        //BOARD.getClient().getHandler().sendMove(y, x, LOCATION_Y, LOCATION_X, this);
         System.out.println("move");
         BOARD.removeCreature(LOCATION_X, LOCATION_Y);
         

@@ -109,23 +109,13 @@ public class StartMenu {
     public void closeMenu() {
         FRAME.dispose();
     }
-    
+
     public Player createPlayer() {
         String fileName = PLAYER_NAME.getText();
-        if(!fileName.contains(".player") && !fileName.contains("\\")) {
+        if (!fileName.contains(".player") && !fileName.contains("\\")) {
             fileName = "src\\gameworld\\players\\" + fileName + ".player";
-        } 
+        }
         Player player = new Player(new File(fileName));
-        System.out.println(player.getName());
-        System.out.println(player.getSprite());
-        System.out.println(player.getSpecies());
-        System.out.println(player.getLevel());
-        System.out.println(player.getXP());
-        System.out.println(player.getMaxHealth());
-        System.out.println(player.getEndurance());
-        System.out.println(player.getStrength());
-         System.out.println(player.getIntelligence());
-        System.out.println(player.getDexterity());       
         return player;
     }
 
@@ -140,15 +130,13 @@ public class StartMenu {
                 GameRunner.createServer(SERVER_MAP.getText());
             } else if (action.equals(PLAYER_BROWSE.getActionCommand())) {
                 JFileChooser chooser = new JFileChooser();
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("Player Files","player");
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("Player Files", "player");
                 chooser.setFileFilter(filter);
                 int returnVal = chooser.showOpenDialog(chooser);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     PLAYER_NAME.setText(chooser.getSelectedFile().getAbsoluteFile() + "");
-                } 
-                createPlayer();
+                }
             }
-
         }
     }
 }
