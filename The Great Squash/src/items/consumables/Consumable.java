@@ -4,8 +4,8 @@
  */
 package items.consumables;
 
+import LAN.CommandHolder;
 import LAN.Sendable;
-import LAN.TypeHolder;
 import gameworld.Displayable;
 import items.Item;
 import java.io.File;
@@ -65,6 +65,6 @@ public class Consumable implements Item, Displayable, Sendable {
     }
     
     public String toServerData(){
-        return TypeHolder.CONSUMABLE + NAME + " " + SPRITE + " " + HEALTH_ADDED + " " + MANA_ADDED + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS + " " + BONUS_LENGTH;
+        return CommandHolder.CONSUMABLE + NAME + " " + SPRITE + " " + HEALTH_ADDED + " " + MANA_ADDED + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS + " " + BONUS_LENGTH;
     }
 }

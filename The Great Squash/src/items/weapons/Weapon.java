@@ -4,8 +4,8 @@
  */
 package items.weapons;
 
+import LAN.CommandHolder;
 import LAN.Sendable;
-import LAN.TypeHolder;
 import enchantments.Enchantment;
 import gameworld.Displayable;
 import items.Item;
@@ -137,6 +137,6 @@ public class Weapon implements Item, Displayable, Sendable {
     }
 
     public String toServerData() {
-        return TypeHolder.WEAPON + NAME + " " + SPRITE + " " + DEFENSE + " " + ATTACK + " " + RANGE + " " + enchantmentServerData();
+        return CommandHolder.WEAPON + NAME + " " + SPRITE + " " + DEFENSE + " " + ATTACK + " " + RANGE + " " + enchantmentServerData();
     }
 }

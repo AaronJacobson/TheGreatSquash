@@ -5,8 +5,8 @@
 package items.armors;
 
 import Auras.Aura;
+import LAN.CommandHolder;
 import LAN.Sendable;
-import LAN.TypeHolder;
 import enchantments.Enchantment;
 import gameworld.Displayable;
 import items.Item;
@@ -14,8 +14,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -142,6 +140,6 @@ public class Armor implements Item, Displayable, Sendable {
     }
     
     public String toServerData(){
-        return TypeHolder.ARMOR + NAME + " " + SPRITE + " " + ARMOR_CLASS + " " + DURABILITY + " " + enchantmentServerData();
+        return CommandHolder.ARMOR + NAME + " " + SPRITE + " " + ARMOR_CLASS + " " + DURABILITY + " " + enchantmentServerData();
     }
 }

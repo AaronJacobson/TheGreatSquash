@@ -11,7 +11,6 @@ import gameworld.Wall;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ServerDataHandler implements Runnable {
