@@ -3,7 +3,6 @@ package GUI;
 import Main.GameRunner;
 import gameworld.Player;
 import java.awt.Button;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -104,6 +103,7 @@ public class StartMenu {
         FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         PLAYER_NAME.requestFocusInWindow();
+        GameGUI.centerWindow(FRAME);
     }
 
     public void closeMenu() {

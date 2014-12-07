@@ -5,7 +5,7 @@
 package Main.tests;
 
 import gameworld.Board;
-import gameworld.tools.DocumentToBoard;
+import gameworld.tools.CreateFromDocument;
 import gameworld.Wall;
 
 /**
@@ -15,7 +15,7 @@ import gameworld.Wall;
 public class DocumentToBoardTestMain {
 
     public static void main(String[] args) {
-        Board board = DocumentToBoard.createBoard("H:\\testboard.txt");
+        Board board = CreateFromDocument.createBoard("H:\\testboard.txt");
         board.show();
     }
 }

@@ -18,9 +18,9 @@ import java.util.Scanner;
  *
  * @author ros_dmlamarca
  */
-public class DocumentToBoard {
+public class CreateFromDocument {
 
-    public static Board getFromMaps(String mapName) {
+    public static Board createFromMaps(String mapName) {
         String filePath = "";
         if(!mapName.endsWith(".map")) {
             filePath = "src/gameworld/maps/" + mapName + ".map";
@@ -104,6 +104,23 @@ public class DocumentToBoard {
             }
         }
         return string;
+    }
+    
+    public static String getLineElement(String line) {
+        String output = "";
+        Scanner lineScanner = new Scanner(line);
+        boolean first = true;
+        while(lineScanner.hasNext()) {
+            String current = lineScanner.next();
+            //System.out.println(current);
+            if(!current.contains("*") && first) {
+                output += current;
+                first = false;
+            } else if(!current.contains("*")) {
+                output += " " + current;
+            }
+        }
+        return output;
     }
 
     private static Board makeBoard(Hashtable<String, Displayable> creatorTable, String stringBoard) {

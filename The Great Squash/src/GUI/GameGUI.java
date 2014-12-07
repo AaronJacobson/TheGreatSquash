@@ -10,6 +10,7 @@ import gameworld.Creature;
 import gameworld.Inventory;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -145,6 +146,8 @@ public class GameGUI {
         FRAME.setVisible(true);
         FRAME.setResizable(false);
         FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        GameGUI.centerWindow(FRAME);
     }
     
     public void setCreature(Creature creature) {
@@ -153,6 +156,13 @@ public class GameGUI {
         INVENTORY_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER,"Inventory - " + CONTAINED_CREATURE.getName()));
         updateInventoryDisplay();
         MOVEMENT_LISTENER.setCreature(creature);
+    }
+    
+    public static void centerWindow(JFrame frame) {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+        frame.setLocation(x, y);
     }
     
     public Creature getCreature() {
