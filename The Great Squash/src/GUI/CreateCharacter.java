@@ -22,6 +22,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -78,11 +79,11 @@ public class CreateCharacter implements ActionListener, KeyListener {
         SPECIES_BUTTONS = new ButtonGroup();
         try {
             Scanner fileScanner = new Scanner(new File("src/GUI/PlayableSpecies.tgs"));
-            while(fileScanner.hasNextLine()) {
-            JRadioButton current = new JRadioButton(fileScanner.nextLine());
-            current.addActionListener(this);
-            SPECIES_BUTTONS.add(current);
-            SPECIES_PANEL.add(current);
+            while (fileScanner.hasNextLine()) {
+                JRadioButton current = new JRadioButton(fileScanner.nextLine());
+                current.addActionListener(this);
+                SPECIES_BUTTONS.add(current);
+                SPECIES_PANEL.add(current);
             }
         } catch (FileNotFoundException ex) {
 
@@ -182,6 +183,7 @@ public class CreateCharacter implements ActionListener, KeyListener {
         CREATE_BUTTON = new JButton("Create");
         CREATE_BUTTON.setPreferredSize(new Dimension(50, 30));
         CREATE_BUTTON.setMargin(new Insets(0, 0, 0, 0));
+        CREATE_BUTTON.addActionListener(this);
 
         CREATE_PANEL.add(CREATE_BUTTON);
     }
@@ -223,6 +225,18 @@ public class CreateCharacter implements ActionListener, KeyListener {
         GameGUI.centerWindow(FRAME);
     }
 
+    public Player makePlayer() {
+        Player player = new Player(NAME_DISPLAY.getText(), CLASS_DISPLAY.getText(), SPECIES, SPRITE_DISPLAY.getText().charAt(0));
+        int speed = Integer.parseInt(SPEED_DISPLAY.getText());
+        int endurance = Integer.parseInt(ENDURANCE_DISPLAY.getText());
+        int strength = Integer.parseInt(STRENGTH_DISPLAY.getText());
+        int intelligence = Integer.parseInt(INTELLIGENCE_DISPLAY.getText());
+        int dexterity = Integer.parseInt(DEXTERITY_DISPLAY.getText());
+        player.initateStats(speed, endurance, strength, intelligence, dexterity);
+        System.out.println(player);
+        return player;
+    }
+
     public void actionPerformed(ActionEvent e) {
         Object performer = e.getSource();
         if (performer instanceof JRadioButton) {
@@ -243,14 +257,41 @@ public class CreateCharacter implements ActionListener, KeyListener {
             } else if (button.getParent() == SPECIES_PANEL) {
                 SPECIES = button.getLabel();
             }
-        } else if(performer instanceof JButton) {
-            Player player = new Player(NAME_DISPLAY.getText(), CLASS_DISPLAY.getText(), SPECIES, SPRITE_DISPLAY.getText().charAt(0));
-            int speed = Integer.parseInt(SPEED_DISPLAY.getText());
-            int endurance = Integer.parseInt(ENDURANCE_DISPLAY.getText());
-            int strength = Integer.parseInt(STRENGTH_DISPLAY.getText());
-            int intelligence = Integer.parseInt(INTELLIGENCE_DISPLAY.getText());
-            int dexterity = Integer.parseInt(DEXTERITY_DISPLAY.getText());
-            player.initateStats(speed, endurance, strength, intelligence, dexterity);
+        } else if (performer instanceof JButton) {
+            System.out.println(SPECIES);
+            try {
+                int speed = Integer.parseInt(SPEED_DISPLAY.getText());
+                int endurance = Integer.parseInt(ENDURANCE_DISPLAY.getText());
+                int strength = Integer.parseInt(STRENGTH_DISPLAY.getText());
+                int intelligence = Integer.parseInt(INTELLIGENCE_DISPLAY.getText());
+                int dexterity = Integer.parseInt(DEXTERITY_DISPLAY.getText());
+                int total = speed + endurance + strength + intelligence + dexterity;
+                if (!NAME_DISPLAY.getText().equals("")) {
+                    if (!CLASS_DISPLAY.getText().equals("")) {
+                        if (SPECIES != null) {
+                            if (total == 12) {
+                                makePlayer();
+                            } else if (total > 12) {
+                                JOptionPane.showMessageDialog(FRAME, "You are only allowed to give your character 12 points.\nYou have " + (total - 12) + " points over the maximum", "Above Maximum Stats", JOptionPane.WARNING_MESSAGE);
+                            } else if (total < 12) {
+                                Object[] options = {"Create Character", "Redistribute Stats"};
+                                int answer = JOptionPane.showOptionDialog(FRAME, "You have extra stat points to distribute", "Below Maximum Stats", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+                                if (answer == 0) {
+                                    makePlayer();
+                                }
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(FRAME, "Please choose a Species", "Null Species", JOptionPane.WARNING_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(FRAME, "Please choose a Class \n(Either choose one from the presets or name your own)", "Null Class", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(FRAME, "Please enter a name for your character", "No Name", JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(FRAME, "Please only input whole numbers into the stat selectors", "Input Mismach", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 

@@ -112,4 +112,17 @@ public class Player extends Creature {
         String toReturn = super.toServerData() + " ";
         return toReturn;
     }
+    
+    public String toString() {
+        String output = NAME + " the " + CLASS + ":\n";
+        output += SPECIES + "\n";
+        output += SPRITE + "\n";
+        output += "Health: " + MAX_HEALTH + "\n";
+        output += "Spd: " + SPEED + "\n";
+        output += "End: " + ENDURANCE + "\n";
+        output += "Str: " + STRENGTH + "\n";
+        output += "Int: " + INTELLIGENCE + "\n";
+        output += "Dex: " + DEXTERITY + "\n";
+        return output;
+    }
 }
