@@ -5,6 +5,7 @@
 package gameworld;
 
 import LAN.TypeHolder;
+import Main.GameRunner;
 
 /**
  *
@@ -13,7 +14,7 @@ import LAN.TypeHolder;
 public class Wall extends Obstacle implements Cloneable {
 
     public Wall(Board board, int y, int x) {
-        super('#', "Wall", false, board, y, x, TypeHolder.OB_WALL);
+        super('#', "Wallz", false, board, y, x, TypeHolder.OB_WALL);
     }
     public Wall(char sprite, boolean passable, Board board, int y, int x,String type){
         super(sprite,"Wall",passable,board,y,x,type);
