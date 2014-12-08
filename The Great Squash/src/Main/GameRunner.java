@@ -1,6 +1,5 @@
 package Main;
 
-import GUI.CreateCharacter;
 import GUI.GameGUI;
 import GUI.StartMenu;
 import LAN.Client;
@@ -18,8 +17,8 @@ public class GameRunner {
     
     public static void main(String[] args) {
         ObjectCounter.clearCounters();
-        //START_MENU = new StartMenu();
-        CreateCharacter gui = new CreateCharacter();
+        START_MENU = new StartMenu();
+//        CreateCharacter gui = new CreateCharacter();
     }
     
     public static void setBoard(Board newBoard){

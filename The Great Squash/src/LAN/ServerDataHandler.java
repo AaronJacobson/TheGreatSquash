@@ -50,7 +50,6 @@ public class ServerDataHandler implements Runnable {
     public void interpretServerData(String serverData) {
         Scanner messageScanner = new Scanner(serverData);
         String theCommand = messageScanner.next();
-        System.out.println("ServerDataHandler: Recieved the following command: " + theCommand + " what do?");
         if (theCommand.equals(CommandHolder.MOVE_CREATURE)) {
             int newY = messageScanner.nextInt();
             int newX = messageScanner.nextInt();
@@ -84,13 +83,11 @@ public class ServerDataHandler implements Runnable {
         } else if (theCommand.equals(CommandHolder.THE_OBSTACLES)) {
             System.out.println("ServerDataHandler: Recieved the obstacles");
             int numberOfObstacles = messageScanner.nextInt();
-            //| LABEL LOCATION_Y LOCATION_X PASSABLE HEALTH SPRITE TYPE;
             for (int currentObject = 0; currentObject < numberOfObstacles; currentObject++) {
                 messageScanner.next();
                 String label = messageScanner.next();
                 int newY = messageScanner.nextInt();
                 int newX = 1;
-//                System.out.println("wub: " + messageScanner.next());
                 newX = messageScanner.nextInt();
                 boolean passable = messageScanner.nextBoolean();
                 double health = messageScanner.nextDouble();
@@ -126,7 +123,6 @@ public class ServerDataHandler implements Runnable {
             int boardx = messageScanner.nextInt();
             int boardy = messageScanner.nextInt();
             GameRunner.setBoard(new Board(boardy,boardx));
-            GameRunner.setBoard(GameRunner.getBoard());
             WAIT_FOR_PARAMETERS = false;
         }
     }
@@ -173,6 +169,8 @@ public class ServerDataHandler implements Runnable {
             while (WAIT_FOR_CREATURES) {
             }
             System.out.println("ServerDataHandler: The creatures have been initialized");
+            System.out.println(GameRunner.getBoard());
+            
         } catch (IOException ex) {
             System.out.println("ServerDataHandler to communicate with the server");
         }

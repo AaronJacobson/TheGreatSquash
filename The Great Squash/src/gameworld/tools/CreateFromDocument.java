@@ -53,7 +53,7 @@ public class CreateFromDocument {
             System.out.println("Sorry bub, but we couldn't make your file (well File Scanner). It just wasn't in the numbers.");
         }
 
-        System.out.println();
+        System.out.println(board);
         return board;
     }
 

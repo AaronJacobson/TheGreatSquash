@@ -5,6 +5,7 @@
 package gameworld;
 
 import LAN.Sendable;
+import Main.GameRunner;
 import gameworld.tools.ObjectCounter;
 
 /**
@@ -12,14 +13,14 @@ import gameworld.tools.ObjectCounter;
  * @author ros_aljacobson001
  */
 public abstract class Obstacle implements Displayable, Sendable, Cloneable {
-    String LABEL = "Obstacle";
-    String TYPE = "Abstract";
-    boolean PASSABLE;
-    int LOCATION_X;
-    int LOCATION_Y;
-    Board BOARD;
-    char SPRITE;
-    double HEALTH;
+    protected String LABEL = "Obstacle";
+    protected String TYPE = "ABSTRACT";
+    protected boolean PASSABLE;
+    protected int LOCATION_X;
+    protected int LOCATION_Y;
+    protected Board BOARD;
+    protected char SPRITE;
+    protected double HEALTH;
     
      public Obstacle(char sprite, String label, boolean passable, Board board, int y, int x,String type) {
         LABEL = ObjectCounter.getObstacleCount(label);
@@ -29,8 +30,7 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
         LOCATION_X = x;
         LOCATION_Y = y;
         BOARD = board;
-        BOARD.getTile(y, x).setObstacle(this);
-        BOARD.getObstacles().add(this);
+        setLocation(BOARD,LOCATION_X,LOCATION_Y);
     }
      
      public Obstacle(char sprite, String label, boolean passable) {
@@ -74,10 +74,9 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
     }
     
     public void setLocation(Board board, int y, int x) {
+        board.setTileObstacle(y, x, this);
         LOCATION_X = x;
         LOCATION_Y = y;
-        BOARD = board;
-        //BOARD.getTile(y, x).setObstacle(this);
     }
     
     public String toServerData(){
