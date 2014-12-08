@@ -18,7 +18,8 @@ public class GameRunner {
     
     public static void main(String[] args) {
         ObjectCounter.clearCounters();
-        START_MENU = new StartMenu();
+        //START_MENU = new StartMenu();
+        CreateCharacter gui = new CreateCharacter();
     }
     
     public static void setBoard(Board newBoard){
