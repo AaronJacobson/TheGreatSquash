@@ -1,8 +1,96 @@
-Human
-Troglodyte
-Mind Flayer
-Gnome
-Gargoyle
-Tarrasque
-Alot
-Catfolk
+Abarimon    *Speed*
+2 *Speed*
+0 *Endurance*
+0 *Strength*
+0 *Intelligence*
+0 *Dexterity*
+Troglodyte  *Endurance*
+0 *Speed*
+2 *Endurance*
+0 *Strength*
+0 *Intelligence*
+0 *Dexterity*
+Samebito    *Strength*
+0 *Speed*
+0 *Endurance*
+2 *Strength*
+0 *Intelligence*
+0 *Dexterity*
+Mind Flayer *Intelligence
+0 *Speed*
+0 *Endurance*
+0 *Strength*
+2 *Intelligence*
+0 *Dexterity*
+Antec       *Dexterity*
+0 *Speed*
+0 *Endurance*
+0 *Strength*
+0 *Intelligence*
+2 *Dexterity*
+Gargoyle    *Speed Endurance*
+1 *Speed*
+1 *Endurance*
+0 *Strength*
+0 *Intelligence*
+0 *Dexterity*
+Catfolk     *Speed Strength*
+1 *Speed*
+0 *Endurance*
+1 *Strength*
+0 *Intelligence*
+0 *Dexterity*
+Satyr       *Speed Intelligence*
+1 *Speed*
+0 *Endurance*
+0 *Strength*
+1 *Intelligence*
+0 *Dexterity*
+Gnome       *Speed Dexterity*
+1 *Speed*
+0 *Endurance*
+0 *Strength*
+0 *Intelligence*
+1 *Dexterity*
+Orc         *Endurance Strength*
+0 *Speed*
+1 *Endurance*
+1 *Strength*
+0 *Intelligence*
+0 *Dexterity*
+Dryad       *Endurance Intelligence*
+0 *Speed*
+1 *Endurance*
+0 *Strength*
+1 *Intelligence*
+0 *Dexterity*
+Gnoll       *Endurance Dexterity*
+0 *Speed*
+1 *Endurance*
+0 *Strength*
+0 *Intelligence*
+1 *Dexterity*
+Human       *Strength Intelligence*
+0 *Speed*
+0 *Endurance*
+1 *Strength*
+1 *Intelligence*
+0 *Dexterity*
+Dwarf       *Strength Dexterity*
+0 *Speed*
+0 *Endurance*
+1 *Strength*
+0 *Intelligence*
+1 *Dexterity*
+Elf         *Intelligence Dexterity*
+0 *Speed*
+0 *Endurance*
+0 *Strength*
+1 *Intelligence*
+1 *Dexterity*
+Ghoul
+0 *Speed*
+0 *Endurance*
+0 *Strength*
+0 *Intelligence*
+0 *Dexterity*       

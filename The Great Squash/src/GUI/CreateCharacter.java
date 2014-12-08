@@ -16,8 +16,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -39,7 +37,8 @@ public class CreateCharacter implements ActionListener, KeyListener {
     private ButtonGroup PRESET_BUTTONS;
     private Hashtable<String, ClassPreset> PRESET_TABLE;
     private ArrayList<String> PRESET_NAMES;
-    private JPanel SPECIES_PANEL;
+    private JPanel RIGHT_SPECIES_PANEL;
+    private JPanel LEFT_SPECIES_PANEL;
     private ButtonGroup SPECIES_BUTTONS;
     private String SPECIES;
     private JPanel SPEED_PANEL;
@@ -71,20 +70,38 @@ public class CreateCharacter implements ActionListener, KeyListener {
     }
 
     private void formatSpecies() {
-        SPECIES_PANEL = new JPanel();
-        SPECIES_PANEL.setBounds(485, 2, 107, 148);
-        SPECIES_PANEL.setLayout(new GridLayout(0, 1));
-        SPECIES_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, "Species"));
+        RIGHT_SPECIES_PANEL = new JPanel();
+        RIGHT_SPECIES_PANEL.setBounds(592, 2, 107, 148);
+        RIGHT_SPECIES_PANEL.setLayout(new GridLayout(0, 1));
+        RIGHT_SPECIES_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, "Species"));
+
+        LEFT_SPECIES_PANEL = new JPanel();
+        LEFT_SPECIES_PANEL.setBounds(2, 2, 107, 148);
+        LEFT_SPECIES_PANEL.setLayout(new GridLayout(0, 1));
+        LEFT_SPECIES_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, "Species"));
 
         SPECIES_BUTTONS = new ButtonGroup();
         try {
             Scanner fileScanner = new Scanner(new File("src/GUI/PlayableSpecies.tgs"));
-            while (fileScanner.hasNextLine()) {
-                JRadioButton current = new JRadioButton(fileScanner.nextLine());
+            for (int i = 0; i < 8; i++) {
+                JRadioButton current = new JRadioButton(CreateFromDocument.getLineElement(fileScanner.nextLine()));
+                for (int j = 0; j < 5; j++) {
+                    fileScanner.nextLine();
+                }
                 current.addActionListener(this);
                 SPECIES_BUTTONS.add(current);
-                SPECIES_PANEL.add(current);
+                LEFT_SPECIES_PANEL.add(current);
             }
+            for (int i = 0; i < 8; i++) {
+                JRadioButton current = new JRadioButton(CreateFromDocument.getLineElement(fileScanner.nextLine()));
+                for (int j = 0; j < 5; j++) {
+                    fileScanner.nextLine();
+                }
+                current.addActionListener(this);
+                SPECIES_BUTTONS.add(current);
+                RIGHT_SPECIES_PANEL.add(current);
+            }
+
         } catch (FileNotFoundException ex) {
 
         }
@@ -95,7 +112,7 @@ public class CreateCharacter implements ActionListener, KeyListener {
         makePresetList();
 //        System.out.println(PRESET_TABLE.get("Knight"));
         PRESET_PANEL = new JPanel();
-        PRESET_PANEL.setBounds(85, 52, 320, 98);
+        PRESET_PANEL.setBounds(192, 52, 320, 98);
         PRESET_PANEL.setLayout(new GridLayout(0, 3));
         PRESET_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, "Presets"));
 
@@ -132,54 +149,45 @@ public class CreateCharacter implements ActionListener, KeyListener {
     private void formatAllStats() {
         SPEED_PANEL = new JPanel();
         SPEED_DISPLAY = new JTextField(1);
-        SPEED_DISPLAY.setHorizontalAlignment(JTextField.CENTER);
-        formatStatPanel(2, 2, 85, SPEED_PANEL, SPEED_DISPLAY, "1", "Speed");
+        formatStatPanel(109, 2, 85, SPEED_PANEL, SPEED_DISPLAY, "1", "Speed");
 
         ENDURANCE_PANEL = new JPanel();
         ENDURANCE_DISPLAY = new JTextField(1);
         ENDURANCE_DISPLAY.addKeyListener(this);
-        ENDURANCE_DISPLAY.setHorizontalAlignment(JTextField.CENTER);
-        formatStatPanel(2, 50, 85, ENDURANCE_PANEL, ENDURANCE_DISPLAY, "1", "Endurance");
+        formatStatPanel(109, 50, 85, ENDURANCE_PANEL, ENDURANCE_DISPLAY, "1", "Endurance");
 
         HEALTH_PANEL = new JPanel();
         HEALTH_DISPLAY = new JTextField(2);
         HEALTH_DISPLAY.setEditable(false);
-        HEALTH_DISPLAY.setHorizontalAlignment(JTextField.CENTER);
-        formatStatPanel(2, 98, 85, HEALTH_PANEL, HEALTH_DISPLAY, "15", "Health");
+        formatStatPanel(109, 98, 85, HEALTH_PANEL, HEALTH_DISPLAY, "15", "Health");
 
         STRENGTH_PANEL = new JPanel();
         STRENGTH_DISPLAY = new JTextField(1);
-        STRENGTH_DISPLAY.setHorizontalAlignment(JTextField.CENTER);
-        formatStatPanel(403, 2, 85, STRENGTH_PANEL, STRENGTH_DISPLAY, "1", "Strength");
+        formatStatPanel(510, 2, 85, STRENGTH_PANEL, STRENGTH_DISPLAY, "1", "Strength");
 
         INTELLIGENCE_PANEL = new JPanel();
         INTELLIGENCE_DISPLAY = new JTextField(1);
-        INTELLIGENCE_DISPLAY.setHorizontalAlignment(JTextField.CENTER);
-        formatStatPanel(403, 50, 85, INTELLIGENCE_PANEL, INTELLIGENCE_DISPLAY, "1", "Intelligence");
+        formatStatPanel(510, 50, 85, INTELLIGENCE_PANEL, INTELLIGENCE_DISPLAY, "1", "Intelligence");
 
         DEXTERITY_PANEL = new JPanel();
         DEXTERITY_DISPLAY = new JTextField(1);
-        DEXTERITY_DISPLAY.setHorizontalAlignment(JTextField.CENTER);
-        formatStatPanel(403, 98, 85, DEXTERITY_PANEL, DEXTERITY_DISPLAY, "1", "Dexterity");
+        formatStatPanel(510, 98, 85, DEXTERITY_PANEL, DEXTERITY_DISPLAY, "1", "Dexterity");
 
         NAME_PANEL = new JPanel();
         NAME_DISPLAY = new JTextField(7);
-        NAME_DISPLAY.setHorizontalAlignment(JTextField.CENTER);
-        formatStatPanel(85, 2, 100, NAME_PANEL, NAME_DISPLAY, "", "Name");
+        formatStatPanel(192, 2, 100, NAME_PANEL, NAME_DISPLAY, "", "Name");
 
         CLASS_PANEL = new JPanel();
         CLASS_DISPLAY = new JTextField(7);
-        CLASS_DISPLAY.setHorizontalAlignment(JTextField.CENTER);
-        formatStatPanel(182, 2, 100, CLASS_PANEL, CLASS_DISPLAY, "", "Class");
+        formatStatPanel(289, 2, 100, CLASS_PANEL, CLASS_DISPLAY, "", "Class");
 
         SPRITE_PANEL = new JPanel();
         SPRITE_DISPLAY = new JTextField(2);
-        SPRITE_DISPLAY.setHorizontalAlignment(JTextField.CENTER);
         SPRITE_DISPLAY.setFont(new Font("Monospaced", Font.PLAIN, 12));
-        formatStatPanel(280, 2, 60, SPRITE_PANEL, SPRITE_DISPLAY, "@", "Sprite");
+        formatStatPanel(387, 2, 60, SPRITE_PANEL, SPRITE_DISPLAY, "@", "Sprite");
 
         CREATE_PANEL = new JPanel();
-        CREATE_PANEL.setBounds(336, 10, 70, 52);
+        CREATE_PANEL.setBounds(443, 10, 70, 52);
         CREATE_BUTTON = new JButton("Create");
         CREATE_BUTTON.setPreferredSize(new Dimension(50, 30));
         CREATE_BUTTON.setMargin(new Insets(0, 0, 0, 0));
@@ -192,6 +200,7 @@ public class CreateCharacter implements ActionListener, KeyListener {
         panel.setBounds(x, y, sizeX, 52);
         panel.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, statName));
 
+        display.setHorizontalAlignment(JTextField.CENTER);
         display.setText(stat);
         display.setBackground(Color.WHITE);
 
@@ -210,13 +219,14 @@ public class CreateCharacter implements ActionListener, KeyListener {
         FRAME.add(CLASS_PANEL);
         FRAME.add(SPRITE_PANEL);
         FRAME.add(CREATE_PANEL);
-        FRAME.add(SPECIES_PANEL);
+        FRAME.add(RIGHT_SPECIES_PANEL);
+        FRAME.add(LEFT_SPECIES_PANEL);
 
         BASE = new JPanel();
         BASE.setBorder(PANEL_BORDER);
         FRAME.add(BASE);
 
-        FRAME.setSize(600, 179);
+        FRAME.setSize(707, 179);
         FRAME.setVisible(true);
         FRAME.setResizable(false);
         FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -254,7 +264,7 @@ public class CreateCharacter implements ActionListener, KeyListener {
                 STRENGTH_DISPLAY.setText(preset.getStrength() + "");
                 INTELLIGENCE_DISPLAY.setText(preset.getIntelligence() + "");
                 DEXTERITY_DISPLAY.setText(preset.getDexterity() + "");
-            } else if (button.getParent() == SPECIES_PANEL) {
+            } else if (button.getParent() == RIGHT_SPECIES_PANEL) {
                 SPECIES = button.getLabel();
             }
         } else if (performer instanceof JButton) {
