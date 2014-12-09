@@ -46,7 +46,7 @@ public class GameRunner {
         clientConnectionsThread.start();
         CLIENT = new Client("127.0.0.1");
         CLIENT.connectToServer();
-        startGame(START_MENU.createPlayer());
+        startGame(START_MENU.getPlayer());
         START_MENU.closeMenu();
     }
     
@@ -58,7 +58,7 @@ public class GameRunner {
     } 
     
     public static void connectToServer(String ip){
-        startGame(START_MENU.createPlayer());
+        startGame(START_MENU.getPlayer());
         START_MENU.closeMenu();
         CLIENT = new Client(ip);
     }

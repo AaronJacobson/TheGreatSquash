@@ -1,19 +1,12 @@
 GhoulPoP *Name*
+Satyr *Race*
+Wizard *Class*
 @ *Sprite*
-Human *Race*
-10 *Health*
-1 *Level*
-0 *Experience Points*
-3 *Speed*
-1 *Endurance*
+20 *Health*
+4 *Speed*
+2 *Endurance*
 1 *Strength*
-3 *Intelligence*
-2 *Dexterity*
--Equiped-
-Main:
-Quarterstaff Jared 5
-Armor: 
--Inventory-
-Fluff Bag_of_Holding
-Fluff Portable_Hole
-Fluff Gold_Chalice 3
+6 *Intelligence*
+1 *Dexterity*
+1 *Level
+0 *Experience Points*
