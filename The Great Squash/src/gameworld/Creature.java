@@ -44,9 +44,9 @@ public class Creature implements Displayable, Sendable {
         LOCATION_X = x;
         LOCATION_Y = y;
         BOARD = board;
-        if (!TYPE.equals(TypeHolder.PLAYER)) {
-            BOARD.getClient().getHandler().sendCreature(this);
-        }
+//        if (!TYPE.equals(TypeHolder.PLAYER)) {
+//            BOARD.getClient().getHandler().sendCreature(this);
+//        }
     }
 
     public Creature(String name, char sprite, int health, int level, int speed, int endurance, int strength, int intelligence, int dexterity) {

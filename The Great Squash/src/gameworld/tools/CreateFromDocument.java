@@ -53,7 +53,7 @@ public class CreateFromDocument {
             System.out.println("Sorry bub, but we couldn't make your file (well File Scanner). It just wasn't in the numbers.");
         }
 
-        System.out.println(board);
+//        System.out.println(board);
         return board;
     }
 
@@ -146,11 +146,11 @@ public class CreateFromDocument {
                 Displayable displayable = creatorTable.get(currentChar);
                 if (displayable != null) {
                     if (displayable instanceof Wall) {
-                        Wall wall = ((Wall) (displayable)).clone();
+                        Wall wall = ((Wall) (displayable)).clone(board);
                         //System.out.println(wall);
                         board.setTileObstacle(x, y, wall);
                     } else if (displayable instanceof Door) {
-                        Door door = ((Door) (displayable)).clone();
+                        Door door = ((Door) (displayable)).clone(board);
                         //System.out.println(door);
                         board.setTileObstacle(x, y, door);
                     }

@@ -21,12 +21,13 @@ public class Wall extends Obstacle implements Cloneable {
     }
     //char sprite, String label, boolean passable, Board board, int y, int x,String type
     public Wall() {
-        super('#', "Wall", false);
+        super('#', "Wall", false,TypeHolder.OB_WALL);
     }
 
-    public Wall clone() {
+    public Wall clone(Board board) {
+        BOARD = board;
         Wall clone = new Wall();
-        clone.setLocation(BOARD, LOCATION_Y, LOCATION_X);
+        clone.setLocation(board, LOCATION_Y, LOCATION_X);
         return clone;
     }
 

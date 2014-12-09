@@ -26,7 +26,7 @@ public class Door extends Obstacle implements Interactive, Cloneable {
     }
     
     public Door(boolean open) {
-        super(TypeHolder.ERROR_CHAR,"Door",open);
+        super(TypeHolder.ERROR_CHAR,"Door",open,TypeHolder.OB_DOOR);
         if(open) {
             super.setSprite(OPEN_SPRITE);
         } else {
@@ -45,7 +45,8 @@ public class Door extends Obstacle implements Interactive, Cloneable {
         }
     }
     
-     public Door clone() {
+     public Door clone(Board board) {
+        BOARD = board;
         Door clone = new Door(DOOR_POSITION);
         clone.setLocation(BOARD, LOCATION_Y, LOCATION_X);
         return clone;

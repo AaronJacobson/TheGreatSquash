@@ -4,6 +4,7 @@
  */
 package LAN;
 
+import Main.GameRunner;
 import gameworld.Board;
 import gameworld.tools.CreateFromDocument;
 import gameworld.Player;
@@ -46,7 +47,8 @@ public class Server {
         CONNECTIONS = connections;
         //This is where the board would be read from a txt file
         THE_BOARD = CreateFromDocument.createFromMaps(mapName);
-        System.out.println(THE_BOARD);
+//        GameRunner.setBoard(THE_BOARD);
+//        System.out.println(THE_BOARD);
         IPS = new ArrayList<String>();
         INITS = new boolean[connections];
         for (int currentInit = 0; currentInit < CONNECTIONS; currentInit++) {

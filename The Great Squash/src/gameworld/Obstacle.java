@@ -33,11 +33,16 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
         setLocation(BOARD,LOCATION_X,LOCATION_Y);
     }
      
-     public Obstacle(char sprite, String label, boolean passable) {
+     public Obstacle(char sprite, String label, boolean passable,String type) {
         LABEL = ObjectCounter.getObstacleCount(label);
+        TYPE = type;
         PASSABLE = passable;
         SPRITE = sprite;
     }
+     
+     public void setBoard(Board board){
+         BOARD = board;
+     }
      
      public String getLabel() {
          return LABEL;

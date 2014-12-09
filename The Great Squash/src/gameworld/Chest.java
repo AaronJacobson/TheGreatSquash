@@ -17,7 +17,7 @@ public class Chest extends Obstacle implements Interactive,HasInventory {
     }
     
     public Chest() {
-        super((char)(199), "Chest", false);
+        super((char)(199), "Chest", false,TypeHolder.OB_CHEST);
         INVENTORY = new Inventory(10,10,10,10);
         // Ç = 199
     }

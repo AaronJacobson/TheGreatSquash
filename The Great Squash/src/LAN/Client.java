@@ -49,7 +49,7 @@ public class Client {
                 System.out.println("Client: Connection successful");
                 STREAM_IN = new DataInputStream(SOCKET.getInputStream());
                 STREAM_OUT = new DataOutputStream(SOCKET.getOutputStream());
-                DATA_HANDLER = new ServerDataHandler(STREAM_IN, STREAM_OUT, this);
+                DATA_HANDLER = new ServerDataHandler(STREAM_IN, STREAM_OUT);
                 Thread serverDataThread = new Thread(DATA_HANDLER);
                 serverDataThread.start();
                 CHAT_SOCKET = new Socket(ip, portNumber++);
