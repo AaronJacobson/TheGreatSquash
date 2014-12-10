@@ -69,20 +69,20 @@ public class Creature implements Displayable, Sendable {
     }
 
     public void moveSelf(int y, int x) {
-        System.out.println("Start");
-        System.out.println(y + "|" + x);
+//        System.out.println("Start");
+//        System.out.println(y + "|" + x);
         try {
             try {
-                System.out.print("Test Obstacle: ");
+//                System.out.print("Test Obstacle: ");
                 Obstacle moveTo = BOARD.getTileObstacle(y, x);
                 if (moveTo.getPassable()) {
-                    System.out.print("Passable\n");
+//                    System.out.print("Creature: Passable\n");
                     move(y,x);
                 } else {
-                    System.out.print("Inpassable\n");
+//                    System.out.print("Creature: Inpassable\n");
                 }
             } catch (NullPointerException e) {
-                System.out.print("No Obstacle\n");
+//                System.out.print("No Obstacle\n");
                 move(y,x);
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -92,12 +92,12 @@ public class Creature implements Displayable, Sendable {
     }
 
     private void move(int y, int x) {
-        System.out.println("move");
+//        System.out.println("move");
         BOARD.removeCreature(LOCATION_X, LOCATION_Y);
         
         LOCATION_Y = y;
         LOCATION_X = x;
-        System.out.println(LOCATION_X + "|" + LOCATION_Y);
+//        System.out.println(LOCATION_X + "|" + LOCATION_Y);
         BOARD.getTile(LOCATION_X, LOCATION_Y).setCreature(this);
     }
 

@@ -27,7 +27,7 @@ public class Wall extends Obstacle implements Cloneable {
     public Wall clone(Board board) {
         BOARD = board;
         Wall clone = new Wall();
-        clone.setLocation(board, LOCATION_Y, LOCATION_X);
+//        clone.setLocation(board, LOCATION_Y, LOCATION_X);
         return clone;
     }
 

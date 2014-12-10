@@ -87,6 +87,8 @@ public class Board {
 
     public void setTileObstacle(int y, int x, Obstacle obstacle) {
         getTile(y, x).setObstacle(obstacle);
+        obstacle.setX(x);
+        obstacle.setY(y);
         OBSTACLES.add(obstacle);
     }
 

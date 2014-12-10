@@ -30,7 +30,7 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
         LOCATION_X = x;
         LOCATION_Y = y;
         BOARD = board;
-        setLocation(BOARD,LOCATION_X,LOCATION_Y);
+        setLocation(BOARD,LOCATION_Y,LOCATION_X);
     }
      
      public Obstacle(char sprite, String label, boolean passable,String type) {
@@ -76,6 +76,14 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
 
     public int getY() {
         return LOCATION_Y;
+    }
+    
+    public void setX(int x){
+        LOCATION_X = x;
+    }
+    
+    public void setY(int y){
+        LOCATION_Y = y;
     }
     
     public void setLocation(Board board, int y, int x) {

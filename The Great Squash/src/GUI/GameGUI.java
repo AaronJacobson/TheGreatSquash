@@ -11,6 +11,7 @@ import gameworld.Inventory;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -42,11 +43,14 @@ public class GameGUI {
     private JTextField CHAT_INPUT;
     private JPanel CHAT_PANEL;
     private JPanel BASE = new JPanel();
+    private static ArrayList<Creature> CONTROLLED_CREATURES;
+    private static int CURRENT_CREATURE;
     
-    private Creature CONTAINED_CREATURE;
     private Board BOARD;
 
     public GameGUI() {
+        CONTROLLED_CREATURES = new ArrayList<Creature>();
+        CURRENT_CREATURE = 0;
         MOVEMENT_LISTENER = new MovementListener();
         formatInventory();
         formatButtons();
@@ -56,9 +60,8 @@ public class GameGUI {
         formatFrame();
     }
     
-    public GameGUI(Creature creature) {
-        this();
-        setCreature(creature);
+    public static ArrayList<Creature> getControlledCreatures(){
+        return CONTROLLED_CREATURES;
     }
 
     private void formatInventory() {
@@ -78,7 +81,7 @@ public class GameGUI {
     }
     
     public void updateInventoryDisplay() {
-        Inventory creatureInventory = CONTAINED_CREATURE.getInventory();
+        Inventory creatureInventory = CONTROLLED_CREATURES.get(CURRENT_CREATURE).getInventory();
         INVENTORY_DISPLAY.setText(creatureInventory.toString());
     }
 
@@ -150,12 +153,12 @@ public class GameGUI {
         GameGUI.centerWindow(FRAME);
     }
     
-    public void setCreature(Creature creature) {
-        CONTAINED_CREATURE = creature;
-        CHAT_LISTENER.setCreature(creature);
-        INVENTORY_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER,"Inventory - " + CONTAINED_CREATURE.getName()));
+    public void setCreature(int theCreature) {
+        CURRENT_CREATURE = theCreature;
+        CHAT_LISTENER.setCreature(CONTROLLED_CREATURES.get(CURRENT_CREATURE));
+        INVENTORY_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER,"Inventory - " + CONTROLLED_CREATURES.get(CURRENT_CREATURE).getName()));
         updateInventoryDisplay();
-        MOVEMENT_LISTENER.setCreature(creature);
+        MOVEMENT_LISTENER.setCreature(CONTROLLED_CREATURES.get(CURRENT_CREATURE));
     }
     
     public static void centerWindow(JFrame frame) {
@@ -166,7 +169,7 @@ public class GameGUI {
     }
     
     public Creature getCreature() {
-        return CONTAINED_CREATURE;
+        return CONTROLLED_CREATURES.get(CURRENT_CREATURE);
     }
     
     public void setBoard(Board board) {

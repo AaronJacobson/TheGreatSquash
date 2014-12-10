@@ -4,10 +4,8 @@
  */
 package LAN;
 
-import Main.GameRunner;
 import gameworld.Board;
 import gameworld.tools.CreateFromDocument;
-import gameworld.Player;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -17,7 +15,6 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -45,15 +42,13 @@ public class Server {
 
     public Server(int connections,String mapName) {
         CONNECTIONS = connections;
-        //This is where the board would be read from a txt file
         THE_BOARD = CreateFromDocument.createFromMaps(mapName);
-//        GameRunner.setBoard(THE_BOARD);
-//        System.out.println(THE_BOARD);
         IPS = new ArrayList<String>();
         INITS = new boolean[connections];
         for (int currentInit = 0; currentInit < CONNECTIONS; currentInit++) {
             INITS[currentInit] = false;
         }
+        System.out.println(THE_BOARD);
         SERVER_CLIENT_CONNECTIONS = new ServerClientConnection[CONNECTIONS];
         SERVER_CHAT_CONNECTIONS = new ServerClientChat[CONNECTIONS];
     }
