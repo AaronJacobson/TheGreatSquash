@@ -1,5 +1,6 @@
 package GUI;
 
+import Main.tests.PlayerSaveTest;
 import gameworld.Player;
 import gameworld.tools.CreateFromDocument;
 import java.awt.Color;
@@ -290,8 +291,13 @@ public class CreateCharacter implements ActionListener, KeyListener {
         int intelligence = Integer.parseInt(INTELLIGENCE_DISPLAY.getText()) + INTELLIGENCE_SPECIES_BONUS;
         int dexterity = Integer.parseInt(DEXTERITY_DISPLAY.getText()) + DEXTERITY_SPECIES_BONUS;
         player.initateStats(speed, endurance, strength, intelligence, dexterity);
-        System.out.println(player);
+        player.setLevel(1);
+        player.setXP(0);
         return player;
+    }
+    
+    public void closeMenu() {
+        FRAME.dispose();
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -322,7 +328,7 @@ public class CreateCharacter implements ActionListener, KeyListener {
                 updateBonuses();
             }
         } else if (performer instanceof JButton) {
-            System.out.println(SPECIES);
+//            System.out.println(SPECIES);
             try {
                 int speed = Integer.parseInt(SPEED_DISPLAY.getText());
                 int endurance = Integer.parseInt(ENDURANCE_DISPLAY.getText());
@@ -334,14 +340,16 @@ public class CreateCharacter implements ActionListener, KeyListener {
                     if (!CLASS_DISPLAY.getText().equals("")) {
                         if (SPECIES != null) {
                             if (total == 12) {
-                                makePlayer();
+                                PlayerSaveTest.runTest(makePlayer());
+//                                makePlayer();
                             } else if (total > 12) {
                                 JOptionPane.showMessageDialog(FRAME, "You are only allowed to give your character 12 points.\nYou have " + (total - 12) + " points over the maximum", "Above Maximum Stats", JOptionPane.WARNING_MESSAGE);
                             } else if (total < 12) {
                                 Object[] options = {"Create Character", "Redistribute Stats"};
                                 int answer = JOptionPane.showOptionDialog(FRAME, "You have extra stat points to distribute", "Below Maximum Stats", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
                                 if (answer == 0) {
-                                    makePlayer();
+                                    PlayerSaveTest.runTest(makePlayer());
+//                                    makePlayer();
                                 }
                             }
                         } else {

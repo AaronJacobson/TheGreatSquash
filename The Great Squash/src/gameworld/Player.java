@@ -8,7 +8,11 @@ import LAN.TypeHolder;
 import gameworld.tools.CreateFromDocument;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -73,18 +77,45 @@ public class Player extends Creature {
 //        }
     }
     
+    public void saveToFile() {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter("src/gameworld/players/" + NAME + ".player", "UTF-8");
+            writer.println(NAME + " *Name*");
+            writer.println(SPECIES + " *Race*");
+            writer.println(CLASS + " *Class*");
+            writer.println(SPRITE + " *Sprite*");
+            writer.println(MAX_HEALTH + " *Health*");
+            writer.println(SPEED + " *Speed*");
+            writer.println(ENDURANCE + " *Endurance*");
+            writer.println(STRENGTH + " *Strength*");
+            writer.println(INTELLIGENCE + " *Intelligence*");
+            writer.println(DEXTERITY + " *Dexterity*");
+            writer.println(LEVEL + " *Level");
+            writer.println(XP + " *Experience Points*");
+            writer.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Sorry bub, file wasn't there... even though I'm supposed to be making it");
+        } catch (UnsupportedEncodingException ex) {
+            System.out.println("UnsupportedEncodingException.. whatever the hell that means");
+        } finally {
+            writer.close();
+        }
+    }
+    
     private void loadStats(Scanner playerScanner){
         super.setName(CreateFromDocument.getLineElement(playerScanner.nextLine()));
-        super.setSprite(CreateFromDocument.getLineElement(playerScanner.nextLine()).charAt(0));
         this.SPECIES = CreateFromDocument.getLineElement(playerScanner.nextLine());
+        this.CLASS = CreateFromDocument.getLineElement(playerScanner.nextLine());
+        super.setSprite(CreateFromDocument.getLineElement(playerScanner.nextLine()).charAt(0));
         super.setMaxHealth(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
-        super.setLevel(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
-        super.setXP(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
         super.setSpeed(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
         super.setEndurance(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
         super.setStrength(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
         super.setIntelligence(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
         super.setDexterity(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
+        super.setLevel(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
+        super.setXP(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
     }
     
     public void initateStats(int speed, int endurance, int strength, int intelligence, int dexterity) {

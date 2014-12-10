@@ -1,19 +1,12 @@
 Guardian *Name*
-G *Sprite*
-Human *Race*
-15 *Health*
-1 *Level*
-0 *Experience Points*
+Orc *Race*
+Fighter *Class*
+Æ *Sprite*
+35 *Health*
 2 *Speed*
-2 *Endurance*
-3 *Strength*
-2 *Intelligence*
+5 *Endurance*
+5 *Strength*
+1 *Intelligence*
 1 *Dexterity*
--Equiped-
-Main:
-Longsword Billy 5
-Armor: Iron_Armor
--Inventory-
-Fluff Bag_of_Holding
-Fluff Portable_Hole
-Fluff Gold_Chalice 3
+1 *Level
+0 *Experience Points*

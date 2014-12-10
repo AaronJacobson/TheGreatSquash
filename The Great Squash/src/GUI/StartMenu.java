@@ -5,6 +5,8 @@ import gameworld.Player;
 import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
@@ -19,7 +21,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author ros_dmlamarca
  */
-public class StartMenu {
+public class StartMenu implements KeyListener {
 
     private JFrame FRAME = new JFrame("The Great Squash");
     private Border PANEL_BORDER = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
@@ -34,6 +36,7 @@ public class StartMenu {
     private JPanel SERVER_PANEL;
     private JPanel CLIENT_PANEL;
     private JPanel PLAYER_PANEL;
+    private Player PLAYER;
     private AL ACTION_LISTENER;
 
     public StartMenu() {
@@ -109,19 +112,41 @@ public class StartMenu {
     public void closeMenu() {
         FRAME.dispose();
     }
-
-    public Player createPlayer() {
+    
+    private void createPlayer() {
         String fileName = PLAYER_NAME.getText();
         if (!fileName.contains(".player") && !fileName.contains("\\")) {
             fileName = "src\\gameworld\\players\\" + fileName + ".player";
         }
-        Player player = new Player(new File(fileName));
-        return player;
+        
+        File playerFile = new File(fileName);
+        
+        if(playerFile.getTotalSpace() != 0) {
+            PLAYER = new Player(playerFile);
+        } else {
+            PLAYER = null;
+        }
     }
 
-    public class AL implements ActionListener {
+    public Player getPlayer() {
+        return PLAYER;
+    }
 
-        @Override
+    @Override
+    public void keyTyped(KeyEvent ke) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+        createPlayer();
+    }
+
+    private class AL implements ActionListener {
+
         public void actionPerformed(ActionEvent ae) {
             String action = ae.getActionCommand();
             if (action.equals(CLIENT_CONNECT.getActionCommand())) {
