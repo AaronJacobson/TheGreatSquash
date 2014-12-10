@@ -63,6 +63,10 @@ public class GameGUI {
     public static ArrayList<Creature> getControlledCreatures(){
         return CONTROLLED_CREATURES;
     }
+    
+    public void addCreature(Creature creature){
+        CONTROLLED_CREATURES.add(creature);
+    }
 
     private void formatInventory() {
         INVENTORY_DISPLAY = new JTextArea(27,26);

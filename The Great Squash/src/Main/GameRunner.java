@@ -54,7 +54,8 @@ public class GameRunner {
         GAME_BOARD = CLIENT.getBoard();
         GAME_GUI = new GameGUI();
         GAME_GUI.setBoard(GAME_BOARD);
-        GAME_GUI.setCreature(player);
+        GAME_GUI.addCreature(player);
+        GAME_GUI.setCreature(0);
     } 
     
     public static void connectToServer(String ip){
