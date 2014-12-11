@@ -1,6 +1,6 @@
 package GUI;
 
-import Main.tests.PlayerSaveTest;
+//import Main.tests.PlayerSaveTest;
 import gameworld.Player;
 import gameworld.tools.CreateFromDocument;
 import java.awt.Color;
@@ -73,8 +73,17 @@ public class CreateCharacter implements ActionListener, KeyListener {
     private JTextField SPRITE_DISPLAY;
     private JPanel CREATE_PANEL;
     private JButton CREATE_BUTTON;
+    private StartMenu START_MENU;
 
     public CreateCharacter() {
+        formatClassPresets();
+        formatAllStats();
+        formatSpecies();
+        formatFrame();
+    }
+
+    public CreateCharacter(StartMenu startMenu) {
+        START_MENU = startMenu;
         formatClassPresets();
         formatAllStats();
         formatSpecies();
@@ -127,7 +136,7 @@ public class CreateCharacter implements ActionListener, KeyListener {
         } catch (FileNotFoundException ex) {
         }
     }
-    
+
     private void updateBonuses() {
         SPEED_SPECIES_DISPLAY.setText("+" + SPEED_SPECIES_BONUS);
         ENDURANCE_SPECIES_DISPLAY.setText("+" + ENDURANCE_SPECIES_BONUS);
@@ -136,7 +145,7 @@ public class CreateCharacter implements ActionListener, KeyListener {
         DEXTERITY_SPECIES_DISPLAY.setText("+" + DEXTERITY_SPECIES_BONUS);
         try {
             HEALTH_DISPLAY.setText((10 + ((Integer.parseInt(ENDURANCE_DISPLAY.getText()) + ENDURANCE_SPECIES_BONUS) * 5)) + "");
-        } catch(NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             HEALTH_DISPLAY.setText((ENDURANCE_SPECIES_BONUS * 5) + "");
         }
     }
@@ -293,9 +302,10 @@ public class CreateCharacter implements ActionListener, KeyListener {
         player.initateStats(speed, endurance, strength, intelligence, dexterity);
         player.setLevel(1);
         player.setXP(0);
+        player.saveToFile();
         return player;
     }
-    
+
     public void closeMenu() {
         FRAME.dispose();
     }
@@ -340,16 +350,16 @@ public class CreateCharacter implements ActionListener, KeyListener {
                     if (!CLASS_DISPLAY.getText().equals("")) {
                         if (SPECIES != null) {
                             if (total == 12) {
-                                PlayerSaveTest.runTest(makePlayer());
-//                                makePlayer();
+                                START_MENU.setPlayer(makePlayer());
+                                closeMenu();
                             } else if (total > 12) {
                                 JOptionPane.showMessageDialog(FRAME, "You are only allowed to give your character 12 points.\nYou have " + (total - 12) + " points over the maximum", "Above Maximum Stats", JOptionPane.WARNING_MESSAGE);
                             } else if (total < 12) {
                                 Object[] options = {"Create Character", "Redistribute Stats"};
                                 int answer = JOptionPane.showOptionDialog(FRAME, "You have extra stat points to distribute", "Below Maximum Stats", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
                                 if (answer == 0) {
-                                    PlayerSaveTest.runTest(makePlayer());
-//                                    makePlayer();
+                                    START_MENU.setPlayer(makePlayer());
+                                    closeMenu();
                                 }
                             }
                         } else {

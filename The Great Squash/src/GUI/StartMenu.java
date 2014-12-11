@@ -3,12 +3,15 @@ package GUI;
 import Main.GameRunner;
 import gameworld.Player;
 import java.awt.Button;
+import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,7 +34,8 @@ public class StartMenu implements KeyListener {
     private JTextField SERVER_MAP;
     private Button SERVER_CREATE;
     private JTextField PLAYER_NAME;
-    private Button PLAYER_BROWSE;
+    private JButton PLAYER_BROWSE;
+    private JButton PLAYER_CREATE;
     private JPanel BASE;
     private JPanel SERVER_PANEL;
     private JPanel CLIENT_PANEL;
@@ -51,7 +55,7 @@ public class StartMenu implements KeyListener {
     }
 
     private void formatClient() {
-        CLIENT_IP = new JTextField(10);
+        CLIENT_IP = new JTextField(11);
         CLIENT_IP.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER, "Server IP"));
 
         CLIENT_CONNECT = new Button("Connect to Server");
@@ -59,13 +63,13 @@ public class StartMenu implements KeyListener {
 
         CLIENT_PANEL = new JPanel();
         CLIENT_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, "Client"));
-        CLIENT_PANEL.setBounds(1, 1, 146, 102);
+        CLIENT_PANEL.setBounds(1, 1, 176, 102);
         CLIENT_PANEL.add(CLIENT_IP);
         CLIENT_PANEL.add(CLIENT_CONNECT);
     }
 
     private void formatServer() {
-        SERVER_MAP = new JTextField(10);
+        SERVER_MAP = new JTextField(11);
         SERVER_MAP.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER, "Map Name"));
 
         SERVER_CREATE = new Button("Create Server");
@@ -73,7 +77,7 @@ public class StartMenu implements KeyListener {
 
         SERVER_PANEL = new JPanel();
         SERVER_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, "Server"));
-        SERVER_PANEL.setBounds(147, 1, 146, 102);
+        SERVER_PANEL.setBounds(177, 1, 176, 102);
         SERVER_PANEL.add(SERVER_MAP);
         SERVER_PANEL.add(SERVER_CREATE);
     }
@@ -82,14 +86,21 @@ public class StartMenu implements KeyListener {
         PLAYER_NAME = new JTextField(19);
         PLAYER_NAME.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER, "Player File"));
 
-        PLAYER_BROWSE = new Button("Browse");
+        PLAYER_BROWSE = new JButton("Browse");
+        PLAYER_BROWSE.setPreferredSize(new Dimension(50, 30));
+        PLAYER_BROWSE.setMargin(new Insets(0, 0, 0, 0));
         PLAYER_BROWSE.addActionListener(ACTION_LISTENER);
+        
+        PLAYER_CREATE = new JButton("Make New");
+        PLAYER_CREATE.setPreferredSize(new Dimension(65, 30));
+        PLAYER_CREATE.setMargin(new Insets(0, 0, 0, 0));
+        PLAYER_CREATE.addActionListener(ACTION_LISTENER);
 
         PLAYER_PANEL = new JPanel();
-        PLAYER_PANEL.setBounds(1, 101, 292, 50);
-        //PLAYER_PANEL.setBackground(Color.RED);
+        PLAYER_PANEL.setBounds(1, 101, 352, 50);
         PLAYER_PANEL.add(PLAYER_NAME);
         PLAYER_PANEL.add(PLAYER_BROWSE);
+        PLAYER_PANEL.add(PLAYER_CREATE);
     }
 
     private void formatFrame() {
@@ -100,12 +111,13 @@ public class StartMenu implements KeyListener {
         BASE = new JPanel();
         FRAME.add(BASE);
 
-        FRAME.setSize(300, 180);
+        FRAME.setSize(360, 180);
         FRAME.setVisible(true);
         FRAME.setResizable(false);
         FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         PLAYER_NAME.requestFocusInWindow();
+        PLAYER_NAME.addKeyListener(this);
         GameGUI.centerWindow(FRAME);
     }
 
@@ -130,6 +142,15 @@ public class StartMenu implements KeyListener {
 
     public Player getPlayer() {
         return PLAYER;
+    }
+    
+    public void setPlayer(Player player) {
+        PLAYER = player;
+        PLAYER_NAME.setText(player.getName());
+    }
+    
+    public StartMenu getSelf() {
+        return this;
     }
 
     @Override
@@ -161,6 +182,9 @@ public class StartMenu implements KeyListener {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     PLAYER_NAME.setText(chooser.getSelectedFile().getAbsoluteFile() + "");
                 }
+            } else if(action.equals(PLAYER_CREATE.getActionCommand())) {
+//                System.out.println("poop");
+                CreateCharacter createCharacter = new CreateCharacter(getSelf());
             }
         }
     }
