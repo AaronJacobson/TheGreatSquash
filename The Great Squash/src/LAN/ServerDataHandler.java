@@ -94,7 +94,6 @@ public class ServerDataHandler implements Runnable {
                 double health = messageScanner.nextDouble();
                 char sprite = messageScanner.next().charAt(0);
                 String type = messageScanner.next();
-                System.out.println(GameRunner.getBoard());
                 if (type.equals(TypeHolder.OB_CHEST)) {
                     Chest chest = new Chest(GameRunner.getBoard(), newY, newX);
                     GameRunner.getBoard().addObstacle(chest);
@@ -107,7 +106,6 @@ public class ServerDataHandler implements Runnable {
                 }
             }
             WAIT_FOR_OBSTACLES = false;
-            System.out.println(GameRunner.getBoard());
             GameRunner.updateBoard();
         } else if (theCommand.equals(CommandHolder.THE_FLOORS)) {
         } else if (theCommand.equals(CommandHolder.CREATE_CREATURE)) {
@@ -149,8 +147,8 @@ public class ServerDataHandler implements Runnable {
         }
     }
 
-    public void sendMove(int newY, int newX, int oldY, int oldX, Creature theCreature) {
-        String toSend = CommandHolder.MOVE_CREATURE + " " + newY + " " + newX + " " + theCreature.getName() + " " + oldY + " " + oldX;
+    public void sendMove(int newY, int newX,Creature theCreature) {
+        String toSend = CommandHolder.ASK_TO_MOVE + " " + newY + " " + newX + " " + theCreature.getName();
         sendCommand(toSend);
     }
 

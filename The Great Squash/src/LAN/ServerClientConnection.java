@@ -43,14 +43,17 @@ class ServerClientConnection implements Runnable {
     public void interpretMessage(String theMessage) {
         Scanner messageScanner = new Scanner(theMessage);
         String theCommand = messageScanner.next();
-        if (theCommand.equals(CommandHolder.MOVE_CREATURE)) {
+        if (theCommand.equals(CommandHolder.ASK_TO_MOVE)) {
             int newY = messageScanner.nextInt();
             int newX = messageScanner.nextInt();
-            String name = messageScanner.next();
-            int oldY = messageScanner.nextInt();
-            int oldX = messageScanner.nextInt();
-            THE_SERVER.getBoard().removeCreature(oldX, oldX);
-            THE_SERVER.getBoard().addCreature(THE_SERVER.getBoard().getCreature(name));
+            String creatureName = messageScanner.next();
+            if(THE_SERVER.getBoard().hasCreature(creatureName)){
+                sendCommand(CommandHolder.MOVE_CREATURE + " " + THE_SERVER.getBoard().getCreature(creatureName).getY() + " " + THE_SERVER.getBoard().getCreature(creatureName).getX() + " " + THE_SERVER.getBoard().getCreature(creatureName).getName() + " " + newY + " " + newX);
+                THE_SERVER.getBoard().moveCreature(newY, newX, THE_SERVER.getBoard().getCreature(creatureName));
+                System.out.println("ServerClientConnection: I have successfully moved " + creatureName);
+            }else{
+                System.out.println("ServerClientConnection: Error, I have been given a creature whom I don't have. Why do you hate me so?");
+            }
         } else if (theCommand.equals(CommandHolder.INITIALIZE_CREATURES)) {
             sendCreatures();
         } else if (theCommand.equals(CommandHolder.INITIALIZE_OBSTACLES)) {

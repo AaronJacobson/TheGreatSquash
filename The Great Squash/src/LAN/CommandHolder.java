@@ -10,6 +10,7 @@ package LAN;
  */
 public class CommandHolder {
     public static final String MOVE_CREATURE = "MOVE_THIS_CREATURE";
+    public static final String ASK_TO_MOVE = "CAN_I_MOVE_THIS_CREATURE_HERE?";
     public static final String OBSTACLE = "THIS_IS_AN_OBSTACLE";
     public static final String WEAPON = "THIS_IS_A_WEAPON";
     public static final String ARMOR = "THIS_IS_A_PIECE_OF_ARMOR";

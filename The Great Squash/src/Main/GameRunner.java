@@ -1,5 +1,6 @@
 package Main;
 
+import GUI.CreateCharacter;
 import GUI.GameGUI;
 import GUI.StartMenu;
 import LAN.Client;
@@ -17,8 +18,8 @@ public class GameRunner {
     
     public static void main(String[] args) {
         ObjectCounter.clearCounters();
-        START_MENU = new StartMenu();
-//        CreateCharacter gui = new CreateCharacter();
+//        START_MENU = new StartMenu();
+        CreateCharacter gui = new CreateCharacter();
     }
     
     public static void setBoard(Board newBoard){
@@ -54,8 +55,7 @@ public class GameRunner {
         GAME_BOARD = CLIENT.getBoard();
         GAME_GUI = new GameGUI();
         GAME_GUI.setBoard(GAME_BOARD);
-        GAME_GUI.addCreature(player);
-        GAME_GUI.setCreature(0);
+        GAME_GUI.setCreature(player);
     } 
     
     public static void connectToServer(String ip){

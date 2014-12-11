@@ -33,7 +33,7 @@ public class CreateFromDocument {
     }
     
     public static Board createBoard(String filePath) {
-        System.out.println(filePath);
+//        System.out.println(filePath);
         Board board = null;
         try {
             File textFile = new File(filePath);

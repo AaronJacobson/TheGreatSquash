@@ -34,24 +34,16 @@ public class MovementListener implements KeyListener {
         int keyCode = key.getExtendedKeyCode();
         if(keyCode == 37) {
             //move left
-            System.out.println("left| " + CREATURE.getY() + "," + CREATURE.getX());
             CREATURE.moveSelf(CREATURE.getY(),CREATURE.getX() - 1);
-//            GUITestMain.updateGUI();
         } else if(keyCode == 38) {
             //move up
-            System.out.println("up| "+ CREATURE.getY() + "," + CREATURE.getX());
             CREATURE.moveSelf(CREATURE.getY() - 1,CREATURE.getX());
-//            GUITestMain.updateGUI();
         } else if(keyCode == 39) {
             //move right
-            System.out.println("right| " + CREATURE.getY() + "," + CREATURE.getX());
             CREATURE.moveSelf(CREATURE.getY(),CREATURE.getX() + 1);
-//            GUITestMain.updateGUI();
         } else if(keyCode == 40) {
             //move down
-            System.out.println("down |" + CREATURE.getY() + "," + CREATURE.getX());
             CREATURE.moveSelf(CREATURE.getY() + 1,CREATURE.getX());
-//            GUITestMain.updateGUI();
         }  
         
         if(keyCode == 32) {

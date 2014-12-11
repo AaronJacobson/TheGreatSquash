@@ -45,7 +45,6 @@ public class GameGUI {
     private JPanel BASE = new JPanel();
     private static ArrayList<Creature> CONTROLLED_CREATURES;
     private static int CURRENT_CREATURE;
-    
     private Board BOARD;
 
     public GameGUI() {
@@ -59,31 +58,48 @@ public class GameGUI {
 
         formatFrame();
     }
-    
-    public static ArrayList<Creature> getControlledCreatures(){
+
+    public static ArrayList<Creature> getControlledCreatures() {
         return CONTROLLED_CREATURES;
     }
-    
-    public void addCreature(Creature creature){
+
+    public void addCreature(Creature creature) {
         CONTROLLED_CREATURES.add(creature);
     }
 
+    public void setCreature(int creatureNumber) {
+        CURRENT_CREATURE = creatureNumber;
+        CHAT_LISTENER.setCreature(CONTROLLED_CREATURES.get(CURRENT_CREATURE));
+        INVENTORY_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, "Inventory - " + CONTROLLED_CREATURES.get(CURRENT_CREATURE).getName()));
+        updateInventoryDisplay();
+        MOVEMENT_LISTENER.setCreature(CONTROLLED_CREATURES.get(CURRENT_CREATURE));
+    }
+
+    public void setCreature(Creature creature){
+        CONTROLLED_CREATURES.add(creature);
+        CURRENT_CREATURE = CONTROLLED_CREATURES.size() - 1;
+        CHAT_LISTENER.setCreature(CONTROLLED_CREATURES.get(CURRENT_CREATURE));
+        INVENTORY_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, "Inventory - " + CONTROLLED_CREATURES.get(CURRENT_CREATURE).getName()));
+        updateInventoryDisplay();
+        MOVEMENT_LISTENER.setCreature(CONTROLLED_CREATURES.get(CURRENT_CREATURE));
+    }
+
     private void formatInventory() {
-        INVENTORY_DISPLAY = new JTextArea(27,26);
+        INVENTORY_DISPLAY = new JTextArea(27, 26);
         INVENTORY_DISPLAY.setFont(DISPLAY_FONT);
-        INVENTORY_DISPLAY.setPreferredSize(new Dimension(27,26));
+        INVENTORY_DISPLAY.setPreferredSize(new Dimension(27, 26));
         INVENTORY_DISPLAY.setLineWrap(true);
         INVENTORY_DISPLAY.setBorder(DISPLAY_BORDER);
         INVENTORY_DISPLAY.setEditable(false);
         INVENTORY_DISPLAY.addKeyListener(MOVEMENT_LISTENER);
-        
+
         INVENTORY_PANEL = new JPanel();
         INVENTORY_PANEL.setBounds(2, 2, 200, 500);
-        INVENTORY_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER,"Inventory"));
+        INVENTORY_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, "Inventory"));
         INVENTORY_PANEL.add(INVENTORY_DISPLAY);
         INVENTORY_PANEL.addKeyListener(MOVEMENT_LISTENER);
     }
-    
+
     public void updateInventoryDisplay() {
         Inventory creatureInventory = CONTROLLED_CREATURES.get(CURRENT_CREATURE).getInventory();
         INVENTORY_DISPLAY.setText(creatureInventory.toString());
@@ -98,14 +114,14 @@ public class GameGUI {
     }
 
     private void formatBoard() {
-        BOARD_DISPLAY = new JTextArea(25,103);
+        BOARD_DISPLAY = new JTextArea(25, 103);
         BOARD_DISPLAY.setFont(DISPLAY_FONT);
-        BOARD_DISPLAY.setPreferredSize(new Dimension(20,20));
+        BOARD_DISPLAY.setPreferredSize(new Dimension(20, 20));
         BOARD_DISPLAY.setLineWrap(true);
         BOARD_DISPLAY.setBorder(DISPLAY_BORDER);
         BOARD_DISPLAY.setEditable(false);
         BOARD_DISPLAY.addKeyListener(MOVEMENT_LISTENER);
-        
+
         BOARD_PANEL = new JPanel();
         //BOARD_PANEL.setBackground(Color.RED);
         BOARD_PANEL.setBounds(204, 54, 738, 448);
@@ -115,26 +131,26 @@ public class GameGUI {
     }
 
     private void formatChat() {
-        CHAT_DISPLAY = new JTextArea(7,130);
+        CHAT_DISPLAY = new JTextArea(7, 130);
         CHAT_DISPLAY.setFont(DISPLAY_FONT);
         CHAT_DISPLAY.setEditable(false);
         CHAT_DISPLAY.setLineWrap(true);
         CHAT_DISPLAY.setBorder(DISPLAY_BORDER);
-        
+
         CHAT_INPUT = new JTextField(83);
         CHAT_INPUT.setEditable(true);
         CHAT_LISTENER = new MessengerEnterKeyListener(this);
         CHAT_INPUT.addKeyListener(CHAT_LISTENER);
-        
+
         CHAT_PANEL = new JPanel();
-        CHAT_PANEL.setBounds(2, 504, 940, 170);   
+        CHAT_PANEL.setBounds(2, 504, 940, 170);
         CHAT_PANEL.setBorder(PANEL_BORDER);
-        
+
         JScrollPane chatScroll = new JScrollPane(CHAT_DISPLAY);
         chatScroll.setBorder(PANEL_BORDER);
         chatScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        chatScroll.setPreferredSize(new Dimension(920,130));  
-                
+        chatScroll.setPreferredSize(new Dimension(920, 130));
+
         CHAT_PANEL.add(chatScroll);
         CHAT_PANEL.add(CHAT_INPUT);
     }
@@ -145,7 +161,7 @@ public class GameGUI {
         FRAME.add(BOARD_PANEL);
         FRAME.add(CHAT_PANEL);
         FRAME.addKeyListener(MOVEMENT_LISTENER);
-        
+
         //BASE.setBorder(BASE_BORDER);
         FRAME.add(BASE);
 
@@ -153,45 +169,37 @@ public class GameGUI {
         FRAME.setVisible(true);
         FRAME.setResizable(false);
         FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         GameGUI.centerWindow(FRAME);
     }
-    
-    public void setCreature(int theCreature) {
-        CURRENT_CREATURE = theCreature;
-        CHAT_LISTENER.setCreature(CONTROLLED_CREATURES.get(CURRENT_CREATURE));
-        INVENTORY_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER,"Inventory - " + CONTROLLED_CREATURES.get(CURRENT_CREATURE).getName()));
-        updateInventoryDisplay();
-        MOVEMENT_LISTENER.setCreature(CONTROLLED_CREATURES.get(CURRENT_CREATURE));
-    }
-    
+
     public static void centerWindow(JFrame frame) {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);
     }
-    
+
     public Creature getCreature() {
         return CONTROLLED_CREATURES.get(CURRENT_CREATURE);
     }
-    
+
     public void setBoard(Board board) {
         BOARD = board;
     }
-    
+
     public Board getBoard() {
         return BOARD;
     }
-    
+
     public void updateBoard(Board board) {
         BOARD_DISPLAY.setText(board.toString());
     }
-    
+
     public JTextArea getChatDisplay() {
         return CHAT_DISPLAY;
     }
-    
+
     public JTextField getChatInput() {
         return CHAT_INPUT;
     }

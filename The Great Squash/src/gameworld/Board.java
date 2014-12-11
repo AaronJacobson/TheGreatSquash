@@ -81,6 +81,13 @@ public class Board {
         OBSTACLES.add(obstacle);
     }
     
+    public void moveCreature(int y,int x,Creature creature){
+        removeCreature(creature.getY(),creature.getX());
+        creature.setY(y);
+        creature.setX(x);
+        setTileCreature(creature,y,x);
+    }
+    
     public void removeCreature(int y,int x){
         getTile(y,x).setCreature(null);
     }
@@ -97,7 +104,7 @@ public class Board {
     }
     
     public void setTileCreature(Creature creature, int y, int x) {
-        getTile(y,x).setCreature(null);
+        getTile(y,x).setCreature(creature);
     }
     
     public Creature getTileCreature(int y, int x) {
