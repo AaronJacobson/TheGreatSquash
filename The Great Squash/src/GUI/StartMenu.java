@@ -3,6 +3,7 @@ package GUI;
 import Main.GameRunner;
 import gameworld.Player;
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -20,10 +21,6 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/**
- *
- * @author ros_dmlamarca
- */
 public class StartMenu implements KeyListener {
 
     private JFrame FRAME = new JFrame("The Great Squash");
@@ -39,19 +36,29 @@ public class StartMenu implements KeyListener {
     private JPanel BASE;
     private JPanel SERVER_PANEL;
     private JPanel CLIENT_PANEL;
-    private JPanel PLAYER_PANEL;
+    private JPanel GET_PLAYER_PANEL;
     private Player PLAYER;
+    private JPanel DISPLAY_PLAYER_PANEL;
+    private JTextField NAME_DISPLAY;
+    private JTextField CLASS_DISPLAY;
+    private JTextField RACE_DISPLAY;
+    private JTextField SPRITE_DISPLAY;
+    private JTextField SPEED_DISPLAY;
+    private JTextField ENDURANCE_DISPLAY;
+    private JTextField HEALTH_DISPLAY;
+    private JTextField STRENGTH_DISPLAY;
+    private JTextField INTELLIGENCE_DISPLAY;
+    private JTextField DEXTERITY_DISPLAY;
+    
     private AL ACTION_LISTENER;
 
     public StartMenu() {
         ACTION_LISTENER = new AL();
         formatClient();
         formatServer();
-        formatPlayer();
+        formatGetPlayer();
+        formatDisplayPlayer();
         formatFrame();
-
-//        JFileChooser choosy = new JFileChooser();
-//        choosy.showOpenDialog(choosy);
     }
 
     private void formatClient() {
@@ -82,7 +89,7 @@ public class StartMenu implements KeyListener {
         SERVER_PANEL.add(SERVER_CREATE);
     }
 
-    private void formatPlayer() {
+    private void formatGetPlayer() {
         PLAYER_NAME = new JTextField(19);
         PLAYER_NAME.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER, "Player File"));
 
@@ -96,22 +103,52 @@ public class StartMenu implements KeyListener {
         PLAYER_CREATE.setMargin(new Insets(0, 0, 0, 0));
         PLAYER_CREATE.addActionListener(ACTION_LISTENER);
 
-        PLAYER_PANEL = new JPanel();
-        PLAYER_PANEL.setBounds(1, 101, 352, 50);
-        PLAYER_PANEL.add(PLAYER_NAME);
-        PLAYER_PANEL.add(PLAYER_BROWSE);
-        PLAYER_PANEL.add(PLAYER_CREATE);
+        GET_PLAYER_PANEL = new JPanel();
+        GET_PLAYER_PANEL.setBounds(1, 101, 352, 50);
+        GET_PLAYER_PANEL.add(PLAYER_NAME);
+        GET_PLAYER_PANEL.add(PLAYER_BROWSE);
+        GET_PLAYER_PANEL.add(PLAYER_CREATE);
+    }
+    
+    private void formatDisplayPlayer() {
+       DISPLAY_PLAYER_PANEL = new JPanel(); 
+       DISPLAY_PLAYER_PANEL.setBounds(1, 151, 352, 50);
+       DISPLAY_PLAYER_PANEL.setBackground(Color.RED);
+       
+       SPEED_DISPLAY = new JTextField(3);
+       ENDURANCE_DISPLAY = new JTextField(3);
+       HEALTH_DISPLAY = new JTextField(4);
+       STRENGTH_DISPLAY = new JTextField(3);
+       INTELLIGENCE_DISPLAY = new JTextField(3);
+       DEXTERITY_DISPLAY = new JTextField(3);
+       formatStat(SPEED_DISPLAY,"Spd");
+       formatStat(ENDURANCE_DISPLAY,"End");
+       formatStat(HEALTH_DISPLAY,"Health");
+       formatStat(STRENGTH_DISPLAY,"Str");
+       formatStat(INTELLIGENCE_DISPLAY,"Int");
+       formatStat(DEXTERITY_DISPLAY,"Dex");
+       
+       
+    }
+    
+    private void formatStat(JTextField display, String statName) {
+       display.setEditable(false);
+       display.setHorizontalAlignment(JTextField.CENTER);
+       display.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER,statName));
+       display.setText("1");
+       DISPLAY_PLAYER_PANEL.add(display);
     }
 
     private void formatFrame() {
         FRAME.add(SERVER_PANEL);
         FRAME.add(CLIENT_PANEL);
-        FRAME.add(PLAYER_PANEL);
+        FRAME.add(GET_PLAYER_PANEL);
+        FRAME.add(DISPLAY_PLAYER_PANEL);
 
         BASE = new JPanel();
         FRAME.add(BASE);
 
-        FRAME.setSize(360, 180);
+        FRAME.setSize(360, 300);
         FRAME.setVisible(true);
         FRAME.setResizable(false);
         FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -153,15 +190,12 @@ public class StartMenu implements KeyListener {
         return this;
     }
 
-    @Override
     public void keyTyped(KeyEvent ke) {
     }
 
-    @Override
     public void keyPressed(KeyEvent ke) {
     }
 
-    @Override
     public void keyReleased(KeyEvent ke) {
         createPlayer();
     }
@@ -175,7 +209,7 @@ public class StartMenu implements KeyListener {
             } else if (action.equals(SERVER_CREATE.getActionCommand())) {
                 GameRunner.createServer(SERVER_MAP.getText());
             } else if (action.equals(PLAYER_BROWSE.getActionCommand())) {
-                JFileChooser chooser = new JFileChooser();
+                JFileChooser chooser = new JFileChooser("src\\gameworld\\players");
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("Player Files", "player");
                 chooser.setFileFilter(filter);
                 int returnVal = chooser.showOpenDialog(chooser);
@@ -183,7 +217,6 @@ public class StartMenu implements KeyListener {
                     PLAYER_NAME.setText(chooser.getSelectedFile().getAbsoluteFile() + "");
                 }
             } else if(action.equals(PLAYER_CREATE.getActionCommand())) {
-//                System.out.println("poop");
                 CreateCharacter createCharacter = new CreateCharacter(getSelf());
             }
         }
