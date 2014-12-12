@@ -14,5 +14,6 @@ public class TypeHolder {
     public static final String OB_WALL = "WALL";
     public static final String OB_DOOR = "FLOOR";
     public static final String OB_CHEST = "CHEST";
+    public static final String OB_START = "START_AREA";
     public static final char ERROR_CHAR = 'X';
 }

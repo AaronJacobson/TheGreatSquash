@@ -23,6 +23,7 @@ public class Board {
     private Graphics GRAPHICS;
     private ArrayList<Creature> CREATURES = new ArrayList<Creature>();
     private ArrayList<Obstacle> OBSTACLES = new ArrayList<Obstacle>();
+    private ArrayList<StartTile> START_TILES = new ArrayList<StartTile>();
     private Client MY_CLIENT;
     private boolean SHOULD_PLAYER = false;
 
@@ -56,6 +57,16 @@ public class Board {
             for (int j = 0; j < SIZE_Y; j++) {
                 GAME_BOARD[j][i] = new Tile(null, null, null);
             }
+        }
+    }
+    
+    public ArrayList<StartTile> getStartTiles(){
+        return START_TILES;
+    }
+    
+    public void placePlayer(Player player){
+        for(int currentStartTile = 0;currentStartTile < START_TILES.size();currentStartTile++){
+            
         }
     }
 
