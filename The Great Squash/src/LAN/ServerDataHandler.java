@@ -36,7 +36,7 @@ public class ServerDataHandler implements Runnable {
         while (!false) {
             try {
                 String serverData = STREAM_IN.readUTF();
-                System.out.println("ServerDataHandler: " + serverData);
+//                System.out.println("ServerDataHandler: " + serverData);
                 interpretServerData(serverData);
             } catch (IOException ex) {
                 System.out.println("Sorry but we lost connection to the server");
@@ -45,7 +45,7 @@ public class ServerDataHandler implements Runnable {
         }
     }
 
-    public void interpretServerData(String serverData) {
+    public void interpretServerData(String serverData) throws IOException {
         Scanner messageScanner = new Scanner(serverData);
         String theCommand = messageScanner.next();
         if (theCommand.equals(CommandHolder.MOVE_CREATURE)) {
@@ -58,7 +58,6 @@ public class ServerDataHandler implements Runnable {
             GameRunner.getBoard().addCreature(GameRunner.getBoard().getCreature(name));
             GameRunner.updateBoard();
         } else if (theCommand.equals(CommandHolder.THE_CREATURES)) {
-            WAIT_FOR_CREATURES = false;
             System.out.println("ServerDataHandler: Recieved the creatures.");
             int numberOfCreatures = messageScanner.nextInt();
             for (int currentCreature = 0; currentCreature < numberOfCreatures; currentCreature++) {
@@ -107,6 +106,7 @@ public class ServerDataHandler implements Runnable {
             }
             WAIT_FOR_OBSTACLES = false;
             GameRunner.updateBoard();
+//            STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_CREATURES);
         } else if (theCommand.equals(CommandHolder.THE_FLOORS)) {
         } else if (theCommand.equals(CommandHolder.CREATE_CREATURE)) {
             messageScanner.next();
@@ -163,16 +163,19 @@ public class ServerDataHandler implements Runnable {
     public void initEverything() {
         try {
             STREAM_OUT.writeUTF(CommandHolder.SEND_THE_BOARD_PARAMETERS);
+            System.out.println("ServerDataHandler: Sent for board parameters.");
             while (WAIT_FOR_PARAMETERS) {
             }
 //            STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_FLOORS);
 //            while (WAIT_FOR_FLOORS) {
 //            }
             STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_OBSTACLES);
+            System.out.println("ServerDataHandler: Sent for the obstacles.");
             while (WAIT_FOR_OBSTACLES) {
             }
             System.out.println("ServerDataHandler: Obstacles have been initialized");
             STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_CREATURES);
+            System.out.println("ServerDataHandler: Sent for the creatures.");
             while (WAIT_FOR_CREATURES) {
             }
             System.out.println("ServerDataHandler: The creatures have been initialized");
