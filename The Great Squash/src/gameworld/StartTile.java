@@ -13,9 +13,7 @@ import gameworld.tools.ObjectCounter;
  */
 public class StartTile extends Obstacle{
     
-    private boolean HAS_CREATURE;
     public StartTile(int y,int x,char sprite){
-        HAS_CREATURE = false;
         LABEL = ObjectCounter.getObstacleCount(TypeHolder.OB_START);
         TYPE = TypeHolder.OB_START;
         LOCATION_Y = y;
@@ -24,11 +22,16 @@ public class StartTile extends Obstacle{
         PASSABLE = true;
     }
     
-    public void setHasCreature(boolean toSet){
-        HAS_CREATURE = toSet;
+    public StartTile(){
+        SPRITE = '.';
+        LABEL = ObjectCounter.getObstacleCount(TypeHolder.OB_START);
+        TYPE = TypeHolder.OB_START;
+        PASSABLE = true;
     }
     
-    public boolean hasCreature(){
-        return HAS_CREATURE;
+    public StartTile clone(Board board){
+        BOARD = board;
+        StartTile clone = new StartTile();
+        return clone;
     }
 }

@@ -8,6 +8,7 @@ import gameworld.Displayable;
 import gameworld.Door;
 import gameworld.Obstacle;
 import gameworld.Player;
+import gameworld.StartTile;
 import gameworld.Wall;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -102,6 +103,9 @@ public class ServerDataHandler implements Runnable {
                 } else if (type.equals(TypeHolder.OB_WALL)) {
                     Wall wall = new Wall(GameRunner.getBoard(), newY, newX);
                     GameRunner.getBoard().addObstacle(wall);
+                }else if (type.equals(TypeHolder.OB_START)){
+                    StartTile startTile = new StartTile(newY,newX,sprite);
+                    GameRunner.getBoard().addObstacle(startTile);
                 }
             }
             WAIT_FOR_OBSTACLES = false;
