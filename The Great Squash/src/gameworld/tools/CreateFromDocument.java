@@ -165,9 +165,6 @@ public class CreateFromDocument {
             //System.out.println();
             y++;
         }
-        for(int i = 0;i <board.getStartTiles().size();i++){
-            System.out.println("CreateFromDocument: " + board.getStartTiles().get(i).toServerData());
-        }
         return board;
     }
 

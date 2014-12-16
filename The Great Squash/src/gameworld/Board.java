@@ -72,6 +72,7 @@ public class Board {
         if(START_TILE_NUMBER >= START_TILES.size()){
             START_TILE_NUMBER = 0;
         }
+        System.out.println("Board: Placed player: " + player.getName());
         addCreature(player);
     }
 
@@ -187,7 +188,6 @@ public class Board {
                 toReturn = true;
             }
         }
-        System.out.println("Board: " + toReturn);
         return toReturn;
     }
 }

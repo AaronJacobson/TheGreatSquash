@@ -4,8 +4,6 @@
  */
 package GUI.listeners;
 
-import GUI.GameGUI;
-import Main.tests.GUITestMain;
 import gameworld.Creature;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

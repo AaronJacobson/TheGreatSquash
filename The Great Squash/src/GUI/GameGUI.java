@@ -179,6 +179,10 @@ public class GameGUI {
         int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);
     }
+    
+    public ArrayList<Creature> getCreatures(){
+        return CONTROLLED_CREATURES;
+    }
 
     public Creature getCreature() {
         return CONTROLLED_CREATURES.get(CURRENT_CREATURE);

@@ -56,8 +56,12 @@ public class ServerDataHandler implements Runnable {
             int oldY = messageScanner.nextInt();
             int oldX = messageScanner.nextInt();
             GameRunner.getBoard().removeCreature(oldY, oldX);
+            GameRunner.getBoard().getCreature(name).setY(newY);
+            GameRunner.getBoard().getCreature(name).setX(newX);
             GameRunner.getBoard().addCreature(GameRunner.getBoard().getCreature(name));
             GameRunner.updateBoard();
+            System.out.println("ServerDataHandler: " + newY + " " + newX);
+            System.out.println("ServerDataHandler: " + GameRunner.GAME_GUI.getCreature().getY() + " " + GameRunner.GAME_GUI.getCreature().getX());
         } else if (theCommand.equals(CommandHolder.THE_CREATURES)) {
             System.out.println("ServerDataHandler: Recieved the creatures.");
             int numberOfCreatures = messageScanner.nextInt();
@@ -106,6 +110,7 @@ public class ServerDataHandler implements Runnable {
                 }else if (type.equals(TypeHolder.OB_START)){
                     StartTile startTile = new StartTile(newY,newX,sprite);
                     GameRunner.getBoard().addObstacle(startTile);
+                    GameRunner.GAME_BOARD.getStartTiles().add(startTile);
                 }
             }
             WAIT_FOR_OBSTACLES = false;
@@ -122,11 +127,10 @@ public class ServerDataHandler implements Runnable {
             char sprite = messageScanner.next().charAt(0);
             if (!GameRunner.getBoard().hasCreature(name)) {
                 if (type.equals(TypeHolder.PLAYER)) {
-                    Player john = new Player(sprite, GameRunner.getBoard(), locY, locX, name);
-                    GameRunner.getBoard().addCreature(john);
+                    Player player = new Player(sprite, GameRunner.getBoard(), locY, locX, name);
+                    GameRunner.GAME_BOARD.placePlayer(player);
                 } else{
-                    System.out.println("wubz: " + theCommand);
-//                    Creature tim = new Creature(sprite,GameRunner.getBoard(),locY,locX,name);
+                    //Where other types of creatures would be created
                 }
             }
             GameRunner.updateBoard();
@@ -167,26 +171,29 @@ public class ServerDataHandler implements Runnable {
     public void initEverything() {
         try {
             STREAM_OUT.writeUTF(CommandHolder.SEND_THE_BOARD_PARAMETERS);
-            System.out.println("ServerDataHandler: Sent for board parameters.");
             while (WAIT_FOR_PARAMETERS) {
             }
+            System.out.println("ServerDataHandler: Board parameters have been initialized.");
 //            STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_FLOORS);
 //            while (WAIT_FOR_FLOORS) {
 //            }
             STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_OBSTACLES);
-            System.out.println("ServerDataHandler: Sent for the obstacles.");
             while (WAIT_FOR_OBSTACLES) {
             }
             System.out.println("ServerDataHandler: Obstacles have been initialized");
             STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_CREATURES);
-            System.out.println("ServerDataHandler: Sent for the creatures.");
             while (WAIT_FOR_CREATURES) {
             }
             System.out.println("ServerDataHandler: The creatures have been initialized");
-//            System.out.println(GameRunner.getBoard());
-            
+            sendCreatures();
         } catch (IOException ex) {
             System.out.println("ServerDataHandler to communicate with the server");
+        }
+    }
+    
+    public void sendCreatures(){
+        for(int currentCreature = 0;currentCreature < GameRunner.GAME_GUI.getCreatures().size();currentCreature++){
+            sendCreature(GameRunner.GAME_GUI.getCreatures().get(currentCreature));
         }
     }
 }
