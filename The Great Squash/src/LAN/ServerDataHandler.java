@@ -86,7 +86,8 @@ public class ServerDataHandler implements Runnable {
             GameRunner.getBoard().setShouldPlayer(true);
             GameRunner.updateBoard();
         } else if (theCommand.equals(CommandHolder.THE_OBSTACLES)) {
-            System.out.println("ServerDataHandler: Recieved the obstacles");
+            WAIT_FOR_OBSTACLES = false;
+            System.out.println("ServerDataHandler: Recieved the obstacles.");
             int numberOfObstacles = messageScanner.nextInt();
             for (int currentObject = 0; currentObject < numberOfObstacles; currentObject++) {
                 messageScanner.next();
@@ -113,7 +114,6 @@ public class ServerDataHandler implements Runnable {
                     GameRunner.GAME_BOARD.getStartTiles().add(startTile);
                 }
             }
-            WAIT_FOR_OBSTACLES = false;
             GameRunner.updateBoard();
 //            STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_CREATURES);
         } else if (theCommand.equals(CommandHolder.THE_FLOORS)) {

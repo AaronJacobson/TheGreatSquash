@@ -23,7 +23,7 @@ public class StartTile extends Obstacle{
     }
     
     public StartTile(){
-        SPRITE = '.';
+        SPRITE = '&';
         LABEL = ObjectCounter.getObstacleCount(TypeHolder.OB_START);
         TYPE = TypeHolder.OB_START;
         PASSABLE = true;
