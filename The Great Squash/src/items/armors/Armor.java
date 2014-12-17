@@ -5,7 +5,7 @@
 package items.armors;
 
 import Auras.Aura;
-import LAN.CommandHolder;
+import tools.CommandHolder;
 import LAN.Sendable;
 import enchantments.Enchantment;
 import gameworld.Displayable;

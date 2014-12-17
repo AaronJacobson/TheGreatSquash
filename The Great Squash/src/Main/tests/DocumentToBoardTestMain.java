@@ -5,8 +5,8 @@
 package Main.tests;
 
 import gameworld.Board;
-import gameworld.tools.CreateFromDocument;
-import gameworld.Wall;
+import tools.CreateFromDocument;
+import gameworld.obstacles.Wall;
 
 /**
  *

@@ -6,7 +6,7 @@ import LAN.Client;
 import LAN.Server;
 import gameworld.Board;
 import gameworld.Player;
-import gameworld.tools.ObjectCounter;
+import tools.ObjectCounter;
 import items.weapons.Weapon;
 
 public class GameRunner {

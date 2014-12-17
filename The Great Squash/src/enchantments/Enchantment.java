@@ -4,7 +4,7 @@
  */
 package enchantments;
 
-import LAN.CommandHolder;
+import tools.CommandHolder;
 import LAN.Sendable;
 import java.io.File;
 import java.io.FileNotFoundException;

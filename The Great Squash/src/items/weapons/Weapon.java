@@ -4,7 +4,7 @@
  */
 package items.weapons;
 
-import LAN.CommandHolder;
+import tools.CommandHolder;
 import LAN.Sendable;
 import enchantments.Enchantment;
 import gameworld.Displayable;

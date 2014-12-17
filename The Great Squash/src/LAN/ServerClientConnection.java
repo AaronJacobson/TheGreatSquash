@@ -1,5 +1,7 @@
 package LAN;
 
+import tools.TypeHolder;
+import tools.CommandHolder;
 import gameworld.Board;
 import gameworld.Obstacle;
 import gameworld.Player;

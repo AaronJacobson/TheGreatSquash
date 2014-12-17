@@ -4,8 +4,9 @@
  */
 package gameworld;
 
+import gameworld.obstacles.StartTile;
 import LAN.Client;
-import LAN.CommandHolder;
+import tools.CommandHolder;
 import LAN.Server;
 import java.awt.Graphics;
 import java.util.ArrayList;

@@ -5,11 +5,11 @@
  */
 package Main.tests;
 
-import gameworld.Chest;
-import gameworld.Door;
-import gameworld.Wall;
+import gameworld.obstacles.Chest;
+import gameworld.obstacles.Door;
+import gameworld.obstacles.Wall;
 import gameworld.monsters.Monster;
-import gameworld.tools.ObjectCounter;
+import tools.ObjectCounter;
 
 /**
  *

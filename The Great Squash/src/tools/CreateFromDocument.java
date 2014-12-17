@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gameworld.tools;
+package tools;
 
 import gameworld.Board;
 import gameworld.Displayable;
-import gameworld.Door;
-import gameworld.StartTile;
-import gameworld.Wall;
+import gameworld.obstacles.Door;
+import gameworld.obstacles.StartTile;
+import gameworld.obstacles.Wall;
 import gameworld.monsters.Monster;
 import java.io.File;
 import java.io.FileNotFoundException;

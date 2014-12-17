@@ -1,15 +1,17 @@
 package LAN;
 
+import tools.TypeHolder;
+import tools.CommandHolder;
 import Main.GameRunner;
 import gameworld.Board;
-import gameworld.Chest;
+import gameworld.obstacles.Chest;
 import gameworld.Creature;
 import gameworld.Displayable;
-import gameworld.Door;
+import gameworld.obstacles.Door;
 import gameworld.Obstacle;
 import gameworld.Player;
-import gameworld.StartTile;
-import gameworld.Wall;
+import gameworld.obstacles.StartTile;
+import gameworld.obstacles.Wall;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;

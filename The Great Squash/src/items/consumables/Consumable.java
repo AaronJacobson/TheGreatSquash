@@ -4,7 +4,7 @@
  */
 package items.consumables;
 
-import LAN.CommandHolder;
+import tools.CommandHolder;
 import LAN.Sendable;
 import gameworld.Displayable;
 import items.Item;

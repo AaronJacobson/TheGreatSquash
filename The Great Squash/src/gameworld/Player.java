@@ -4,8 +4,8 @@
  */
 package gameworld;
 
-import LAN.TypeHolder;
-import gameworld.tools.CreateFromDocument;
+import tools.TypeHolder;
+import tools.CreateFromDocument;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

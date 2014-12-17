@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gameworld.tools;
+package tools;
 
 import java.io.File;
 import java.io.FileNotFoundException;

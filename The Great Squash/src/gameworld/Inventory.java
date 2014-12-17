@@ -22,50 +22,21 @@ public class Inventory {
     }
 
     public void addToInventory(Item item) {
-//        System.out.println(item);
-//        if (item instanceof Weapon && WEAPONS.size() < WEAPONS_SIZE_LIMIT) {
-//            System.out.println("Weapon");
-//            WEAPONS.add((Weapon) (item));
-//        } else if (item instanceof Armor && ARMORS.size() < ARMORS_SIZE_LIMIT) {
-//            System.out.println("Armour");
-//            ARMORS.add((Armor) (item));
-//        } else if (item instanceof SpellBook && SPELLBOOKS.size() < SPELLBOOKS_SIZE_LIMIT) {
-//            System.out.println("Spellbook");
-//            SPELLBOOKS.add((SpellBook) (item));
-//        } else if (item instanceof Consumable && CONSUMABLES.size() < CONSUMABLES_SIZE_LIMIT) {
-//            System.out.println("Consumable");
-//            CONSUMABLES.add((Consumable) (item));
-//        } else {
-//            System.err.println("Couldn't add " + item + " to Inventory");
-//        }
+        if(ITEM_LIST.size() < INVENTORY_SIZE) {
+            ITEM_LIST.add(item);
+        }
     }
 
 
 
     public String listToString(String title) {
-        int listLimit = 1;
-   
         String output = title.toUpperCase() + ":\n";
-        for (int i = 0; i < listLimit; i++) {
-            try {
-                Item current = ITEM_LIST.get(i);
-                output += "  -" + current.toString();
-            } catch (IndexOutOfBoundsException ex) {
-                output += "  -[N/A]";
-            }
-            if(i != listLimit - 1) {
-                output += "\n";
-            }
-        }
         return output;
     }
 
     public String toString() {
         String output = "";
-//        output += listToString("weapon") + "\n";
-//        output += listToString("armour") + "\n";
-//        output += listToString("spellbook") + "\n";
-//        output += listToString("consumable");
+        
         return output;
     }
     

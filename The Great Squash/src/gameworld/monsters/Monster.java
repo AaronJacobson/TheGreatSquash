@@ -2,7 +2,7 @@ package gameworld.monsters;
 
 import gameworld.Board;
 import gameworld.Creature;
-import gameworld.tools.ObjectCounter;
+import tools.ObjectCounter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;

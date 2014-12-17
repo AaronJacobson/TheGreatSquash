@@ -2,28 +2,30 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gameworld;
+package gameworld.obstacles;
 
-import LAN.TypeHolder;
-import gameworld.tools.ObjectCounter;
+import tools.TypeHolder;
+import gameworld.Board;
+import gameworld.Obstacle;
+import tools.ObjectCounter;
+import tools.SpriteHolder;
 
 /**
  *
  * @author ros_aljacobson001
  */
-public class StartTile extends Obstacle{
+public class StartTile extends Obstacle {
     
-    public StartTile(int y,int x,char sprite){
-        LABEL = ObjectCounter.getObstacleCount(TypeHolder.OB_START);
-        TYPE = TypeHolder.OB_START;
+    public StartTile(Board board, int y,int x){
+        this();
+        BOARD = board;
         LOCATION_Y = y;
         LOCATION_X = x;
-        SPRITE = sprite;
         PASSABLE = true;
     }
     
     public StartTile(){
-        SPRITE = '&';
+        SPRITE = SpriteHolder.OB_START;
         LABEL = ObjectCounter.getObstacleCount(TypeHolder.OB_START);
         TYPE = TypeHolder.OB_START;
         PASSABLE = true;

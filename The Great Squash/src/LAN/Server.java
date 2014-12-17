@@ -4,8 +4,9 @@
  */
 package LAN;
 
+import tools.CommandHolder;
 import gameworld.Board;
-import gameworld.tools.CreateFromDocument;
+import tools.CreateFromDocument;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
