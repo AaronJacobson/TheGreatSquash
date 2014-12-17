@@ -127,6 +127,10 @@ public class Armor implements Item, Displayable, Sendable {
         return false;
     }
     
+    public String toString() {
+        return NAME;
+    }
+    
     public String enchantmentServerData(){
         String toReturn = "";
         if(ENCHANTMENTS.size() == 0){

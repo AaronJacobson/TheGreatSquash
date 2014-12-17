@@ -6,6 +6,7 @@ package gameworld;
 
 import LAN.Sendable;
 import LAN.TypeHolder;
+import items.Item;
 import java.util.ArrayList;
 
 /**
@@ -139,6 +140,10 @@ public class Creature implements Displayable, Sendable {
 
     public Inventory getInventory() {
         return INVENTORY;
+    }
+    
+    public void addToInventory(Item item) {
+        INVENTORY.addToInventory(item);
     }
 
     public void changeLevel(int change) {

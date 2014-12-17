@@ -64,6 +64,10 @@ public class Consumable implements Item, Displayable, Sendable {
         return SPRITE;
     }
     
+    public String toString() {
+        return NAME;
+    }
+    
     public String toServerData(){
         return CommandHolder.CONSUMABLE + NAME + " " + SPRITE + " " + HEALTH_ADDED + " " + MANA_ADDED + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS + " " + BONUS_LENGTH;
     }

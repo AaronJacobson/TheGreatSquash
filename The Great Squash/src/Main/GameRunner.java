@@ -8,6 +8,7 @@ import LAN.Server;
 import gameworld.Board;
 import gameworld.Player;
 import gameworld.tools.ObjectCounter;
+import items.weapons.Weapon;
 
 public class GameRunner {
     public static Board GAME_BOARD;
@@ -55,6 +56,7 @@ public class GameRunner {
         GAME_BOARD = CLIENT.getBoard();
         GAME_GUI = new GameGUI();
         GAME_GUI.setBoard(GAME_BOARD);
+        player.addToInventory(new Weapon("slimefork"));
         GAME_GUI.setCreature(player);
     } 
     

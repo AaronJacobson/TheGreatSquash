@@ -123,6 +123,10 @@ public class Weapon implements Item, Displayable, Sendable {
     public char getSprite() {
         return SPRITE;
     }
+    
+    public String toString() {
+        return NAME;
+    }
 
     public String enchantmentServerData() {
         String toReturn = "";
