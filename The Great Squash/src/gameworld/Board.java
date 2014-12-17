@@ -23,6 +23,8 @@ public class Board {
     private Graphics GRAPHICS;
     private ArrayList<Creature> CREATURES = new ArrayList<Creature>();
     private ArrayList<Obstacle> OBSTACLES = new ArrayList<Obstacle>();
+    private ArrayList<StartTile> START_TILES = new ArrayList<StartTile>();
+    private int START_TILE_NUMBER = 0;
     private Client MY_CLIENT;
     private boolean SHOULD_PLAYER = false;
 
@@ -59,6 +61,21 @@ public class Board {
         }
     }
 
+    public ArrayList<StartTile> getStartTiles() {
+        return START_TILES;
+    }
+
+    public void placePlayer(Player player) {
+        player.LOCATION_X = START_TILES.get(START_TILE_NUMBER).LOCATION_X;
+        player.LOCATION_Y = START_TILES.get(START_TILE_NUMBER).LOCATION_Y;
+        START_TILE_NUMBER++;
+        if(START_TILE_NUMBER >= START_TILES.size()){
+            START_TILE_NUMBER = 0;
+        }
+        System.out.println("Board: Placed player: " + player.getName());
+        addCreature(player);
+    }
+
     public Tile[][] getGameBoard() {
         return GAME_BOARD;
     }
@@ -72,43 +89,46 @@ public class Board {
     }
 
     public void addCreature(Creature creature) {
-        getTile(creature.getY(),creature.getX()).setCreature(creature);
+        getTile(creature.getY(), creature.getX()).setCreature(creature);
         CREATURES.add(creature);
     }
-    
-    public void addObstacle(Obstacle obstacle){
-        getTile(obstacle.getY(),obstacle.getX()).setObstacle(obstacle);
+
+    public void addObstacle(Obstacle obstacle) {
+        getTile(obstacle.getY(), obstacle.getX()).setObstacle(obstacle);
         OBSTACLES.add(obstacle);
     }
-    
-    public void moveCreature(int y,int x,Creature creature){
-        removeCreature(creature.getY(),creature.getX());
+
+    public void moveCreature(int y, int x, Creature creature) {
+        removeCreature(creature.getY(), creature.getX());
         creature.setY(y);
         creature.setX(x);
-        setTileCreature(creature,y,x);
+        setTileCreature(creature, y, x);
     }
-    
-    public void removeCreature(int y,int x){
-        getTile(y,x).setCreature(null);
+
+    public void removeCreature(int y, int x) {
+        getTile(y, x).setCreature(null);
     }
 
     public void setTileObstacle(int y, int x, Obstacle obstacle) {
         getTile(y, x).setObstacle(obstacle);
         obstacle.setX(x);
         obstacle.setY(y);
+        if(obstacle instanceof StartTile){
+            START_TILES.add((StartTile)obstacle);
+        }
         OBSTACLES.add(obstacle);
     }
 
     public Obstacle getTileObstacle(int y, int x) {
         return getTile(y, x).getObstacle();
     }
-    
+
     public void setTileCreature(Creature creature, int y, int x) {
-        getTile(y,x).setCreature(creature);
+        getTile(y, x).setCreature(creature);
     }
-    
+
     public Creature getTileCreature(int y, int x) {
-        return getTile(y,x).getCreature();
+        return getTile(y, x).getCreature();
     }
 
     public String toString() {
@@ -168,7 +188,6 @@ public class Board {
                 toReturn = true;
             }
         }
-        System.out.println("Board: " + toReturn);
         return toReturn;
     }
 }

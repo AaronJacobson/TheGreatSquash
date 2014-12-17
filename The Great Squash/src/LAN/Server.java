@@ -48,7 +48,7 @@ public class Server {
         for (int currentInit = 0; currentInit < CONNECTIONS; currentInit++) {
             INITS[currentInit] = false;
         }
-        System.out.println(THE_BOARD);
+        System.out.println("Server: \n" + THE_BOARD);
         SERVER_CLIENT_CONNECTIONS = new ServerClientConnection[CONNECTIONS];
         SERVER_CHAT_CONNECTIONS = new ServerClientChat[CONNECTIONS];
     }

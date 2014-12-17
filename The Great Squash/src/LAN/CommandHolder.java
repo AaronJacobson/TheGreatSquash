@@ -16,6 +16,7 @@ public class CommandHolder {
     public static final String ARMOR = "THIS_IS_A_PIECE_OF_ARMOR";
     public static final String ENCHANTMENT = "THIS_IS_AN_ENCHANTMENT";
     public static final String CONSUMABLE = "THIS_IS_A_CONSUMABLE";
+    public static final String SPELL_BOOK = "THIS_IS_A_SPELL_BOOK";
     public static final String INITIALIZE_CREATURES = "GIVE_ME_THE_CREATURES";
     public static final String INITIALIZE_OBSTACLES = "GIVE_ME_THE_OBSTACLES";
     public static final String INITIALIZE_FLOORS = "GIVE_ME_THE_FLOORS";

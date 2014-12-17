@@ -1,6 +1,5 @@
 package Main;
 
-import GUI.CreateCharacter;
 import GUI.GameGUI;
 import GUI.StartMenu;
 import LAN.Client;

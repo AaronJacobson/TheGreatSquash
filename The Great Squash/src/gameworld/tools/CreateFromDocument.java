@@ -7,6 +7,7 @@ package gameworld.tools;
 import gameworld.Board;
 import gameworld.Displayable;
 import gameworld.Door;
+import gameworld.StartTile;
 import gameworld.Wall;
 import gameworld.monsters.Monster;
 import java.io.File;
@@ -84,6 +85,8 @@ public class CreateFromDocument {
             object = new Door(false);
         } else if (objectName.equals("opendoor")) {
             object = new Door(true);
+        } else if (objectName.equals("starttile")){
+            object = new StartTile();
         }
 
         return object;
@@ -153,13 +156,15 @@ public class CreateFromDocument {
                         Door door = ((Door) (displayable)).clone(board);
                         //System.out.println(door);
                         board.setTileObstacle(x, y, door);
+                    } else if (displayable instanceof StartTile){
+                        StartTile startTile = ((StartTile) displayable).clone(board);
+                        board.setTileObstacle(x,y,startTile);
                     }
                 }
             }
             //System.out.println();
             y++;
         }
-
         return board;
     }
 
