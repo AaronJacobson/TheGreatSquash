@@ -5,6 +5,7 @@ package GUI;
 
 import GUI.listeners.MessengerEnterKeyListener;
 import GUI.listeners.MovementListener;
+import Main.GameRunner;
 import gameworld.Board;
 import gameworld.Creature;
 import gameworld.Inventory;
@@ -182,6 +183,16 @@ public class GameGUI {
     
     public ArrayList<Creature> getCreatures(){
         return CONTROLLED_CREATURES;
+    }
+    
+    public void updateCreatures(){
+        for(int currentCreature = 0;currentCreature < CONTROLLED_CREATURES.size();currentCreature++){
+            if(GameRunner.GAME_BOARD.hasCreature(CONTROLLED_CREATURES.get(currentCreature).getName())){
+                CONTROLLED_CREATURES.set(currentCreature, GameRunner.GAME_BOARD.getCreature(CONTROLLED_CREATURES.get(currentCreature).getName()));
+                MOVEMENT_LISTENER.setCreature(CONTROLLED_CREATURES.get(currentCreature));
+                System.out.println("GameGUI: Replaced creature: " + CONTROLLED_CREATURES.get(currentCreature).getName());
+            }
+        }
     }
 
     public Creature getCreature() {

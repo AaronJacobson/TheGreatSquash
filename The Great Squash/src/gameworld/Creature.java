@@ -73,19 +73,6 @@ public class Creature implements Displayable, Sendable {
         GameRunner.CLIENT.getHandler().sendMove(y, x, this);
     }
 
-    private void clientMove(int y, int x) {
-        GameRunner.GAME_BOARD.removeCreature(LOCATION_X, LOCATION_Y);
-        
-        LOCATION_Y = y;
-        LOCATION_X = x;
-//        System.out.println(LOCATION_X + "|" + LOCATION_Y);
-        GameRunner.GAME_BOARD.getTile(LOCATION_X, LOCATION_Y).setCreature(this);
-    }
-    
-    public void serverMove(int y,int x){
-        
-    }
-
     @Override
     public void setSprite(char sprite) {
         SPRITE = sprite;
