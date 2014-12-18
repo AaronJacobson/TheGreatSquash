@@ -62,8 +62,10 @@ public class ServerDataHandler implements Runnable {
             GameRunner.getBoard().getCreature(name).setX(newX);
             GameRunner.getBoard().addCreature(GameRunner.getBoard().getCreature(name));
             GameRunner.updateBoard();
+            GameRunner.GAME_GUI.updateCreatures();
             System.out.println("ServerDataHandler: " + newY + " " + newX);
             System.out.println("ServerDataHandler: " + GameRunner.GAME_GUI.getCreature().getY() + " " + GameRunner.GAME_GUI.getCreature().getX());
+        GameRunner.GAME_GUI.updateCreatures();
         } else if (theCommand.equals(CommandHolder.THE_CREATURES)) {
             System.out.println("ServerDataHandler: Recieved the creatures.");
             int numberOfCreatures = messageScanner.nextInt();
