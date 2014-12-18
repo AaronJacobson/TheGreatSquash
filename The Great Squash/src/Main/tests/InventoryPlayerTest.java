@@ -4,9 +4,12 @@
  */
 package Main.tests;
 
+import gameworld.Creature;
 import gameworld.Inventory;
 import gameworld.Player;
+import items.Item;
 import items.consumables.Consumable;
+import items.weapons.Weapon;
 
 /**
  *
@@ -18,8 +21,10 @@ public class InventoryPlayerTest {
         Consumable pancake = new Consumable("pancake");
         System.out.println(pancake);
         player.addToInventory(pancake);
-        Inventory inventory = new Inventory(10);
         player.addToInventory(pancake);
+        Inventory inventory = new Inventory(10);
+        player.addToInventory(new Weapon("slimefork"));
         System.out.println(player.getInventory());
+        //System.out.println(player.getInventory().);
     }
 }

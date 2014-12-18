@@ -27,18 +27,51 @@ public class Inventory {
         }
     }
 
+    public ArrayList<Item> getItems(String type) {
+        ArrayList<Item> list = new ArrayList<Item>();
+        Item itemType = null;
+        
+        if(type.toLowerCase().equals("weapon")) {
+            itemType = new Weapon(null);
+        } else if(type.toLowerCase().equals("armour")) {
+            itemType = new Armor(null);
+        }else if(type.toLowerCase().equals("consumable")) {
+            itemType = new Consumable(null);
+        }
+        
+        try {
+            for(int count = 0; count < ITEM_LIST.size(); count++) {
+                Item current = ITEM_LIST.get(count);
+                if(current.getClass() == itemType.getClass()) {
+                    list.add(current);
+                }
+            }
+        } catch(NullPointerException ex) {}
+        
+        return list;
+    }
 
-
-    public String listToString(String title) {
-        String output = title.toUpperCase() + ":\n";
+    public String listToString(ArrayList<Item> list, String type) {
+        String output = type.toUpperCase() + ": ";
+        if(list.size() > 0) {
+            for(int count = 0; count < list.size(); count++) {
+                try {
+                    Item current = list.get(count);
+                    output += "  -" + current;
+                } catch(IndexOutOfBoundsException ex) {
+                    output += "  -[N/A]";
+                }
+                if(count != list.size() - 1) {
+                    output += "\n";
+                }
+            }
+        }
         return output;
     }
 
     public String toString() {
         String output = "";
-        for(int count = 0; count < INVENTORY_SIZE; count++) {
-            
-        }
+        
         return output;
     }
     
