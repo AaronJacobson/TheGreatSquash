@@ -111,7 +111,7 @@ public class ServerDataHandler implements Runnable {
                     Wall wall = new Wall(GameRunner.getBoard(), newY, newX);
                     GameRunner.getBoard().addObstacle(wall);
                 }else if (type.equals(TypeHolder.OB_START)){
-                    StartTile startTile = new StartTile(newY,newX,sprite);
+                    StartTile startTile = new StartTile(GameRunner.getBoard(),newY,newX);
                     GameRunner.getBoard().addObstacle(startTile);
                     GameRunner.GAME_BOARD.getStartTiles().add(startTile);
                 }

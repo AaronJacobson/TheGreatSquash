@@ -18,7 +18,7 @@ public class InventoryPlayerTest {
         Consumable pancake = new Consumable("pancake");
         System.out.println(pancake);
         player.addToInventory(pancake);
-        Inventory inventory = new Inventory(2,2,2,2);
+        Inventory inventory = new Inventory(10);
         player.addToInventory(pancake);
         System.out.println(player.getInventory());
     }

@@ -36,7 +36,9 @@ public class Inventory {
 
     public String toString() {
         String output = "";
-        
+        for(int count = 0; count < INVENTORY_SIZE; count++) {
+            
+        }
         return output;
     }
     

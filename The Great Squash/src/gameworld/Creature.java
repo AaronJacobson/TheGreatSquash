@@ -5,7 +5,6 @@
 package gameworld;
 
 import LAN.Sendable;
-import LAN.TypeHolder;
 import Main.GameRunner;
 import items.Item;
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class Creature implements Displayable, Sendable {
     protected Board BOARD;
     protected String NAME = "Creature";
     protected String TYPE = "abstract";
-    protected Inventory INVENTORY = new Inventory(2, 6, 5, 10);
+    protected Inventory INVENTORY = new Inventory(25);
     protected int LOCATION_X;
     protected int LOCATION_Y;
     protected int LEVEL;
