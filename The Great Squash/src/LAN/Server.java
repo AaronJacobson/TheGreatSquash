@@ -83,7 +83,7 @@ public class Server {
                 DATA_IN = new DataInputStream(SOCKET.getInputStream());
                 IPS.add(SOCKET.getInetAddress().toString());
                 System.out.println("Server: Connection from " + IPS.get(currentConnection));
-                ServerClientConnection newConnect = new ServerClientConnection(DATA_IN, DATA_OUT, SERVER_CLIENT_CONNECTIONS, IPS, THE_BOARD, this, INITS);
+                ServerClientConnection newConnect = new ServerClientConnection(DATA_IN, DATA_OUT, SERVER_CLIENT_CONNECTIONS, IPS, THE_BOARD, this, INITS,IPS.get(currentConnection));
                 SERVER_CLIENT_CONNECTIONS[currentConnection] = newConnect;
                 Thread CurrentConnection = new Thread(newConnect);
                 CurrentConnection.start();
@@ -115,6 +115,10 @@ public class Server {
 
     public int getPortNumber() {
         return PORT_NUMBER;
+    }
+    
+    public void removeConnection(String IP){
+        IPS.remove(IP);
     }
 }
 

@@ -8,6 +8,7 @@ import gameworld.Player;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,13 +20,15 @@ class ServerClientConnection implements Runnable {
     ArrayList<String> IPS;
     boolean[] INITS;
     Server THE_SERVER;
+    String IP;
 
-    public ServerClientConnection(DataInputStream in, DataOutputStream out, ServerClientConnection[] serverClientConnections, ArrayList<String> ips, Board gameBoard, Server server, boolean[] inits) {
+    public ServerClientConnection(DataInputStream in, DataOutputStream out, ServerClientConnection[] serverClientConnections, ArrayList<String> ips, Board gameBoard, Server server, boolean[] inits,String ip) {
         SERVER_CLIENT_CONNECTIONS = serverClientConnections;
         THE_SERVER = server;
         STREAM_IN = in;
         STREAM_OUT = out;
         IPS = ips;
+        IP = ip;
         INITS = inits;
     }
 
@@ -38,7 +41,9 @@ class ServerClientConnection implements Runnable {
                 System.out.println("Server: Incoming message: " + toSend);
                 interpretMessage(toSend);
             } catch (IOException ex) {
-                ex.printStackTrace();
+                THE_SERVER.removeConnection(IP);
+                System.out.println("ServerClientConnection: A client has disconnected from " + IP);
+                break;
             }
         }
     }
