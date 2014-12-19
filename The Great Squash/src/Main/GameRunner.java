@@ -61,9 +61,10 @@ public class GameRunner {
     }
 
     public static void connectToServer(String ip) {
+        CLIENT = new Client(ip);
+        CLIENT.connectToServer();
         startGame(START_MENU.getPlayer());
         START_MENU.closeMenu();
-        CLIENT = new Client(ip);
     }
 
     public static void updateBoard() {
