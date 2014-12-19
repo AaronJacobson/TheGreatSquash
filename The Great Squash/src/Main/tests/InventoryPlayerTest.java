@@ -8,6 +8,7 @@ import gameworld.Creature;
 import gameworld.Inventory;
 import gameworld.Player;
 import items.Item;
+import items.armors.Armor;
 import items.consumables.Consumable;
 import items.weapons.Weapon;
 
@@ -17,14 +18,11 @@ import items.weapons.Weapon;
  */
 public class InventoryPlayerTest {
     public static void main(String[] args) {
-        Player player = new Player("Hardcore");
-        Consumable pancake = new Consumable("pancake");
-        System.out.println(pancake);
-        player.addToInventory(pancake);
-        player.addToInventory(pancake);
-        Inventory inventory = new Inventory(10);
-        player.addToInventory(new Weapon("slimefork"));
-        System.out.println(player.getInventory());
-        //System.out.println(player.getInventory().);
+        Inventory inventory = new Inventory(5);
+        inventory.addToInventory(new Consumable("pancake"));
+        inventory.addToInventory(new Consumable("pancake"));
+        inventory.addToInventory(new Weapon("slimefork"));
+        inventory.addToInventory(new Armor("battletuxedo"));
+        System.out.println(inventory);
     }
 }

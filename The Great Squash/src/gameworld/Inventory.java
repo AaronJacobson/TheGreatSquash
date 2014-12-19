@@ -6,6 +6,7 @@ import items.Item;
 import items.spellbooks.SpellBook;
 import items.weapons.Weapon;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -57,21 +58,36 @@ public class Inventory {
             for(int count = 0; count < list.size(); count++) {
                 try {
                     Item current = list.get(count);
-                    output += "  -" + current;
+                    output += "\n -" + current;
                 } catch(IndexOutOfBoundsException ex) {
-                    output += "  -[N/A]";
-                }
-                if(count != list.size() - 1) {
-                    output += "\n";
+                    output += "\n  -[N/A]";
                 }
             }
         }
         return output;
     }
 
+    private String printType(String type) {
+        String output = "";
+        ArrayList<Item> list = getItems(type);
+        if(list.size() > 0) {
+            output = "\n" + listToString(list,type);
+        }
+        return output;
+    }
+    
     public String toString() {
         String output = "";
-        
+        output += printType("weapon");
+        output += printType("armour");
+        output += printType("consumable");
+        if(output.length() > 1) {
+            output += "\n";
+        }
+        output += "EMPTY:";
+        for(int count = INVENTORY_SIZE; count > ITEM_LIST.size(); count--) {
+            output += "\n  -[N/A]";
+        }
         return output;
     }
     
