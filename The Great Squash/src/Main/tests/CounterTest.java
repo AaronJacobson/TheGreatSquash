@@ -20,15 +20,15 @@ public class CounterTest {
     public static void main(String[] args) {
         ObjectCounter.clearCounters();
         for (int i = 0; i < 50; i++) {
-            if(i%2 == 0) {
+            if (i % 2 == 0) {
                 Wall wally = new Wall();
                 System.out.println(wally.getLabel());
             }
-            if(i%3 == 0) {
+            if (i % 3 == 0) {
                 Door wally = new Door(true);
                 System.out.println(wally.getLabel());
             }
-            if(i%4 == 0) {
+            if (i % 4 == 0) {
                 Chest wally = new Chest();
                 System.out.println(wally.getLabel());
             }

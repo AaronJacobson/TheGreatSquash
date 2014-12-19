@@ -15,23 +15,23 @@ import tools.SpriteHolder;
  * @author ros_aljacobson001
  */
 public class StartTile extends Obstacle {
-    
-    public StartTile(Board board, int y,int x){
+
+    public StartTile(Board board, int y, int x) {
         this();
         BOARD = board;
         LOCATION_Y = y;
         LOCATION_X = x;
         PASSABLE = true;
     }
-    
-    public StartTile(){
+
+    public StartTile() {
         SPRITE = SpriteHolder.OB_START;
         LABEL = ObjectCounter.getObstacleCount(TypeHolder.OB_START);
         TYPE = TypeHolder.OB_START;
         PASSABLE = true;
     }
-    
-    public StartTile clone(Board board){
+
+    public StartTile clone(Board board) {
         BOARD = board;
         StartTile clone = new StartTile();
         return clone;

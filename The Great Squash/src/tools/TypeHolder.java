@@ -9,6 +9,7 @@ package tools;
  * @author ros_aljacobson001
  */
 public class TypeHolder {
+
     public static final String PLAYER = "PLAYER";
     public static final String MONSTER = "MONSTER";
     public static final String OB_WALL = "WALL";

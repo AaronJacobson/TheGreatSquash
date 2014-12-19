@@ -9,8 +9,10 @@ package gameworld;
  * @author ros_dmlamarca
  */
 public interface Displayable {
+
     char SPRITE = '.';
-    
+
     void setSprite(char sprite);
+
     char getSprite();
 }

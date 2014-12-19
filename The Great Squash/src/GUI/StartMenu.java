@@ -49,7 +49,6 @@ public class StartMenu implements KeyListener {
     private JTextField STRENGTH_DISPLAY;
     private JTextField INTELLIGENCE_DISPLAY;
     private JTextField DEXTERITY_DISPLAY;
-    
     private AL ACTION_LISTENER;
 
     public StartMenu() {
@@ -97,7 +96,7 @@ public class StartMenu implements KeyListener {
         PLAYER_BROWSE.setPreferredSize(new Dimension(50, 30));
         PLAYER_BROWSE.setMargin(new Insets(0, 0, 0, 0));
         PLAYER_BROWSE.addActionListener(ACTION_LISTENER);
-        
+
         PLAYER_CREATE = new JButton("Make New");
         PLAYER_CREATE.setPreferredSize(new Dimension(65, 30));
         PLAYER_CREATE.setMargin(new Insets(0, 0, 0, 0));
@@ -109,34 +108,34 @@ public class StartMenu implements KeyListener {
         GET_PLAYER_PANEL.add(PLAYER_BROWSE);
         GET_PLAYER_PANEL.add(PLAYER_CREATE);
     }
-    
+
     private void formatDisplayPlayer() {
-       DISPLAY_PLAYER_PANEL = new JPanel(); 
-       DISPLAY_PLAYER_PANEL.setBounds(1, 151, 352, 50);
-       DISPLAY_PLAYER_PANEL.setBackground(Color.RED);
-       
-       SPEED_DISPLAY = new JTextField(3);
-       ENDURANCE_DISPLAY = new JTextField(3);
-       HEALTH_DISPLAY = new JTextField(4);
-       STRENGTH_DISPLAY = new JTextField(3);
-       INTELLIGENCE_DISPLAY = new JTextField(3);
-       DEXTERITY_DISPLAY = new JTextField(3);
-       formatStat(SPEED_DISPLAY,"Spd");
-       formatStat(ENDURANCE_DISPLAY,"End");
-       formatStat(HEALTH_DISPLAY,"Health");
-       formatStat(STRENGTH_DISPLAY,"Str");
-       formatStat(INTELLIGENCE_DISPLAY,"Int");
-       formatStat(DEXTERITY_DISPLAY,"Dex");
-       
-       
+        DISPLAY_PLAYER_PANEL = new JPanel();
+        DISPLAY_PLAYER_PANEL.setBounds(1, 151, 352, 50);
+        DISPLAY_PLAYER_PANEL.setBackground(Color.RED);
+
+        SPEED_DISPLAY = new JTextField(3);
+        ENDURANCE_DISPLAY = new JTextField(3);
+        HEALTH_DISPLAY = new JTextField(4);
+        STRENGTH_DISPLAY = new JTextField(3);
+        INTELLIGENCE_DISPLAY = new JTextField(3);
+        DEXTERITY_DISPLAY = new JTextField(3);
+        formatStat(SPEED_DISPLAY, "Spd");
+        formatStat(ENDURANCE_DISPLAY, "End");
+        formatStat(HEALTH_DISPLAY, "Health");
+        formatStat(STRENGTH_DISPLAY, "Str");
+        formatStat(INTELLIGENCE_DISPLAY, "Int");
+        formatStat(DEXTERITY_DISPLAY, "Dex");
+
+
     }
-    
+
     private void formatStat(JTextField display, String statName) {
-       display.setEditable(false);
-       display.setHorizontalAlignment(JTextField.CENTER);
-       display.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER,statName));
-       display.setText("1");
-       DISPLAY_PLAYER_PANEL.add(display);
+        display.setEditable(false);
+        display.setHorizontalAlignment(JTextField.CENTER);
+        display.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER, statName));
+        display.setText("1");
+        DISPLAY_PLAYER_PANEL.add(display);
     }
 
     private void formatFrame() {
@@ -161,16 +160,16 @@ public class StartMenu implements KeyListener {
     public void closeMenu() {
         FRAME.dispose();
     }
-    
+
     private void createPlayer() {
         String fileName = PLAYER_NAME.getText();
         if (!fileName.contains(".player") && !fileName.contains("\\")) {
             fileName = "src\\gameworld\\players\\" + fileName + ".player";
         }
-        
+
         File playerFile = new File(fileName);
-        
-        if(playerFile.getTotalSpace() != 0) {
+
+        if (playerFile.getTotalSpace() != 0) {
             PLAYER = new Player(playerFile);
         } else {
             PLAYER = null;
@@ -180,12 +179,12 @@ public class StartMenu implements KeyListener {
     public Player getPlayer() {
         return PLAYER;
     }
-    
+
     public void setPlayer(Player player) {
         PLAYER = player;
         PLAYER_NAME.setText(player.getName());
     }
-    
+
     public StartMenu getSelf() {
         return this;
     }
@@ -216,7 +215,7 @@ public class StartMenu implements KeyListener {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     PLAYER_NAME.setText(chooser.getSelectedFile().getAbsoluteFile() + "");
                 }
-            } else if(action.equals(PLAYER_CREATE.getActionCommand())) {
+            } else if (action.equals(PLAYER_CREATE.getActionCommand())) {
                 CreateCharacter createCharacter = new CreateCharacter(getSelf());
             }
         }

@@ -17,7 +17,7 @@ import gameworld.monsters.Monster;
  * @author ros_Dmlamarca
  */
 public class GUITestMain {
-    
+
     public static void main(String[] args) {
         CreateCharacter gui = new CreateCharacter();
     }

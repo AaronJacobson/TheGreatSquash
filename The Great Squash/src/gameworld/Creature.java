@@ -61,8 +61,8 @@ public class Creature implements Displayable, Sendable {
         INTELLIGENCE = intelligence;
         DEXTERITY = dexterity;
     }
-    
-    public Creature(String name){
+
+    public Creature(String name) {
         NAME = name;
     }
 
@@ -112,7 +112,7 @@ public class Creature implements Displayable, Sendable {
     public Inventory getInventory() {
         return INVENTORY;
     }
-    
+
     public void addToInventory(Item item) {
         INVENTORY.addToInventory(item);
     }
@@ -125,17 +125,17 @@ public class Creature implements Displayable, Sendable {
     public int getLevel() {
         return LEVEL;
     }
-    
+
     public void setLevel(int level) {
         LEVEL = level;
     }
 
     private void updateStats() {
-        SPEED = (int)(SPEED_MODIFIER + (LEVEL * ((double) (SPEED_MODIFIER) / 8)));
-        ENDURANCE = (int)(ENDURANCE_MODIFIER + (LEVEL * ((double) (ENDURANCE_MODIFIER) / 2)));
-        STRENGTH = (int)(STRENGTH_MODIFIER + (LEVEL * ((double) (STRENGTH_MODIFIER) / 3)));
-        INTELLIGENCE = (int)(INTELLIGENCE_MODIFIER + (LEVEL * ((double) (INTELLIGENCE_MODIFIER) / 3)));
-        DEXTERITY = (int)(DEXTERITY_MODIFIER + (LEVEL * ((double) (DEXTERITY_MODIFIER) / 2)));
+        SPEED = (int) (SPEED_MODIFIER + (LEVEL * ((double) (SPEED_MODIFIER) / 8)));
+        ENDURANCE = (int) (ENDURANCE_MODIFIER + (LEVEL * ((double) (ENDURANCE_MODIFIER) / 2)));
+        STRENGTH = (int) (STRENGTH_MODIFIER + (LEVEL * ((double) (STRENGTH_MODIFIER) / 3)));
+        INTELLIGENCE = (int) (INTELLIGENCE_MODIFIER + (LEVEL * ((double) (INTELLIGENCE_MODIFIER) / 3)));
+        DEXTERITY = (int) (DEXTERITY_MODIFIER + (LEVEL * ((double) (DEXTERITY_MODIFIER) / 2)));
     }
 
     @Override
@@ -262,28 +262,28 @@ public class Creature implements Displayable, Sendable {
     public String toServerData() {
         return " | " + NAME + " " + LOCATION_Y + " " + LOCATION_X + " " + MAX_HEALTH + " " + TYPE + " " + SPRITE;
     }
-    
-    public int getMaxHealth(){
+
+    public int getMaxHealth() {
         return MAX_HEALTH;
     }
-    
-    public void setMaxHealth(int health){
+
+    public void setMaxHealth(int health) {
         MAX_HEALTH = health;
     }
-    
-    public double getCurrentHealth(){
+
+    public double getCurrentHealth() {
         return CURRENT_HEALTH;
     }
-    
-    public void setCurrentHealth(double newHealth){
+
+    public void setCurrentHealth(double newHealth) {
         CURRENT_HEALTH = newHealth;
     }
-    
-    public int getXP(){
+
+    public int getXP() {
         return XP;
     }
-    
-    public void setXP(int newXp){
+
+    public void setXP(int newXp) {
         XP = newXp;
     }
 }

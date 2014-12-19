@@ -41,7 +41,7 @@ public class Server {
     private int CONNECTIONS;
     private String SERVER_NAME = "";
 
-    public Server(int connections,String mapName) {
+    public Server(int connections, String mapName) {
         CONNECTIONS = connections;
         THE_BOARD = CreateFromDocument.createFromMaps(mapName);
         IPS = new ArrayList<String>();
@@ -53,8 +53,8 @@ public class Server {
         SERVER_CLIENT_CONNECTIONS = new ServerClientConnection[CONNECTIONS];
         SERVER_CHAT_CONNECTIONS = new ServerClientChat[CONNECTIONS];
     }
-    
-    public void makeServer(){
+
+    public void makeServer() {
         System.out.println("Server: Starting server...");
         //keeps creating the server on different ports until an unused one is found
         while (true) {
@@ -73,7 +73,8 @@ public class Server {
             System.out.println("Server: Could not get local host address.");
         }
     }
-    public void waitForClientConnections(){
+
+    public void waitForClientConnections() {
         //waits for all the clients to connect
         for (int currentConnection = 0; currentConnection < CONNECTIONS; currentConnection++) {
             try {
@@ -107,12 +108,12 @@ public class Server {
     public String getServerName() {
         return SERVER_NAME;
     }
-    
-    public int getConnections(){
+
+    public int getConnections() {
         return CONNECTIONS;
     }
-    
-    public int getPortNumber(){
+
+    public int getPortNumber() {
         return PORT_NUMBER;
     }
 }

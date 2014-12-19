@@ -9,18 +9,19 @@ package items.spellbooks;
  *
  * @author ros_aljacobson001
  */
-public class OneTargetSpell extends SpellBook{
+public class OneTargetSpell extends SpellBook {
+
     private int RANGE;
-    
-    public OneTargetSpell(String name,char sprite,String school,int manaCost,int range){
+
+    public OneTargetSpell(String name, char sprite, String school, int manaCost, int range) {
         NAME = name;
         SPRITE = sprite;
         SCHOOL = school;
         MANA_COST = manaCost;
         RANGE = range;
     }
-    
-    public String toServerData(){
+
+    public String toServerData() {
         return super.toServerData() + " " + RANGE;
     }
 }

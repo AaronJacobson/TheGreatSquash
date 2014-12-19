@@ -17,15 +17,15 @@ import tools.SpriteHolder;
  */
 public class Wall extends Obstacle implements Cloneable {
 
-    public Wall(Board board, int y,int x){
+    public Wall(Board board, int y, int x) {
         this();
         BOARD = board;
         LOCATION_Y = y;
         LOCATION_X = x;
         PASSABLE = false;
     }
-    
-    public Wall(){
+
+    public Wall() {
         SPRITE = SpriteHolder.OB_WALL;
         LABEL = ObjectCounter.getObstacleCount(TypeHolder.OB_WALL);
         TYPE = TypeHolder.OB_WALL;

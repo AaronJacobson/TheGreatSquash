@@ -65,7 +65,7 @@ public class ServerDataHandler implements Runnable {
             GameRunner.GAME_GUI.updateCreatures();
             System.out.println("ServerDataHandler: " + newY + " " + newX);
             System.out.println("ServerDataHandler: " + GameRunner.GAME_GUI.getCreature().getY() + " " + GameRunner.GAME_GUI.getCreature().getX());
-        GameRunner.GAME_GUI.updateCreatures();
+            GameRunner.GAME_GUI.updateCreatures();
         } else if (theCommand.equals(CommandHolder.THE_CREATURES)) {
             System.out.println("ServerDataHandler: Recieved the creatures.");
             int numberOfCreatures = messageScanner.nextInt();
@@ -80,8 +80,8 @@ public class ServerDataHandler implements Runnable {
                 if (type.equals(TypeHolder.PLAYER)) {
                     Player john = new Player(sprite, GameRunner.getBoard(), newY, newX, label);
                     GameRunner.getBoard().addCreature(john);
-                } else{
-                    Creature bill = new Creature(sprite,GameRunner.getBoard(),newY,newX,label,type);
+                } else {
+                    Creature bill = new Creature(sprite, GameRunner.getBoard(), newY, newX, label, type);
                     GameRunner.getBoard().addCreature(bill);
                 }
                 //this is where other types of creatures go
@@ -112,8 +112,8 @@ public class ServerDataHandler implements Runnable {
                 } else if (type.equals(TypeHolder.OB_WALL)) {
                     Wall wall = new Wall(GameRunner.getBoard(), newY, newX);
                     GameRunner.getBoard().addObstacle(wall);
-                }else if (type.equals(TypeHolder.OB_START)){
-                    StartTile startTile = new StartTile(GameRunner.getBoard(),newY,newX);
+                } else if (type.equals(TypeHolder.OB_START)) {
+                    StartTile startTile = new StartTile(GameRunner.getBoard(), newY, newX);
                     GameRunner.getBoard().addObstacle(startTile);
                     GameRunner.GAME_BOARD.getStartTiles().add(startTile);
                 }
@@ -133,7 +133,7 @@ public class ServerDataHandler implements Runnable {
                 if (type.equals(TypeHolder.PLAYER)) {
                     Player player = new Player(sprite, GameRunner.getBoard(), locY, locX, name);
                     GameRunner.GAME_BOARD.placePlayer(player);
-                } else{
+                } else {
                     //Where other types of creatures would be created
                 }
             }
@@ -141,7 +141,7 @@ public class ServerDataHandler implements Runnable {
         } else if (theCommand.equals(CommandHolder.BOARD_SIZE)) {
             int boardx = messageScanner.nextInt();
             int boardy = messageScanner.nextInt();
-            GameRunner.setBoard(new Board(boardy,boardx));
+            GameRunner.setBoard(new Board(boardy, boardx));
             WAIT_FOR_PARAMETERS = false;
         }
     }
@@ -159,7 +159,7 @@ public class ServerDataHandler implements Runnable {
         }
     }
 
-    public void sendMove(int newY, int newX,Creature theCreature) {
+    public void sendMove(int newY, int newX, Creature theCreature) {
         String toSend = CommandHolder.ASK_TO_MOVE + " " + newY + " " + newX + " " + theCreature.getName();
         sendCommand(toSend);
     }
@@ -194,9 +194,9 @@ public class ServerDataHandler implements Runnable {
             System.out.println("ServerDataHandler to communicate with the server");
         }
     }
-    
-    public void sendCreatures(){
-        for(int currentCreature = 0;currentCreature < GameRunner.GAME_GUI.getCreatures().size();currentCreature++){
+
+    public void sendCreatures() {
+        for (int currentCreature = 0; currentCreature < GameRunner.GAME_GUI.getCreatures().size(); currentCreature++) {
             sendCreature(GameRunner.GAME_GUI.getCreatures().get(currentCreature));
         }
     }

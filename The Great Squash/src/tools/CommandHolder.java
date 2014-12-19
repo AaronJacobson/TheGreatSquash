@@ -6,9 +6,11 @@ package tools;
 
 /**
  * This class holds all the strings for commands
+ *
  * @author ros_aljacobson001
  */
 public class CommandHolder {
+
     public static final String MOVE_CREATURE = "MOVE_THIS_CREATURE";
     public static final String ASK_TO_MOVE = "CAN_I_MOVE_THIS_CREATURE_HERE?";
     public static final String OBSTACLE = "THIS_IS_AN_OBSTACLE";

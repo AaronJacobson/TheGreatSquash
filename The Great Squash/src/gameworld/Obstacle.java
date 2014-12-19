@@ -29,7 +29,7 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
     public String getLabel() {
         return LABEL;
     }
-    
+
     public boolean getPassable() {
         return PASSABLE;
     }

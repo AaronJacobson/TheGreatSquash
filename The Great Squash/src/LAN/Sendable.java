@@ -9,5 +9,6 @@ package LAN;
  * @author ros_aljacobson001
  */
 public interface Sendable {
+
     String toServerData();
 }

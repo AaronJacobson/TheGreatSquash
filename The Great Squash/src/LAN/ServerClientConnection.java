@@ -61,7 +61,7 @@ class ServerClientConnection implements Runnable {
                             System.out.println("ServerClientConnection: Inpassable");
                         }
                     } catch (NullPointerException e) {
-                            sendCommand(CommandHolder.MOVE_CREATURE + " " + y + " " + x + " " + creatureName + " " + THE_SERVER.getBoard().getCreature(creatureName).getY() + " " + THE_SERVER.getBoard().getCreature(creatureName).getX());
+                        sendCommand(CommandHolder.MOVE_CREATURE + " " + y + " " + x + " " + creatureName + " " + THE_SERVER.getBoard().getCreature(creatureName).getY() + " " + THE_SERVER.getBoard().getCreature(creatureName).getX());
                         THE_SERVER.getBoard().moveCreature(y, x, THE_SERVER.getBoard().getCreature(creatureName));
                     }
                 } catch (ArrayIndexOutOfBoundsException ex) {

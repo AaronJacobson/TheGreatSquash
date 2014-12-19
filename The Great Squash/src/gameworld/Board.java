@@ -70,7 +70,7 @@ public class Board {
         player.LOCATION_X = START_TILES.get(START_TILE_NUMBER).LOCATION_X;
         player.LOCATION_Y = START_TILES.get(START_TILE_NUMBER).LOCATION_Y;
         START_TILE_NUMBER++;
-        if(START_TILE_NUMBER >= START_TILES.size()){
+        if (START_TILE_NUMBER >= START_TILES.size()) {
             START_TILE_NUMBER = 0;
         }
         System.out.println("Board: Placed player: " + player.getName());
@@ -114,8 +114,8 @@ public class Board {
         getTile(y, x).setObstacle(obstacle);
         obstacle.setX(x);
         obstacle.setY(y);
-        if(obstacle instanceof StartTile){
-            START_TILES.add((StartTile)obstacle);
+        if (obstacle instanceof StartTile) {
+            START_TILES.add((StartTile) obstacle);
         }
         OBSTACLES.add(obstacle);
     }

@@ -76,7 +76,7 @@ public class GameGUI {
         MOVEMENT_LISTENER.setCreature(CONTROLLED_CREATURES.get(CURRENT_CREATURE));
     }
 
-    public void setCreature(Creature creature){
+    public void setCreature(Creature creature) {
         CONTROLLED_CREATURES.add(creature);
         CURRENT_CREATURE = CONTROLLED_CREATURES.size() - 1;
         CHAT_LISTENER.setCreature(CONTROLLED_CREATURES.get(CURRENT_CREATURE));
@@ -180,14 +180,14 @@ public class GameGUI {
         int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);
     }
-    
-    public ArrayList<Creature> getCreatures(){
+
+    public ArrayList<Creature> getCreatures() {
         return CONTROLLED_CREATURES;
     }
-    
-    public void updateCreatures(){
-        for(int currentCreature = 0;currentCreature < CONTROLLED_CREATURES.size();currentCreature++){
-            if(GameRunner.GAME_BOARD.hasCreature(CONTROLLED_CREATURES.get(currentCreature).getName())){
+
+    public void updateCreatures() {
+        for (int currentCreature = 0; currentCreature < CONTROLLED_CREATURES.size(); currentCreature++) {
+            if (GameRunner.GAME_BOARD.hasCreature(CONTROLLED_CREATURES.get(currentCreature).getName())) {
                 CONTROLLED_CREATURES.set(currentCreature, GameRunner.GAME_BOARD.getCreature(CONTROLLED_CREATURES.get(currentCreature).getName()));
                 MOVEMENT_LISTENER.setCreature(CONTROLLED_CREATURES.get(currentCreature));
                 System.out.println("GameGUI: Replaced creature: " + CONTROLLED_CREATURES.get(currentCreature).getName());

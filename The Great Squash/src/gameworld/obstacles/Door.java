@@ -16,19 +16,20 @@ import tools.SpriteHolder;
  * @author ros_dmlamarca
  */
 public class Door extends Obstacle implements Interactive, Cloneable {
+
     private boolean DOOR_POSITION;
-    
-        public Door(Board board, boolean open, int y,int x){
+
+    public Door(Board board, boolean open, int y, int x) {
         this(open);
         BOARD = board;
         LOCATION_Y = y;
         LOCATION_X = x;
         PASSABLE = true;
     }
-    
-    public Door(boolean open){
+
+    public Door(boolean open) {
         DOOR_POSITION = open;
-        if(open) {
+        if (open) {
             SPRITE = SpriteHolder.OB_OPEN_DOOR;
         } else {
             SPRITE = SpriteHolder.OB_CLOSED_DOOR;
@@ -37,9 +38,9 @@ public class Door extends Obstacle implements Interactive, Cloneable {
         TYPE = TypeHolder.OB_DOOR;
         PASSABLE = true;
     }
-    
+
     public void update() {
-        if(DOOR_POSITION) {
+        if (DOOR_POSITION) {
             //Close door
             SPRITE = SpriteHolder.OB_CLOSED_DOOR;
             PASSABLE = false;
@@ -49,8 +50,8 @@ public class Door extends Obstacle implements Interactive, Cloneable {
             PASSABLE = true;
         }
     }
-    
-     public Door clone(Board board) {
+
+    public Door clone(Board board) {
         BOARD = board;
         Door clone = new Door(DOOR_POSITION);
         clone.setLocation(BOARD, LOCATION_Y, LOCATION_X);
