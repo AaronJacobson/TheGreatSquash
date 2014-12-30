@@ -3,7 +3,9 @@ package GUI;
 import Main.GameRunner;
 import gameworld.Player;
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,13 +20,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author ros_dmlamarca
  */
-public class StartMenu implements KeyListener {
+public class StartMenu {
 
     private JFrame FRAME = new JFrame("The Great Squash");
     private Border PANEL_BORDER = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
@@ -33,21 +36,36 @@ public class StartMenu implements KeyListener {
     private Button CLIENT_CONNECT;
     private JTextField SERVER_MAP;
     private Button SERVER_CREATE;
-    private JTextField PLAYER_NAME;
+    private JTextField PLAYER_FIND;
     private JButton PLAYER_BROWSE;
     private JButton PLAYER_CREATE;
     private JPanel BASE;
     private JPanel SERVER_PANEL;
     private JPanel CLIENT_PANEL;
-    private JPanel PLAYER_PANEL;
+    private JPanel FIND_PLAYER_PANEL;
     private Player PLAYER;
-    private AL ACTION_LISTENER;
+    private JPanel DISPLAY_PLAYER_PANEL;
+    private JTextField PLAYER_NAME;
+    private JTextField PLAYER_CLASS;
+    private JTextField PLAYER_SPECIES;
+    private JTextField PLAYER_SPRITE;
+    private JTextField PLAYER_LEVEL;
+    private JTextField PLAYER_SPEED;
+    private JTextField PLAYER_ENDURANCE;
+    private JTextField PLAYER_HEALTH;
+    private JTextField PLAYER_STRENGTH;
+    private JTextField PLAYER_INTELLIGENCE;
+    private JTextField PLAYER_DEXTERITY;
+    private StartMenuButtonListener ACTION_LISTENER;
+    private FindPlayerKeyListener KEY_LISTENER;
 
     public StartMenu() {
-        ACTION_LISTENER = new AL();
+        ACTION_LISTENER = new StartMenuButtonListener();
+        KEY_LISTENER = new FindPlayerKeyListener();
         formatClient();
         formatServer();
-        formatPlayer();
+        formatFindPlayer();
+        formatDisplayPlayer();
         formatFrame();
 
 //        JFileChooser choosy = new JFileChooser();
@@ -82,91 +100,149 @@ public class StartMenu implements KeyListener {
         SERVER_PANEL.add(SERVER_CREATE);
     }
 
-    private void formatPlayer() {
-        PLAYER_NAME = new JTextField(19);
-        PLAYER_NAME.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER, "Player File"));
+    private void formatFindPlayer() {
+        PLAYER_FIND = new JTextField(19);
+        PLAYER_FIND.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER, "Player File"));
 
         PLAYER_BROWSE = new JButton("Browse");
         PLAYER_BROWSE.setPreferredSize(new Dimension(50, 30));
         PLAYER_BROWSE.setMargin(new Insets(0, 0, 0, 0));
         PLAYER_BROWSE.addActionListener(ACTION_LISTENER);
-        
+
         PLAYER_CREATE = new JButton("Make New");
         PLAYER_CREATE.setPreferredSize(new Dimension(65, 30));
         PLAYER_CREATE.setMargin(new Insets(0, 0, 0, 0));
         PLAYER_CREATE.addActionListener(ACTION_LISTENER);
 
-        PLAYER_PANEL = new JPanel();
-        PLAYER_PANEL.setBounds(1, 101, 352, 50);
-        PLAYER_PANEL.add(PLAYER_NAME);
-        PLAYER_PANEL.add(PLAYER_BROWSE);
-        PLAYER_PANEL.add(PLAYER_CREATE);
+        FIND_PLAYER_PANEL = new JPanel();
+        FIND_PLAYER_PANEL.setBounds(1, 101, 352, 50);
+        FIND_PLAYER_PANEL.add(PLAYER_FIND);
+        FIND_PLAYER_PANEL.add(PLAYER_BROWSE);
+        FIND_PLAYER_PANEL.add(PLAYER_CREATE);
+    }
+
+    private void formatDisplayPlayer() {
+        DISPLAY_PLAYER_PANEL = new JPanel();
+        DISPLAY_PLAYER_PANEL.setBounds(1, 151, 352, 120);
+        DISPLAY_PLAYER_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, "Player"));
+
+        PLAYER_NAME = new JTextField(6);
+        formatStat(PLAYER_NAME, "Name", "");
+        PLAYER_CLASS = new JTextField(5);
+        formatStat(PLAYER_CLASS, "Class", "");
+        PLAYER_SPECIES = new JTextField(6);
+        formatStat(PLAYER_SPECIES, "Species", "");
+        PLAYER_SPRITE = new JTextField(6);
+        PLAYER_SPRITE.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        formatStat(PLAYER_SPRITE, "Sprite", "");
+        PLAYER_LEVEL = new JTextField(2);
+        formatStat(PLAYER_LEVEL, "Lvl", "");
+        PLAYER_SPEED = new JTextField(3);
+        formatStat(PLAYER_SPEED, "Spd", "0");
+        PLAYER_ENDURANCE = new JTextField(3);
+        formatStat(PLAYER_ENDURANCE, "End", "0");
+        PLAYER_HEALTH = new JTextField(4);
+        formatStat(PLAYER_HEALTH, "Health", "0");
+        PLAYER_STRENGTH = new JTextField(3);
+        formatStat(PLAYER_STRENGTH, "Str", "0");
+        PLAYER_INTELLIGENCE = new JTextField(3);
+        formatStat(PLAYER_INTELLIGENCE, "Int", "0");
+        PLAYER_DEXTERITY = new JTextField(3);
+        formatStat(PLAYER_DEXTERITY, "Dex", "0");
+    }
+
+    private void formatStat(JTextField text, String statName, String startText) {
+        text.setEditable(false);
+        text.setHorizontalAlignment(JTextField.CENTER);
+        text.setText(startText);
+        text.setBackground(Color.WHITE);
+        text.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER, statName));
+        DISPLAY_PLAYER_PANEL.add(text);
     }
 
     private void formatFrame() {
         FRAME.add(SERVER_PANEL);
         FRAME.add(CLIENT_PANEL);
-        FRAME.add(PLAYER_PANEL);
+        FRAME.add(FIND_PLAYER_PANEL);
+        FRAME.add(DISPLAY_PLAYER_PANEL);
 
         BASE = new JPanel();
         FRAME.add(BASE);
 
-        FRAME.setSize(360, 180);
+        FRAME.setSize(360, 300);
         FRAME.setVisible(true);
         FRAME.setResizable(false);
         FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        PLAYER_NAME.requestFocusInWindow();
-        PLAYER_NAME.addKeyListener(this);
+        PLAYER_FIND.requestFocusInWindow();
+        PLAYER_FIND.addKeyListener(KEY_LISTENER);
         GameGUI.centerWindow(FRAME);
     }
 
     public void closeMenu() {
         FRAME.dispose();
     }
-    
+
     private void createPlayer() {
-        String fileName = PLAYER_NAME.getText();
+        String fileName = PLAYER_FIND.getText();
         if (!fileName.contains(".player") && !fileName.contains("\\")) {
             fileName = "src\\gameworld\\players\\" + fileName + ".player";
         }
-        
+
         File playerFile = new File(fileName);
-        
-        if(playerFile.getTotalSpace() != 0) {
-            PLAYER = new Player(playerFile);
+
+        if (playerFile.getTotalSpace() != 0) {
+            Player player = new Player(playerFile);
+            PLAYER = player;
         } else {
             PLAYER = null;
+        }
+        
+        updatePlayerStats();
+    }
+
+    private void updatePlayerStats() {
+        try {
+            PLAYER_NAME.setText(PLAYER.getName());
+            PLAYER_CLASS.setText(PLAYER.getPlayerClass());
+            PLAYER_SPECIES.setText(PLAYER.getSpecies());
+            PLAYER_LEVEL.setText(PLAYER.getLevel() + "");
+            PLAYER_SPRITE.setText(PLAYER.getSprite() + "");
+            PLAYER_SPEED.setText((int) PLAYER.getSpeed() + "");
+            PLAYER_ENDURANCE.setText((int) PLAYER.getEndurance() + "");
+            PLAYER_HEALTH.setText(PLAYER.getMaxHealth() + "");
+            PLAYER_STRENGTH.setText((int) PLAYER.getStrength() + "");
+            PLAYER_INTELLIGENCE.setText((int) (PLAYER.getIntelligence()) + "");
+            PLAYER_DEXTERITY.setText((int) PLAYER.getDexterity() + "");
+        } catch (NullPointerException ex) {
+            PLAYER_NAME.setText("");
+            PLAYER_CLASS.setText("");
+            PLAYER_SPECIES.setText("");
+            PLAYER_LEVEL.setText("");
+            PLAYER_SPRITE.setText("");
+            PLAYER_SPEED.setText("0");
+            PLAYER_ENDURANCE.setText("0");
+            PLAYER_HEALTH.setText("0");
+            PLAYER_STRENGTH.setText("0");
+            PLAYER_INTELLIGENCE.setText("0");
+            PLAYER_DEXTERITY.setText("0");
         }
     }
 
     public Player getPlayer() {
         return PLAYER;
     }
-    
+
     public void setPlayer(Player player) {
         PLAYER = player;
-        PLAYER_NAME.setText(player.getName());
+        PLAYER_FIND.setText(player.getName());
     }
-    
+
     public StartMenu getSelf() {
         return this;
     }
 
-    @Override
-    public void keyTyped(KeyEvent ke) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent ke) {
-    }
-
-    @Override
-    public void keyReleased(KeyEvent ke) {
-        createPlayer();
-    }
-
-    private class AL implements ActionListener {
+    private class StartMenuButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent ae) {
             String action = ae.getActionCommand();
@@ -175,17 +251,31 @@ public class StartMenu implements KeyListener {
             } else if (action.equals(SERVER_CREATE.getActionCommand())) {
                 GameRunner.createServer(SERVER_MAP.getText());
             } else if (action.equals(PLAYER_BROWSE.getActionCommand())) {
-                JFileChooser chooser = new JFileChooser();
+                JFileChooser chooser = new JFileChooser("src\\gameworld\\players");
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("Player Files", "player");
                 chooser.setFileFilter(filter);
                 int returnVal = chooser.showOpenDialog(chooser);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    PLAYER_NAME.setText(chooser.getSelectedFile().getAbsoluteFile() + "");
+                    PLAYER_FIND.setText(chooser.getSelectedFile().getAbsoluteFile() + "");
+                    createPlayer();
                 }
-            } else if(action.equals(PLAYER_CREATE.getActionCommand())) {
+            } else if (action.equals(PLAYER_CREATE.getActionCommand())) {
 //                System.out.println("poop");
                 CreateCharacter createCharacter = new CreateCharacter(getSelf());
             }
+        }
+    }
+
+    private class FindPlayerKeyListener implements KeyListener {
+
+        public void keyTyped(KeyEvent ke) {
+        }
+
+        public void keyPressed(KeyEvent ke) {
+        }
+
+        public void keyReleased(KeyEvent ke) {
+            createPlayer();
         }
     }
 }
