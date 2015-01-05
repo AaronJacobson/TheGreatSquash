@@ -132,6 +132,10 @@ public class Player extends Creature {
     public String getSpecies() {
         return SPECIES;
     }
+    
+    public String getPlayerClass() {
+        return CLASS;
+    }
 
     public void loadTest(Scanner playerScanner) {
         int tokenNumber = 0;
