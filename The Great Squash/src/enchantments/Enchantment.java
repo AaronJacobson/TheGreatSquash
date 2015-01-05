@@ -4,7 +4,7 @@
  */
 package enchantments;
 
-import LAN.CommandHolder;
+import tools.CommandHolder;
 import LAN.Sendable;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,7 +14,8 @@ import java.util.Scanner;
  *
  * @author ros_aljacobson001
  */
-public class Enchantment implements Sendable{
+public class Enchantment implements Sendable {
+
     private int DAMAGE_BONUS = 0;
     private int A_C_BONUS = 0;
     private int M_P_BONUS = 0;
@@ -26,8 +27,8 @@ public class Enchantment implements Sendable{
     private int DEXTERITY_BONUS = 0;
     private boolean ACTIVE = true;
     private String NAME = "UNITIALIZED_BONUS";
-    
-    public Enchantment(String name,int damageBonus,int ac,int mp,int health,int manaBonus,int strengthBonus,int enduranceBonus,int intelligenceBonus,int dexterityBonus){
+
+    public Enchantment(String name, int damageBonus, int ac, int mp, int health, int manaBonus, int strengthBonus, int enduranceBonus, int intelligenceBonus, int dexterityBonus) {
         DAMAGE_BONUS = damageBonus;
         NAME = name;
         A_C_BONUS = ac;
@@ -39,8 +40,8 @@ public class Enchantment implements Sendable{
         INTELLIGENCE_BONUS = intelligenceBonus;
         DEXTERITY_BONUS = dexterityBonus;
     }
-    
-    public Enchantment(String name){
+
+    public Enchantment(String name) {
         String fileDirectory = "src/enchantments/" + name + ".enchantment";
         try {
             Scanner fileScanner = new Scanner(new File(fileDirectory));
@@ -50,8 +51,8 @@ public class Enchantment implements Sendable{
             System.out.println(fileDirectory);
         }
     }
-    
-    public void loadStats(Scanner fileScanner){
+
+    public void loadStats(Scanner fileScanner) {
         fileScanner.next();
         NAME = fileScanner.next();
         fileScanner.next();
@@ -73,84 +74,84 @@ public class Enchantment implements Sendable{
         fileScanner.next();
         DEXTERITY_BONUS = fileScanner.nextInt();
     }
-    
-    public String getName(){
+
+    public String getName() {
         return NAME;
     }
-    
-    public void setName(String newName){
+
+    public void setName(String newName) {
         NAME = newName;
     }
-    
-    public void setACBonus(int newACBonus){
+
+    public void setACBonus(int newACBonus) {
         A_C_BONUS = newACBonus;
     }
-    
-    public int getACBonus(){
+
+    public int getACBonus() {
         return A_C_BONUS;
     }
-    
-    public int getMPBonus(){
+
+    public int getMPBonus() {
         return M_P_BONUS;
     }
-    
-    public void setMPBonus(int newMPBonus){
+
+    public void setMPBonus(int newMPBonus) {
         M_P_BONUS = newMPBonus;
     }
-    
-    public int getHealthBonus(){
+
+    public int getHealthBonus() {
         return HEALTH_BONUS;
     }
-    
-    public void setHealthBonus(int newHealthBonus){
+
+    public void setHealthBonus(int newHealthBonus) {
         HEALTH_BONUS = newHealthBonus;
     }
-    
-    public int getManaBonus(){
+
+    public int getManaBonus() {
         return MANA_BONUS;
     }
-    
-    public void setManaBonus(int newManaBonus){
+
+    public void setManaBonus(int newManaBonus) {
         MANA_BONUS = newManaBonus;
     }
-    
-    public int getStrengthBonus(){
+
+    public int getStrengthBonus() {
         return STRENGTH_BONUS;
     }
-    
-    public void setStrengthBonus(int newStrengthBonus){
+
+    public void setStrengthBonus(int newStrengthBonus) {
         STRENGTH_BONUS = newStrengthBonus;
     }
-    
-    public int getEnduranceBonus(){
+
+    public int getEnduranceBonus() {
         return ENDURANCE_BONUS;
     }
-    
-    public void setEnduranceBonus(int newEnduranceBonus){
+
+    public void setEnduranceBonus(int newEnduranceBonus) {
         ENDURANCE_BONUS = newEnduranceBonus;
     }
-    
-    public int getIntelligenceBonus(){
+
+    public int getIntelligenceBonus() {
         return INTELLIGENCE_BONUS;
     }
-    
-    public void setIntelligenceBonus(int newIntelligenceBonus){
+
+    public void setIntelligenceBonus(int newIntelligenceBonus) {
         INTELLIGENCE_BONUS = newIntelligenceBonus;
     }
-    
-    public int getDexterityBonus(){
+
+    public int getDexterityBonus() {
         return DEXTERITY_BONUS;
     }
-    
-    public void setDexterityBonus(int newDexterityBonus){
+
+    public void setDexterityBonus(int newDexterityBonus) {
         DEXTERITY_BONUS = newDexterityBonus;
     }
-    
-    public boolean getActive(){
+
+    public boolean getActive() {
         return ACTIVE;
     }
-    
-    public void setActive(boolean newActive){
+
+    public void setActive(boolean newActive) {
         ACTIVE = newActive;
     }
 

@@ -5,7 +5,7 @@
 package items.armors;
 
 import Auras.Aura;
-import LAN.CommandHolder;
+import tools.CommandHolder;
 import LAN.Sendable;
 import enchantments.Enchantment;
 import gameworld.Displayable;
@@ -20,14 +20,15 @@ import java.util.Scanner;
  * @author ros_dmlamarca
  */
 public class Armor implements Item, Displayable, Sendable {
+
     private String NAME = "UNITIALIZED_ARMOR";
-    private char SPRITE = (char)(177);// 177 = ±
+    private char SPRITE = (char) (177);// 177 = ±
     private int ARMOR_CLASS = 10;
     private double DURABILITY = 100;
     private ArrayList<Enchantment> ENCHANTMENTS;
     private ArrayList<Aura> AURAS;
-    
-    public Armor(String name,char sprite,int ac,double dur){
+
+    public Armor(String name, char sprite, int ac, double dur) {
         ENCHANTMENTS = new ArrayList<Enchantment>();
         AURAS = new ArrayList<Aura>();
         NAME = name;
@@ -35,8 +36,8 @@ public class Armor implements Item, Displayable, Sendable {
         ARMOR_CLASS = ac;
         DURABILITY = dur;
     }
-    
-    public Armor(String name){
+
+    public Armor(String name) {
         ENCHANTMENTS = new ArrayList<Enchantment>();
         AURAS = new ArrayList<Aura>();
         String fileDirectory = "src/items/armors/" + name + ".armor";
@@ -48,8 +49,8 @@ public class Armor implements Item, Displayable, Sendable {
             System.out.println(fileDirectory);
         }
     }
-    
-    public void loadStats(Scanner fileScanner){
+
+    public void loadStats(Scanner fileScanner) {
         fileScanner.next();
         NAME = fileScanner.next();
         fileScanner.next();
@@ -60,10 +61,10 @@ public class Armor implements Item, Displayable, Sendable {
         DURABILITY = fileScanner.nextInt();
         loadEnchantments(fileScanner);
     }
-    
-    public void loadEnchantments(Scanner fileScanner){
+
+    public void loadEnchantments(Scanner fileScanner) {
         fileScanner.next();
-        while(fileScanner.hasNext()){
+        while (fileScanner.hasNext()) {
             fileScanner.next();
             String name = fileScanner.next();
             fileScanner.next();
@@ -84,62 +85,66 @@ public class Armor implements Item, Displayable, Sendable {
             int intelligenceBonus = fileScanner.nextInt();
             fileScanner.next();
             int dexterityBonus = fileScanner.nextInt();
-            Enchantment enchantment = new Enchantment(name,damageBonus,aCBonus,mPBonus,healthBonus,manaBonus,strengthBonus,enduranceBonus,intelligenceBonus,dexterityBonus);
+            Enchantment enchantment = new Enchantment(name, damageBonus, aCBonus, mPBonus, healthBonus, manaBonus, strengthBonus, enduranceBonus, intelligenceBonus, dexterityBonus);
             ENCHANTMENTS.add(enchantment);
         }
     }
-    
+
     public void setSprite(char sprite) {
         SPRITE = sprite;
     }
-    
+
     public char getSprite() {
         return SPRITE;
     }
-    
-    public void setAC(int toSet){
+
+    public void setAC(int toSet) {
         ARMOR_CLASS = toSet;
     }
-    
-    public int getAC(){
+
+    public int getAC() {
         return ARMOR_CLASS;
     }
-    
-    public void setDurability(double toSet){
+
+    public void setDurability(double toSet) {
         DURABILITY = toSet;
     }
-    
-    public double getDurability(){
+
+    public double getDurability() {
         return DURABILITY;
     }
-    
-    public void addEnchantment(Enchantment newEnchantment){
+
+    public void addEnchantment(Enchantment newEnchantment) {
         ENCHANTMENTS.add(newEnchantment);
     }
-    
-    public boolean removeEnchantment(String name){
-        for(int currentEnchantment = 0;currentEnchantment < ENCHANTMENTS.size();currentEnchantment++){
-            if(ENCHANTMENTS.get(currentEnchantment).getName().equals(name)){
+
+    public boolean removeEnchantment(String name) {
+        for (int currentEnchantment = 0; currentEnchantment < ENCHANTMENTS.size(); currentEnchantment++) {
+            if (ENCHANTMENTS.get(currentEnchantment).getName().equals(name)) {
                 ENCHANTMENTS.remove(currentEnchantment);
                 return true;
             }
         }
         return false;
     }
-    
-    public String enchantmentServerData(){
+
+    public String toString() {
+        return NAME;
+    }
+
+    public String enchantmentServerData() {
         String toReturn = "";
-        if(ENCHANTMENTS.size() == 0){
+        if (ENCHANTMENTS.size() == 0) {
             toReturn = "NO_ENCHANTMENTS";
-        }else{
-            for(int currentEnchantment = 0;currentEnchantment < ENCHANTMENTS.size();currentEnchantment++){
+        } else {
+            for (int currentEnchantment = 0; currentEnchantment < ENCHANTMENTS.size(); currentEnchantment++) {
                 toReturn += ENCHANTMENTS.get(currentEnchantment).toServerData();
             }
         }
         return toReturn;
     }
-    
-    public String toServerData(){
+
+    public String toServerData() {
         return CommandHolder.ARMOR + NAME + " " + SPRITE + " " + ARMOR_CLASS + " " + DURABILITY + " " + enchantmentServerData();
     }
 }

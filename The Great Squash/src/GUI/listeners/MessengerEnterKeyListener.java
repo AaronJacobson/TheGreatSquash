@@ -24,15 +24,15 @@ public class MessengerEnterKeyListener implements KeyListener {
         DISPLAY = gui.getChatDisplay();
         INPUT = gui.getChatInput();
     }
-    
+
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getExtendedKeyCode() == 10 && !INPUT.getText().equals("")) {
             String message = formatMessage(INPUT.getText());
             INPUT.setText("");
-            
+
             String previousText = DISPLAY.getText();
-            
+
             DISPLAY.setText(previousText + message + "\n");
         }
 
@@ -47,9 +47,9 @@ public class MessengerEnterKeyListener implements KeyListener {
     public void keyTyped(KeyEvent arg0) {
         // TODO Auto-generated method stub
     }
-    
+
     public void setCreature(Creature creature) {
-     CREATURE = creature;   
+        CREATURE = creature;
     }
 
     private String formatMessage(String input) {
@@ -59,7 +59,7 @@ public class MessengerEnterKeyListener implements KeyListener {
 //        String header = System.getProperty("user.name") + " [" + dateFormat.format(cal.getTime()) + "]: ";
 //        System.out.println(CREATURE);
         String header = CREATURE.getName() + " [" + dateFormat.format(cal.getTime()) + "]: ";
-        
+
         return header + input;
     }
 }

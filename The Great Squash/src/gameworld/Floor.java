@@ -9,5 +9,4 @@ package gameworld;
  * @author ros_aljacobson001
  */
 public abstract class Floor implements Displayable {
-    
 }

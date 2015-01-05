@@ -4,8 +4,9 @@
  */
 package LAN;
 
+import tools.CommandHolder;
 import gameworld.Board;
-import gameworld.tools.CreateFromDocument;
+import tools.CreateFromDocument;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class Server {
     private int CONNECTIONS;
     private String SERVER_NAME = "";
 
-    public Server(int connections,String mapName) {
+    public Server(int connections, String mapName) {
         CONNECTIONS = connections;
         THE_BOARD = CreateFromDocument.createFromMaps(mapName);
         IPS = new ArrayList<String>();
@@ -48,12 +49,12 @@ public class Server {
         for (int currentInit = 0; currentInit < CONNECTIONS; currentInit++) {
             INITS[currentInit] = false;
         }
-        System.out.println(THE_BOARD);
+        System.out.println("Server: \n" + THE_BOARD);
         SERVER_CLIENT_CONNECTIONS = new ServerClientConnection[CONNECTIONS];
         SERVER_CHAT_CONNECTIONS = new ServerClientChat[CONNECTIONS];
     }
-    
-    public void makeServer(){
+
+    public void makeServer() {
         System.out.println("Server: Starting server...");
         //keeps creating the server on different ports until an unused one is found
         while (true) {
@@ -72,7 +73,8 @@ public class Server {
             System.out.println("Server: Could not get local host address.");
         }
     }
-    public void waitForClientConnections(){
+
+    public void waitForClientConnections() {
         //waits for all the clients to connect
         for (int currentConnection = 0; currentConnection < CONNECTIONS; currentConnection++) {
             try {
@@ -81,7 +83,7 @@ public class Server {
                 DATA_IN = new DataInputStream(SOCKET.getInputStream());
                 IPS.add(SOCKET.getInetAddress().toString());
                 System.out.println("Server: Connection from " + IPS.get(currentConnection));
-                ServerClientConnection newConnect = new ServerClientConnection(DATA_IN, DATA_OUT, SERVER_CLIENT_CONNECTIONS, IPS, THE_BOARD, this, INITS);
+                ServerClientConnection newConnect = new ServerClientConnection(DATA_IN, DATA_OUT, SERVER_CLIENT_CONNECTIONS, IPS, THE_BOARD, this, INITS,IPS.get(currentConnection));
                 SERVER_CLIENT_CONNECTIONS[currentConnection] = newConnect;
                 Thread CurrentConnection = new Thread(newConnect);
                 CurrentConnection.start();
@@ -106,13 +108,17 @@ public class Server {
     public String getServerName() {
         return SERVER_NAME;
     }
-    
-    public int getConnections(){
+
+    public int getConnections() {
         return CONNECTIONS;
     }
-    
-    public int getPortNumber(){
+
+    public int getPortNumber() {
         return PORT_NUMBER;
+    }
+    
+    public void removeConnection(String IP){
+        IPS.remove(IP);
     }
 }
 

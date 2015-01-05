@@ -11,7 +11,7 @@ package Main.tests;
 public class ArgumentSettle {
 
     public static void main(String[] args) {
-        int random = (int)(Math.random() * 257);
+        int random = (int) (Math.random() * 257);
         System.out.print(random + "\n");
         if (random % 2 == 0) {
             System.out.print("DYLAN WINS!!!");

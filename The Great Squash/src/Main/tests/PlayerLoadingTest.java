@@ -12,8 +12,8 @@ import gameworld.Player;
  * @author ros_aljacobson001
  */
 public class PlayerLoadingTest {
-    
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         Player Guardian = new Player("Guardian");
     }
 }

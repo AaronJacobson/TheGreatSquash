@@ -2,7 +2,7 @@ package gameworld.monsters;
 
 import gameworld.Board;
 import gameworld.Creature;
-import gameworld.tools.ObjectCounter;
+import tools.ObjectCounter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -24,8 +24,8 @@ public class Monster extends Creature {
         }
         makeFromFile(scanFile);
     }
-    
-     public Monster(String type, Board board, int y, int x) {
+
+    public Monster(String type, Board board, int y, int x) {
         Scanner scanFile = null;
         try {
             scanFile = new Scanner(getFile(type));
@@ -39,7 +39,6 @@ public class Monster extends Creature {
         board.addCreature(this);
 
     }
-    
 
     private void makeFromFile(Scanner scanFile) {
         String type = scanFile.nextLine();
@@ -52,19 +51,19 @@ public class Monster extends Creature {
         super.setIntelligenceMod(generateStat(scanFile.nextLine()));
         super.setDexterityMod(generateStat(scanFile.nextLine()));
     }
-    
+
     private int generateStat(String line) {
         Scanner readLine = new Scanner(line);
         int lowEdge = readLine.nextInt();
         int highEdge = readLine.nextInt();
-        int randomStat = (int)(Math.random() * (highEdge - lowEdge + 1) + lowEdge);
+        int randomStat = (int) (Math.random() * (highEdge - lowEdge + 1) + lowEdge);
         return randomStat;
     }
-    
+
     private File getFile(String name) {
         name = name.toLowerCase();
         String filePath = "";
-        if(!name.endsWith(".monster")) {
+        if (!name.endsWith(".monster")) {
             filePath = "src/gameworld/monsters/" + name + ".monster";
         } else {
             filePath = "src/gameworld/monsters/" + name;

@@ -5,7 +5,8 @@
 package gameworld;
 
 import LAN.Sendable;
-import LAN.TypeHolder;
+import Main.GameRunner;
+import items.Item;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +20,7 @@ public class Creature implements Displayable, Sendable {
     protected Board BOARD;
     protected String NAME = "Creature";
     protected String TYPE = "abstract";
-    protected Inventory INVENTORY = new Inventory(2, 6, 5, 10);
+    protected Inventory INVENTORY = new Inventory(25);
     protected int LOCATION_X;
     protected int LOCATION_Y;
     protected int LEVEL;
@@ -60,8 +61,8 @@ public class Creature implements Displayable, Sendable {
         INTELLIGENCE = intelligence;
         DEXTERITY = dexterity;
     }
-    
-    public Creature(String name){
+
+    public Creature(String name) {
         NAME = name;
     }
 
@@ -69,36 +70,7 @@ public class Creature implements Displayable, Sendable {
     }
 
     public void moveSelf(int y, int x) {
-//        System.out.println("Start");
-//        System.out.println(y + "|" + x);
-        try {
-            try {
-//                System.out.print("Test Obstacle: ");
-                Obstacle moveTo = BOARD.getTileObstacle(y, x);
-                if (moveTo.getPassable()) {
-//                    System.out.print("Creature: Passable\n");
-                    move(y,x);
-                } else {
-//                    System.out.print("Creature: Inpassable\n");
-                }
-            } catch (NullPointerException e) {
-//                System.out.print("No Obstacle\n");
-                move(y,x);
-            }
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("Out of bounds");
-            //BOARD.getClient().getHandler().sendMove(LOCATION_Y, LOCATION_X, LOCATION_Y, LOCATION_X, this);
-        }
-    }
-
-    private void move(int y, int x) {
-//        System.out.println("move");
-        BOARD.removeCreature(LOCATION_X, LOCATION_Y);
-        
-        LOCATION_Y = y;
-        LOCATION_X = x;
-//        System.out.println(LOCATION_X + "|" + LOCATION_Y);
-        BOARD.getTile(LOCATION_X, LOCATION_Y).setCreature(this);
+        GameRunner.CLIENT.getHandler().sendMove(y, x, this);
     }
 
     @Override
@@ -141,6 +113,10 @@ public class Creature implements Displayable, Sendable {
         return INVENTORY;
     }
 
+    public void addToInventory(Item item) {
+        INVENTORY.addToInventory(item);
+    }
+
     public void changeLevel(int change) {
         LEVEL += change;
         updateStats();
@@ -149,17 +125,17 @@ public class Creature implements Displayable, Sendable {
     public int getLevel() {
         return LEVEL;
     }
-    
+
     public void setLevel(int level) {
         LEVEL = level;
     }
 
     private void updateStats() {
-        SPEED = (int)(SPEED_MODIFIER + (LEVEL * ((double) (SPEED_MODIFIER) / 8)));
-        ENDURANCE = (int)(ENDURANCE_MODIFIER + (LEVEL * ((double) (ENDURANCE_MODIFIER) / 2)));
-        STRENGTH = (int)(STRENGTH_MODIFIER + (LEVEL * ((double) (STRENGTH_MODIFIER) / 3)));
-        INTELLIGENCE = (int)(INTELLIGENCE_MODIFIER + (LEVEL * ((double) (INTELLIGENCE_MODIFIER) / 3)));
-        DEXTERITY = (int)(DEXTERITY_MODIFIER + (LEVEL * ((double) (DEXTERITY_MODIFIER) / 2)));
+        SPEED = (int) (SPEED_MODIFIER + (LEVEL * ((double) (SPEED_MODIFIER) / 8)));
+        ENDURANCE = (int) (ENDURANCE_MODIFIER + (LEVEL * ((double) (ENDURANCE_MODIFIER) / 2)));
+        STRENGTH = (int) (STRENGTH_MODIFIER + (LEVEL * ((double) (STRENGTH_MODIFIER) / 3)));
+        INTELLIGENCE = (int) (INTELLIGENCE_MODIFIER + (LEVEL * ((double) (INTELLIGENCE_MODIFIER) / 3)));
+        DEXTERITY = (int) (DEXTERITY_MODIFIER + (LEVEL * ((double) (DEXTERITY_MODIFIER) / 2)));
     }
 
     @Override
@@ -286,28 +262,28 @@ public class Creature implements Displayable, Sendable {
     public String toServerData() {
         return " | " + NAME + " " + LOCATION_Y + " " + LOCATION_X + " " + MAX_HEALTH + " " + TYPE + " " + SPRITE;
     }
-    
-    public int getMaxHealth(){
+
+    public int getMaxHealth() {
         return MAX_HEALTH;
     }
-    
-    public void setMaxHealth(int health){
+
+    public void setMaxHealth(int health) {
         MAX_HEALTH = health;
     }
-    
-    public double getCurrentHealth(){
+
+    public double getCurrentHealth() {
         return CURRENT_HEALTH;
     }
-    
-    public void setCurrentHealth(double newHealth){
+
+    public void setCurrentHealth(double newHealth) {
         CURRENT_HEALTH = newHealth;
     }
-    
-    public int getXP(){
+
+    public int getXP() {
         return XP;
     }
-    
-    public void setXP(int newXp){
+
+    public void setXP(int newXp) {
         XP = newXp;
     }
 }

@@ -66,15 +66,15 @@ class Users implements Runnable {
     public void run() {
         while (!false) {
             try {
-                try{
-                String message = STREAM_IN.readUTF();
-                for (int currentUser = 0; currentUser < CONNECTIONS; currentUser++) {
-                    if (USERS[currentUser] != null) {
-                        System.out.println("Message sent: " + message);
-                        USERS[currentUser].STREAM_OUT.writeUTF(message);
+                try {
+                    String message = STREAM_IN.readUTF();
+                    for (int currentUser = 0; currentUser < CONNECTIONS; currentUser++) {
+                        if (USERS[currentUser] != null) {
+                            System.out.println("Message sent: " + message);
+                            USERS[currentUser].STREAM_OUT.writeUTF(message);
+                        }
                     }
-                }
-                }catch(SocketException se){
+                } catch (SocketException se) {
                     System.out.println("A client has disconnected");
                     break;
                 }

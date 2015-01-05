@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gameworld.tools;
+package tools;
 
 import gameworld.Board;
 import gameworld.Displayable;
-import gameworld.Door;
-import gameworld.Wall;
+import gameworld.obstacles.Door;
+import gameworld.obstacles.StartTile;
+import gameworld.obstacles.Wall;
 import gameworld.monsters.Monster;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,7 +23,7 @@ public class CreateFromDocument {
 
     public static Board createFromMaps(String mapName) {
         String filePath = "";
-        if(!mapName.endsWith(".map")) {
+        if (!mapName.endsWith(".map")) {
             filePath = "src/gameworld/maps/" + mapName + ".map";
         } else {
             filePath = "src/gameworld/maps/" + mapName;
@@ -31,7 +32,7 @@ public class CreateFromDocument {
         Board board = createBoard(filePath);
         return board;
     }
-    
+
     public static Board createBoard(String filePath) {
 //        System.out.println(filePath);
         Board board = null;
@@ -48,7 +49,7 @@ public class CreateFromDocument {
             board = makeBoard(creatorTable, stringBoard);
 
             makeMonsters(creatureCode, board);
-            
+
         } catch (FileNotFoundException ex) {
             System.out.println("Sorry bub, but we couldn't make your file (well File Scanner). It just wasn't in the numbers.");
         }
@@ -84,6 +85,8 @@ public class CreateFromDocument {
             object = new Door(false);
         } else if (objectName.equals("opendoor")) {
             object = new Door(true);
+        } else if (objectName.equals("starttile")) {
+            object = new StartTile();
         }
 
         return object;
@@ -105,18 +108,18 @@ public class CreateFromDocument {
         }
         return string;
     }
-    
+
     public static String getLineElement(String line) {
         String output = "";
         Scanner lineScanner = new Scanner(line);
         boolean first = true;
-        while(lineScanner.hasNext()) {
+        while (lineScanner.hasNext()) {
             String current = lineScanner.next();
             //System.out.println(current);
-            if(!current.contains("*") && first) {
+            if (!current.contains("*") && first) {
                 output += current;
                 first = false;
-            } else if(!current.contains("*")) {
+            } else if (!current.contains("*")) {
                 output += " " + current;
             }
         }
@@ -153,19 +156,21 @@ public class CreateFromDocument {
                         Door door = ((Door) (displayable)).clone(board);
                         //System.out.println(door);
                         board.setTileObstacle(x, y, door);
+                    } else if (displayable instanceof StartTile) {
+                        StartTile startTile = ((StartTile) displayable).clone(board);
+                        board.setTileObstacle(x, y, startTile);
                     }
                 }
             }
             //System.out.println();
             y++;
         }
-
         return board;
     }
 
     private static void makeMonsters(String creatureCode, Board board) {
         Scanner scanCreatures = new Scanner(creatureCode);
-        while(scanCreatures.hasNextLine()) {
+        while (scanCreatures.hasNextLine()) {
             String line = scanCreatures.nextLine();
             Scanner readLine = new Scanner(line);
             String type = readLine.next();

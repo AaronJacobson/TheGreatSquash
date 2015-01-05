@@ -4,6 +4,7 @@
  */
 package LAN;
 
+import tools.CommandHolder;
 import GUI.GameGUI;
 import gameworld.Board;
 import java.io.DataInputStream;

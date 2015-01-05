@@ -2,10 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gameworld;
+package gameworld.obstacles;
 
-import LAN.TypeHolder;
+import tools.TypeHolder;
 import Main.GameRunner;
+import gameworld.Board;
+import gameworld.Obstacle;
+import tools.ObjectCounter;
+import tools.SpriteHolder;
 
 /**
  *
@@ -14,20 +18,23 @@ import Main.GameRunner;
 public class Wall extends Obstacle implements Cloneable {
 
     public Wall(Board board, int y, int x) {
-        super('#', "Wallz", false, board, y, x, TypeHolder.OB_WALL);
+        this();
+        BOARD = board;
+        LOCATION_Y = y;
+        LOCATION_X = x;
+        PASSABLE = false;
     }
-    public Wall(char sprite, boolean passable, Board board, int y, int x,String type){
-        super(sprite,"Wall",passable,board,y,x,type);
-    }
-    //char sprite, String label, boolean passable, Board board, int y, int x,String type
+
     public Wall() {
-        super('#', "Wall", false,TypeHolder.OB_WALL);
+        SPRITE = SpriteHolder.OB_WALL;
+        LABEL = ObjectCounter.getObstacleCount(TypeHolder.OB_WALL);
+        TYPE = TypeHolder.OB_WALL;
+        PASSABLE = false;
     }
 
     public Wall clone(Board board) {
         BOARD = board;
         Wall clone = new Wall();
-//        clone.setLocation(board, LOCATION_Y, LOCATION_X);
         return clone;
     }
 

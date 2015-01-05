@@ -4,7 +4,7 @@
  */
 package items.consumables;
 
-import LAN.CommandHolder;
+import tools.CommandHolder;
 import LAN.Sendable;
 import gameworld.Displayable;
 import items.Item;
@@ -17,7 +17,8 @@ import java.util.Scanner;
  * @author ros_dmlamarca
  */
 public class Consumable implements Item, Displayable, Sendable {
-    private char SPRITE = (char)(164);// 164 = ¤
+
+    private char SPRITE = (char) (164);// 164 = ¤
     private String NAME = "UNITIALIZED_CONSUMABLE";
     private int HEALTH_ADDED = 0;
     private int MANA_ADDED = 0;
@@ -26,7 +27,8 @@ public class Consumable implements Item, Displayable, Sendable {
     private int INTELLIGENCE_BONUS = 0;
     private int DEXTERITY_BONUS = 0;
     private int BONUS_LENGTH = 1;
-    public Consumable(String name){
+
+    public Consumable(String name) {
         String fileDirectory = "src/items/consumables/" + name + ".consumable";
         try {
             Scanner fileScanner = new Scanner(new File(fileDirectory));
@@ -36,8 +38,8 @@ public class Consumable implements Item, Displayable, Sendable {
             System.out.println(fileDirectory);
         }
     }
-    
-    public void loadFromFile(Scanner fileScanner){
+
+    public void loadFromFile(Scanner fileScanner) {
         NAME = fileScanner.next();
         fileScanner.next();
         SPRITE = fileScanner.next().charAt(0);
@@ -56,15 +58,20 @@ public class Consumable implements Item, Displayable, Sendable {
         fileScanner.next();
         BONUS_LENGTH = fileScanner.nextInt();
     }
+
     public void setSprite(char sprite) {
         SPRITE = sprite;
     }
-    
+
     public char getSprite() {
         return SPRITE;
     }
-    
-    public String toServerData(){
+
+    public String toString() {
+        return NAME;
+    }
+
+    public String toServerData() {
         return CommandHolder.CONSUMABLE + NAME + " " + SPRITE + " " + HEALTH_ADDED + " " + MANA_ADDED + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS + " " + BONUS_LENGTH;
     }
 }

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gameworld.tools;
+package tools;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,22 +21,23 @@ import java.util.logging.Logger;
  * @author ros_dmlamarca
  */
 public class ObjectCounter {
+
     private static final File CREATURE_FILE = new File("src\\gameworld\\tools\\creaturelog.tgs");
     private static final File OBSTACLE_FILE = new File("src\\gameworld\\tools\\obstaclelog.tgs");
     private static String NAME = "";
 
     public static String getCreatureCount(String type) {
         String countLog = getFileText(CREATURE_FILE);
-        String finalLog = getCount(countLog,type);
+        String finalLog = getCount(countLog, type);
 
         setFileText(CREATURE_FILE, finalLog);
 
         return NAME;
     }
-    
+
     public static String getObstacleCount(String type) {
         String countLog = getFileText(OBSTACLE_FILE);
-        String finalLog = getCount(countLog,type);
+        String finalLog = getCount(countLog, type);
 
         setFileText(OBSTACLE_FILE, finalLog);
 
@@ -47,9 +48,9 @@ public class ObjectCounter {
         setFileText(CREATURE_FILE, "");
         setFileText(OBSTACLE_FILE, "");
     }
-    
+
     private static String getCount(String countLog, String type) {
-       String finalLog = "";
+        String finalLog = "";
         Scanner scanLog = new Scanner(countLog);
         boolean containsType = false;
         int typeCount = 0;
@@ -69,9 +70,9 @@ public class ObjectCounter {
         if (!containsType) {
             finalLog += type + " " + 0;
         }
-        
+
         NAME = generateName(type, typeCount);
-        
+
         return finalLog;
     }
 

@@ -2,7 +2,7 @@ package GUI;
 
 //import Main.tests.PlayerSaveTest;
 import gameworld.Player;
-import gameworld.tools.CreateFromDocument;
+import tools.CreateFromDocument;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;

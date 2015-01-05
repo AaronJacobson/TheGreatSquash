@@ -23,10 +23,6 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/**
- *
- * @author ros_dmlamarca
- */
 public class StartMenu {
 
     private JFrame FRAME = new JFrame("The Great Squash");
@@ -58,6 +54,17 @@ public class StartMenu {
     private JTextField PLAYER_DEXTERITY;
     private StartMenuButtonListener ACTION_LISTENER;
     private FindPlayerKeyListener KEY_LISTENER;
+    
+    private JTextField NAME_DISPLAY;
+    private JTextField CLASS_DISPLAY;
+    private JTextField RACE_DISPLAY;
+    private JTextField SPRITE_DISPLAY;
+    private JTextField SPEED_DISPLAY;
+    private JTextField ENDURANCE_DISPLAY;
+    private JTextField HEALTH_DISPLAY;
+    private JTextField STRENGTH_DISPLAY;
+    private JTextField INTELLIGENCE_DISPLAY;
+    private JTextField DEXTERITY_DISPLAY;
 
     public StartMenu() {
         ACTION_LISTENER = new StartMenuButtonListener();
@@ -67,9 +74,6 @@ public class StartMenu {
         formatFindPlayer();
         formatDisplayPlayer();
         formatFrame();
-
-//        JFileChooser choosy = new JFileChooser();
-//        choosy.showOpenDialog(choosy);
     }
 
     private void formatClient() {
@@ -100,9 +104,13 @@ public class StartMenu {
         SERVER_PANEL.add(SERVER_CREATE);
     }
 
+
     private void formatFindPlayer() {
         PLAYER_FIND = new JTextField(19);
         PLAYER_FIND.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER, "Player File"));
+
+        PLAYER_NAME = new JTextField(19);
+        PLAYER_NAME.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER, "Player File"));
 
         PLAYER_BROWSE = new JButton("Browse");
         PLAYER_BROWSE.setPreferredSize(new Dimension(50, 30));
@@ -160,10 +168,19 @@ public class StartMenu {
         DISPLAY_PLAYER_PANEL.add(text);
     }
 
+    private void formatStat(JTextField display, String statName) {
+        display.setEditable(false);
+        display.setHorizontalAlignment(JTextField.CENTER);
+        display.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER, statName));
+        display.setText("1");
+        DISPLAY_PLAYER_PANEL.add(display);
+    }
+
     private void formatFrame() {
         FRAME.add(SERVER_PANEL);
         FRAME.add(CLIENT_PANEL);
         FRAME.add(FIND_PLAYER_PANEL);
+        //FRAME.add(GET_PLAYER_PANEL);
         FRAME.add(DISPLAY_PLAYER_PANEL);
 
         BASE = new JPanel();
@@ -242,7 +259,27 @@ public class StartMenu {
         return this;
     }
 
+
     private class StartMenuButtonListener implements ActionListener {
+    public void keyTyped(KeyEvent ke) {
+    }
+
+    public void keyPressed(KeyEvent ke) {
+    }
+
+    public void keyReleased(KeyEvent ke) {
+        createPlayer();
+    }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+    
+    }
+    
+    private class AL implements ActionListener {
 
         public void actionPerformed(ActionEvent ae) {
             String action = ae.getActionCommand();

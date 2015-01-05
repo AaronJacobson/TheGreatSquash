@@ -9,5 +9,6 @@ package items;
  * @author ros_dmlamarca
  */
 public interface Item {
-    
+
+    public String toString();
 }

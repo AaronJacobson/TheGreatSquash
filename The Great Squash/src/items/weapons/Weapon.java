@@ -4,7 +4,7 @@
  */
 package items.weapons;
 
-import LAN.CommandHolder;
+import tools.CommandHolder;
 import LAN.Sendable;
 import enchantments.Enchantment;
 import gameworld.Displayable;
@@ -97,7 +97,7 @@ public class Weapon implements Item, Displayable, Sendable {
             int intelligenceBonus = fileScanner.nextInt();
             fileScanner.next();
             int dexterityBonus = fileScanner.nextInt();
-            Enchantment bonus = new Enchantment(name,damageBonus, acBonus, mPBonus, healthBonus, manaBonus, strengthBonus, enduranceBonus, intelligenceBonus, dexterityBonus);
+            Enchantment bonus = new Enchantment(name, damageBonus, acBonus, mPBonus, healthBonus, manaBonus, strengthBonus, enduranceBonus, intelligenceBonus, dexterityBonus);
             addEnchantment(bonus);
         }
     }
@@ -122,6 +122,10 @@ public class Weapon implements Item, Displayable, Sendable {
 
     public char getSprite() {
         return SPRITE;
+    }
+
+    public String toString() {
+        return NAME;
     }
 
     public String enchantmentServerData() {

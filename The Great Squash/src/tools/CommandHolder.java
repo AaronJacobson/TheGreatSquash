@@ -2,13 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package LAN;
+package tools;
 
 /**
  * This class holds all the strings for commands
+ *
  * @author ros_aljacobson001
  */
 public class CommandHolder {
+
     public static final String MOVE_CREATURE = "MOVE_THIS_CREATURE";
     public static final String ASK_TO_MOVE = "CAN_I_MOVE_THIS_CREATURE_HERE?";
     public static final String OBSTACLE = "THIS_IS_AN_OBSTACLE";
@@ -16,6 +18,7 @@ public class CommandHolder {
     public static final String ARMOR = "THIS_IS_A_PIECE_OF_ARMOR";
     public static final String ENCHANTMENT = "THIS_IS_AN_ENCHANTMENT";
     public static final String CONSUMABLE = "THIS_IS_A_CONSUMABLE";
+    public static final String SPELL_BOOK = "THIS_IS_A_SPELL_BOOK";
     public static final String INITIALIZE_CREATURES = "GIVE_ME_THE_CREATURES";
     public static final String INITIALIZE_OBSTACLES = "GIVE_ME_THE_OBSTACLES";
     public static final String INITIALIZE_FLOORS = "GIVE_ME_THE_FLOORS";
@@ -25,6 +28,7 @@ public class CommandHolder {
     public static final String CREATE_CREATURE = "CREATE_THIS_CREATURE";
     public static final String BOARD_SIZE = "HERE_ARE_THE_BOARD_PARAMETERS";
     public static final String SEND_THE_BOARD_PARAMETERS = "MAY_I_HAVE_THE_BOARD_PARAMETERS";
+    public static final String DISCONNECT_ME = "PLS_DISCONNECT_ME_FROM_THE_SERVER";
     public static final int COMMAND_PORT_NUMBER = 45005;
     public static final int CHAT_PORT_NUMBER = 45006;
     public static final String AARON_WORK_IP = "10.135.66.52";

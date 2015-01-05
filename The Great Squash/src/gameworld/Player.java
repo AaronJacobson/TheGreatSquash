@@ -4,8 +4,8 @@
  */
 package gameworld;
 
-import LAN.TypeHolder;
-import gameworld.tools.CreateFromDocument;
+import tools.TypeHolder;
+import tools.CreateFromDocument;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -19,34 +19,36 @@ import java.util.logging.Logger;
  * @author ros_dmlamarca
  */
 public class Player extends Creature {
-    
+
     private String SPECIES;
     private String CLASS;
-    
-    public Player(char sprite, Board board, int y, int x,String name) {
-         super(sprite,board,y,x,name,TypeHolder.PLAYER);
+
+    public Player(char sprite, Board board, int y, int x, String name) {
+        super(sprite, board, y, x, name, TypeHolder.PLAYER);
     }
-    
+
     public Player(String name, String playerClass, String species, char sprite) {
-         super();
-         CLASS = playerClass;
-         SPRITE = sprite;
-         SPECIES = species;
-         NAME = name;
-    }
-    
-    public Player(File theFile){
         super();
+        TYPE = TypeHolder.PLAYER;
+        CLASS = playerClass;
+        SPRITE = sprite;
+        SPECIES = species;
+        NAME = name;
+    }
+
+    public Player(File theFile) {
+        super();
+        TYPE = TypeHolder.PLAYER;
         try {
             Scanner fileScanner = new Scanner(theFile);
             loadFromFile(fileScanner);
         } catch (FileNotFoundException ex) {
             System.out.println("Player: The file that was given isn't working.");
         }
-        
+
     }
-    
-    public Player(String name){
+
+    public Player(String name) {
         super(name);
         String fileDirectory = "src/gameworld/players/" + name + ".player";
         try {
@@ -56,8 +58,8 @@ public class Player extends Creature {
             System.out.println("Player: File not found: " + fileDirectory);
         }
     }
-    
-    public void loadFromFile(Scanner playerScanner){
+
+    public void loadFromFile(Scanner playerScanner) {
         boolean statsLoaded = false;
         boolean equipmentLoaded = false;
         boolean inventoryLoaded = false;
@@ -76,7 +78,7 @@ public class Player extends Creature {
 //            }
 //        }
     }
-    
+
     public void saveToFile() {
         PrintWriter writer = null;
         try {
@@ -102,8 +104,8 @@ public class Player extends Creature {
             writer.close();
         }
     }
-    
-    private void loadStats(Scanner playerScanner){
+
+    private void loadStats(Scanner playerScanner) {
         super.setName(CreateFromDocument.getLineElement(playerScanner.nextLine()));
         this.SPECIES = CreateFromDocument.getLineElement(playerScanner.nextLine());
         this.CLASS = CreateFromDocument.getLineElement(playerScanner.nextLine());
@@ -117,33 +119,33 @@ public class Player extends Creature {
         super.setLevel(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
         super.setXP(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
     }
-    
+
     public void initateStats(int speed, int endurance, int strength, int intelligence, int dexterity) {
-       SPEED = speed;
-       ENDURANCE = endurance;
-       MAX_HEALTH = 10 + (ENDURANCE * 5);
-       STRENGTH = strength;
-       INTELLIGENCE = intelligence;
-       DEXTERITY = dexterity;
+        SPEED = speed;
+        ENDURANCE = endurance;
+        MAX_HEALTH = 10 + (ENDURANCE * 5);
+        STRENGTH = strength;
+        INTELLIGENCE = intelligence;
+        DEXTERITY = dexterity;
     }
-    
+
     public String getSpecies() {
         return SPECIES;
     }
-    
-    public void loadTest(Scanner playerScanner){
+
+    public void loadTest(Scanner playerScanner) {
         int tokenNumber = 0;
-        while(playerScanner.hasNext()){
+        while (playerScanner.hasNext()) {
             tokenNumber++;
             System.out.println(tokenNumber + " " + playerScanner.next());
         }
     }
-    
-    public String toServerData(){
+
+    public String toServerData() {
         String toReturn = super.toServerData() + " ";
         return toReturn;
     }
-    
+
     public String toString() {
         String output = NAME + " the " + CLASS + ":\n";
         output += SPECIES + "\n";
