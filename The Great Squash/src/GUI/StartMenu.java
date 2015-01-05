@@ -278,30 +278,6 @@ public class StartMenu {
 
     
     }
-    
-    private class AL implements ActionListener {
-
-        public void actionPerformed(ActionEvent ae) {
-            String action = ae.getActionCommand();
-            if (action.equals(CLIENT_CONNECT.getActionCommand())) {
-                GameRunner.connectToServer(CLIENT_IP.getText());
-            } else if (action.equals(SERVER_CREATE.getActionCommand())) {
-                GameRunner.createServer(SERVER_MAP.getText());
-            } else if (action.equals(PLAYER_BROWSE.getActionCommand())) {
-                JFileChooser chooser = new JFileChooser("src\\gameworld\\players");
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("Player Files", "player");
-                chooser.setFileFilter(filter);
-                int returnVal = chooser.showOpenDialog(chooser);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    PLAYER_FIND.setText(chooser.getSelectedFile().getAbsoluteFile() + "");
-                    createPlayer();
-                }
-            } else if (action.equals(PLAYER_CREATE.getActionCommand())) {
-//                System.out.println("poop");
-                CreateCharacter createCharacter = new CreateCharacter(getSelf());
-            }
-        }
-    }
 
     private class FindPlayerKeyListener implements KeyListener {
 
