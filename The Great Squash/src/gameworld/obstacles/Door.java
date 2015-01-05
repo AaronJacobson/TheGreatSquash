@@ -39,7 +39,7 @@ public class Door extends Obstacle implements Interactive, Cloneable {
         PASSABLE = true;
     }
 
-    public void update() {
+    public void interact() {
         if (DOOR_POSITION) {
             //Close door
             SPRITE = SpriteHolder.OB_CLOSED_DOOR;

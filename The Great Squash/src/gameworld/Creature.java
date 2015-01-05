@@ -86,7 +86,7 @@ public class Creature implements Displayable, Sendable {
                 Obstacle currentObstacle = current.getObstacle();
                 if (currentObstacle instanceof Interactive) {
                     Interactive currentInteractive = (Interactive) (currentObstacle);
-                    currentInteractive.update();
+                    currentInteractive.interact();
                 }
             } catch (NullPointerException ex) {
             }
