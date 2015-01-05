@@ -34,7 +34,7 @@ public class Chest extends Obstacle implements Interactive, HasInventory {
         PASSABLE = false;
     }
 
-    public void update() {
+    public void interact() {
     }
 
     public Inventory getInventory() {
