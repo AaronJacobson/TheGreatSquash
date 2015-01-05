@@ -33,8 +33,8 @@ public class StartMenu {
     private JTextField SERVER_MAP;
     private Button SERVER_CREATE;
     private JTextField PLAYER_FIND;
-    private JButton PLAYER_BROWSE;
-    private JButton PLAYER_CREATE;
+    private Button PLAYER_BROWSE;
+    private Button PLAYER_CREATE;
     private JPanel BASE;
     private JPanel SERVER_PANEL;
     private JPanel CLIENT_PANEL;
@@ -112,14 +112,12 @@ public class StartMenu {
         PLAYER_NAME = new JTextField(19);
         PLAYER_NAME.setBorder(BorderFactory.createTitledBorder(TEXT_BORDER, "Player File"));
 
-        PLAYER_BROWSE = new JButton("Browse");
+        PLAYER_BROWSE = new Button("Browse");
         PLAYER_BROWSE.setPreferredSize(new Dimension(50, 30));
-        PLAYER_BROWSE.setMargin(new Insets(0, 0, 0, 0));
         PLAYER_BROWSE.addActionListener(ACTION_LISTENER);
 
-        PLAYER_CREATE = new JButton("Make New");
+        PLAYER_CREATE = new Button("Make New");
         PLAYER_CREATE.setPreferredSize(new Dimension(65, 30));
-        PLAYER_CREATE.setMargin(new Insets(0, 0, 0, 0));
         PLAYER_CREATE.addActionListener(ACTION_LISTENER);
 
         FIND_PLAYER_PANEL = new JPanel();
@@ -261,22 +259,27 @@ public class StartMenu {
 
 
     private class StartMenuButtonListener implements ActionListener {
-    public void keyTyped(KeyEvent ke) {
-    }
 
-    public void keyPressed(KeyEvent ke) {
-    }
-
-    public void keyReleased(KeyEvent ke) {
-        createPlayer();
-    }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        public void actionPerformed(ActionEvent ae) {
+            String action = ae.getActionCommand();
+             if (action.equals(CLIENT_CONNECT.getActionCommand())) {
+                 GameRunner.connectToServer(CLIENT_IP.getText());
+             } else if (action.equals(SERVER_CREATE.getActionCommand())) {
+                 GameRunner.createServer(SERVER_MAP.getText());
+             } else if (action.equals(PLAYER_BROWSE.getActionCommand())) {
+                JFileChooser chooser = new JFileChooser("src\\gameworld\\players");
+                 FileNameExtensionFilter filter = new FileNameExtensionFilter("Player Files", "player");
+                 chooser.setFileFilter(filter);
+                 int returnVal = chooser.showOpenDialog(chooser);
+                 if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    PLAYER_NAME.setText(chooser.getSelectedFile().getAbsoluteFile() + "");
+                    PLAYER_FIND.setText(chooser.getSelectedFile().getAbsoluteFile() + "");
+                    createPlayer();
+                 }
+            } else if(action.equals(PLAYER_CREATE.getActionCommand())) {
+                 CreateCharacter createCharacter = new CreateCharacter(getSelf());
+             }
         }
-
-    
     }
 
     private class FindPlayerKeyListener implements KeyListener {
