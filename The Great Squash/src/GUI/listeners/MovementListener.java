@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 public class MovementListener extends KeyAdapter{
 
     private Creature CREATURE;
+    private int LAST_KEY_CODE = 0;
 
     public MovementListener() {
     }
@@ -43,7 +44,26 @@ public class MovementListener extends KeyAdapter{
         }else if(keyCode == KeyEvent.VK_W){
             //move up
             CREATURE.moveSelf(CREATURE.getY(), CREATURE.getX() - 1);
+        }else if(keyCode == KeyEvent.VK_SPACE){
+            
+        }else if(keyCode == KeyEvent.VK_UP){
+            if(LAST_KEY_CODE == KeyEvent.VK_SPACE){
+                
+            }
+        }else if(keyCode == KeyEvent.VK_RIGHT){
+            if(LAST_KEY_CODE == KeyEvent.VK_SPACE){
+                
+            }
+        }else if(keyCode == KeyEvent.VK_LEFT){
+            if(LAST_KEY_CODE == KeyEvent.VK_SPACE){
+                
+            }
+        }else if(keyCode == KeyEvent.VK_DOWN){
+            if(LAST_KEY_CODE == KeyEvent.VK_SPACE){
+                
+            }
         }
+        LAST_KEY_CODE = keyCode;
     }
 
     @Override
