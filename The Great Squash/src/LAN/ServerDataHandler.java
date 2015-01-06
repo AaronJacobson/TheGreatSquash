@@ -149,6 +149,7 @@ public class ServerDataHandler implements Runnable {
                 Interactive toInteract = (Interactive) GameRunner.GAME_BOARD.getObstacle(obstacleName);
                 toInteract.interact(GameRunner.GAME_BOARD.getCreature(creatureName));
             }
+            GameRunner.updateBoard();
         }
     }
 

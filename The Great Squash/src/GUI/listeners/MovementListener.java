@@ -6,7 +6,6 @@ package GUI.listeners;
 
 import Main.GameRunner;
 import gameworld.Creature;
-import gameworld.Tile;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
