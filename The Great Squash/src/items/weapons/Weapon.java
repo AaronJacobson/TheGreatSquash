@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import tools.CreateFromDocument;
 
 /**
  *
@@ -51,55 +52,20 @@ public class Weapon implements Item, Displayable, Sendable {
         String fileDirectory = "src/items/weapons/" + name + ".weapon";
         try {
             Scanner fileScanner = new Scanner(new File(fileDirectory));
-            loadStats(fileScanner);
+            loadFromFile(fileScanner);
         } catch (FileNotFoundException ex) {
             System.out.println("Weapon: Unable to load file from: ");
             System.out.println(fileDirectory);
         }
     }
 
-    public void loadStats(Scanner fileScanner) {
-        fileScanner.next();
-        NAME = fileScanner.next();
-        fileScanner.next();
-        SPRITE = fileScanner.next().charAt(0);
-        fileScanner.next();
-        DAMAGE_STAT = fileScanner.next();
-        fileScanner.next();
-        ATTACK = fileScanner.nextInt();
-        fileScanner.next();
-        DEFENSE = fileScanner.nextInt();
-        fileScanner.next();
-        RANGE = fileScanner.nextInt();
-        loadEnchantments(fileScanner);
-    }
-
-    public void loadEnchantments(Scanner fileScanner) {
-        fileScanner.next();
-        while (fileScanner.hasNext()) {
-            fileScanner.next();
-            String name = fileScanner.next();
-            fileScanner.next();
-            int damageBonus = fileScanner.nextInt();
-            fileScanner.next();
-            int acBonus = fileScanner.nextInt();
-            fileScanner.next();
-            int mPBonus = fileScanner.nextInt();
-            fileScanner.next();
-            int healthBonus = fileScanner.nextInt();
-            fileScanner.next();
-            int manaBonus = fileScanner.nextInt();
-            fileScanner.next();
-            int strengthBonus = fileScanner.nextInt();
-            fileScanner.next();
-            int enduranceBonus = fileScanner.nextInt();
-            fileScanner.next();
-            int intelligenceBonus = fileScanner.nextInt();
-            fileScanner.next();
-            int dexterityBonus = fileScanner.nextInt();
-            Enchantment bonus = new Enchantment(name, damageBonus, acBonus, mPBonus, healthBonus, manaBonus, strengthBonus, enduranceBonus, intelligenceBonus, dexterityBonus);
-            addEnchantment(bonus);
-        }
+    public void loadFromFile(Scanner fileScanner) {
+        NAME = CreateFromDocument.getLineElement(fileScanner.nextLine());
+        SPRITE = CreateFromDocument.getLineElement(fileScanner.nextLine()).charAt(0);
+        DAMAGE_STAT = CreateFromDocument.getLineElement(fileScanner.nextLine());
+        ATTACK = Integer.parseInt(CreateFromDocument.getLineElement(fileScanner.nextLine()));
+        DEFENSE = Integer.parseInt(CreateFromDocument.getLineElement(fileScanner.nextLine()));
+        RANGE = Integer.parseInt(CreateFromDocument.getLineElement(fileScanner.nextLine()));
     }
 
     public void addEnchantment(Enchantment bonusToAdd) {
@@ -116,31 +82,36 @@ public class Weapon implements Item, Displayable, Sendable {
         return false;
     }
 
-    public void setSprite(char sprite) {
-        SPRITE = sprite;
-    }
-
     public char getSprite() {
         return SPRITE;
     }
+    
+    public String getName() {
+        return NAME;
+    }
+    
+    public String getDamageStat() {
+        return DAMAGE_STAT;
+    }
+    
+    public int getDefense() {
+        return DEFENSE;
+    }
 
+    public int getAttack() {
+        return ATTACK;
+    }
+    
+    public int getRange() {
+        return RANGE;
+    }
+    
     public String toString() {
         return NAME;
     }
 
-    public String enchantmentServerData() {
-        String toReturn = "";
-        if (ENCHANTMENTS.size() == 0) {
-            toReturn = "NO_BONUSES";
-        } else {
-            for (int currentBonus = 0; currentBonus < ENCHANTMENTS.size(); currentBonus++) {
-                toReturn += ENCHANTMENTS.get(currentBonus).toServerData();
-            }
-        }
-        return toReturn;
-    }
-
     public String toServerData() {
-        return CommandHolder.WEAPON + NAME + " " + SPRITE + " " + DEFENSE + " " + ATTACK + " " + RANGE + " " + enchantmentServerData();
+//        return CommandHolder.WEAPON + NAME + " " + SPRITE + " " + DEFENSE + " " + ATTACK + " " + RANGE + " " + enchantmentServerData();
+        return "8====D";
     }
 }

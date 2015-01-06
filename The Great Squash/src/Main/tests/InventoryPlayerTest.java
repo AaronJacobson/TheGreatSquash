@@ -18,11 +18,17 @@ import items.weapons.Weapon;
  */
 public class InventoryPlayerTest {
     public static void main(String[] args) {
-        Inventory inventory = new Inventory(5);
-        inventory.addToInventory(new Consumable("pancake"));
-        inventory.addToInventory(new Consumable("pancake"));
-        inventory.addToInventory(new Weapon("slimefork"));
-        inventory.addToInventory(new Armor("battletuxedo"));
-        System.out.println(inventory);
+        Weapon weapon = new Weapon("slimefork");
+        System.out.println(weapon.getName());
+        System.out.println(weapon.getSprite());
+        System.out.println(weapon.getAttack());
+        System.out.println(weapon.getDefense());
+        System.out.println(weapon.getRange());
+        System.out.println(weapon.getDamageStat() + "\n");
+        
+        Armor armor = new Armor("battletuxedo");
+        System.out.println(armor.getName());
+        System.out.println(armor.getSprite());
+        System.out.println(armor.getAC());
     }
 }

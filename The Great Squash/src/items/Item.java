@@ -4,6 +4,8 @@
  */
 package items;
 
+import java.util.Scanner;
+
 /**
  *
  * @author ros_dmlamarca
@@ -11,4 +13,6 @@ package items;
 public interface Item {
 
     public String toString();
+    
+    public void loadFromFile(Scanner fileScanner);
 }

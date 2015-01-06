@@ -71,7 +71,7 @@ public class Inventory {
         String output = "";
         ArrayList<Item> list = getItems(type);
         if(list.size() > 0) {
-            output = "\n" + listToString(list,type);
+            output = listToString(list,type) + "\n";
         }
         return output;
     }
@@ -81,9 +81,9 @@ public class Inventory {
         output += printType("weapon");
         output += printType("armour");
         output += printType("consumable");
-        if(output.length() > 1) {
-            output += "\n";
-        }
+//        if(output.length() > 1) {
+//            output += "\n";
+//        }
         output += "EMPTY:";
         for(int count = INVENTORY_SIZE; count > ITEM_LIST.size(); count--) {
             output += "\n  -[N/A]";

@@ -12,7 +12,7 @@ public interface Displayable {
 
     char SPRITE = '.';
 
-    void setSprite(char sprite);
+//    void setSprite(char sprite);
 
     char getSprite();
 }

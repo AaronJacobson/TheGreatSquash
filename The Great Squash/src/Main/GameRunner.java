@@ -7,6 +7,9 @@ import LAN.Server;
 import gameworld.Board;
 import gameworld.Player;
 import tools.ObjectCounter;
+import items.*;
+import items.armors.Armor;
+import items.consumables.Consumable;
 import items.weapons.Weapon;
 
 public class GameRunner {
@@ -57,6 +60,8 @@ public class GameRunner {
         GAME_GUI = new GameGUI();
         GAME_GUI.setBoard(GAME_BOARD);
         player.addToInventory(new Weapon("slimefork"));
+        player.addToInventory(new Consumable("pancake"));
+        player.addToInventory(new Armor("battletuxedo"));
         GAME_GUI.setCreature(player);
     }
 
