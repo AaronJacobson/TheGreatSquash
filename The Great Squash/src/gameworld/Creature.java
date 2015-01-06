@@ -86,9 +86,17 @@ public class Creature implements Displayable, Sendable {
                 Obstacle currentObstacle = current.getObstacle();
                 if (currentObstacle instanceof Interactive) {
                     Interactive currentInteractive = (Interactive) (currentObstacle);
-                    currentInteractive.interact();
+                    currentInteractive.interact(this);
                 }
             } catch (NullPointerException ex) {
+            }
+        }
+    }
+    
+    public void interactWith(Tile tile){
+        if(tile.getObstacle() != null){
+            if(tile.getObstacle() instanceof Interactive){
+                GameRunner.CLIENT.getHandler().sendInteract(this.getName(), tile.getObstacle().getLabel());
             }
         }
     }

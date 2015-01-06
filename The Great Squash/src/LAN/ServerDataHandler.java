@@ -7,6 +7,7 @@ import gameworld.Board;
 import gameworld.obstacles.Chest;
 import gameworld.Creature;
 import gameworld.Displayable;
+import gameworld.Interactive;
 import gameworld.obstacles.Door;
 import gameworld.Obstacle;
 import gameworld.Player;
@@ -39,7 +40,6 @@ public class ServerDataHandler implements Runnable {
         while (!false) {
             try {
                 String serverData = STREAM_IN.readUTF();
-//                System.out.println("ServerDataHandler: " + serverData);
                 interpretServerData(serverData);
             } catch (IOException ex) {
                 System.out.println("Sorry but we lost connection to the server");
@@ -119,7 +119,6 @@ public class ServerDataHandler implements Runnable {
                 }
             }
             GameRunner.updateBoard();
-//            STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_CREATURES);
         } else if (theCommand.equals(CommandHolder.THE_FLOORS)) {
         } else if (theCommand.equals(CommandHolder.CREATE_CREATURE)) {
             messageScanner.next();
@@ -143,6 +142,13 @@ public class ServerDataHandler implements Runnable {
             int boardy = messageScanner.nextInt();
             GameRunner.setBoard(new Board(boardy, boardx));
             WAIT_FOR_PARAMETERS = false;
+        } else if(theCommand.equals(CommandHolder.INTERACT_WITH)){
+            String creatureName = messageScanner.next();
+            String obstacleName = messageScanner.next();
+            if(GameRunner.GAME_BOARD.getObstacle(obstacleName) instanceof Interactive){
+                Interactive toInteract = (Interactive) GameRunner.GAME_BOARD.getObstacle(obstacleName);
+                toInteract.interact(GameRunner.GAME_BOARD.getCreature(creatureName));
+            }
         }
     }
 
@@ -158,10 +164,13 @@ public class ServerDataHandler implements Runnable {
             System.out.println("ServerDataHandler: Connection with the server lost");
         }
     }
+    
+    public void sendInteract(String creatureName,String obstacleName){
+        sendCommand(CommandHolder.INTERACT_WITH + " " + creatureName + " " + obstacleName);
+    }
 
     public void sendMove(int newY, int newX, Creature theCreature) {
-        String toSend = CommandHolder.ASK_TO_MOVE + " " + newY + " " + newX + " " + theCreature.getName();
-        sendCommand(toSend);
+        sendCommand(CommandHolder.ASK_TO_MOVE + " " + newY + " " + newX + " " + theCreature.getName());
     }
 
     public void sendLocation(Displayable displayable) {
@@ -178,9 +187,6 @@ public class ServerDataHandler implements Runnable {
             while (WAIT_FOR_PARAMETERS) {
             }
             System.out.println("ServerDataHandler: Board parameters have been initialized.");
-//            STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_FLOORS);
-//            while (WAIT_FOR_FLOORS) {
-//            }
             STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_OBSTACLES);
             while (WAIT_FOR_OBSTACLES) {
             }

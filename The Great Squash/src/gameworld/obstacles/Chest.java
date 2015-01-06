@@ -2,6 +2,7 @@ package gameworld.obstacles;
 
 import tools.TypeHolder;
 import gameworld.Board;
+import gameworld.Creature;
 import gameworld.HasInventory;
 import gameworld.Interactive;
 import gameworld.Inventory;
@@ -34,7 +35,7 @@ public class Chest extends Obstacle implements Interactive, HasInventory {
         PASSABLE = false;
     }
 
-    public void interact() {
+    public void interact(Creature creature) {
     }
 
     public Inventory getInventory() {
