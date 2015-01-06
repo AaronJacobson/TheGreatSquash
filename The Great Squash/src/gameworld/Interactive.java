@@ -10,5 +10,5 @@ package gameworld;
  */
 public interface Interactive {
 
-    public void interact();
+    public void interact(Creature creature);
 }

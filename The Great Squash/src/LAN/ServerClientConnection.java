@@ -3,6 +3,7 @@ package LAN;
 import tools.TypeHolder;
 import tools.CommandHolder;
 import gameworld.Board;
+import gameworld.Interactive;
 import gameworld.Obstacle;
 import gameworld.Player;
 import java.io.DataInputStream;
@@ -99,6 +100,17 @@ class ServerClientConnection implements Runnable {
         } else if (theCommand.equals(CommandHolder.SEND_THE_BOARD_PARAMETERS)) {
             String theParameters = CommandHolder.BOARD_SIZE + " " + THE_SERVER.getBoard().getY() + " " + THE_SERVER.getBoard().getX();
             sendBoardInit(theParameters);
+        } else if (theCommand.equals(CommandHolder.INTERACT_WITH)){
+            System.out.println("ServerClientConnection: Recieved the interaction command");
+            String creatureName = messageScanner.next();
+            String obstacleName = messageScanner.next();
+            if(THE_SERVER.getBoard().getObstacle(obstacleName) instanceof Interactive){
+                Interactive toInteract = (Interactive) THE_SERVER.getBoard().getObstacle(obstacleName);
+                toInteract.interact(THE_SERVER.getBoard().getCreature(creatureName));
+                System.out.println("ServerClientConnection: Successful interaction.");
+            }else {
+                System.out.println("ServerClientConnection: It's not an Interactive");
+            }
         }
 
     }

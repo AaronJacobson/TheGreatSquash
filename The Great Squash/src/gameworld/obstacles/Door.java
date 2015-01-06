@@ -6,6 +6,7 @@ package gameworld.obstacles;
 
 import tools.TypeHolder;
 import gameworld.Board;
+import gameworld.Creature;
 import gameworld.Interactive;
 import gameworld.Obstacle;
 import tools.ObjectCounter;
@@ -39,7 +40,7 @@ public class Door extends Obstacle implements Interactive, Cloneable {
         PASSABLE = true;
     }
 
-    public void interact() {
+    public void interact(Creature creature) {
         if (DOOR_POSITION) {
             //Close door
             SPRITE = SpriteHolder.OB_CLOSED_DOOR;

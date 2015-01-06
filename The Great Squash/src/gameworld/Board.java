@@ -152,11 +152,18 @@ public class Board {
     }
 
     public Creature getCreature(String name) {
-        name = name.toLowerCase();
         for (int i = 0; i < CREATURES.size(); i++) {
-            Creature current = CREATURES.get(i);
-            if (current.getName().toLowerCase().equals(name)) {
-                return current;
+            if(CREATURES.get(i).getName().equalsIgnoreCase(name)){
+                return CREATURES.get(i);
+            }
+        }
+        return null;
+    }
+    
+    public Obstacle getObstacle(String name){
+        for(int i = 0;i < OBSTACLES.size();i++){
+            if(OBSTACLES.get(i).getLabel().equalsIgnoreCase(name)){
+                return OBSTACLES.get(i);
             }
         }
         return null;
