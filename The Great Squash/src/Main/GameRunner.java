@@ -59,9 +59,9 @@ public class GameRunner {
         GAME_BOARD = CLIENT.getBoard();
         GAME_GUI = new GameGUI();
         GAME_GUI.setBoard(GAME_BOARD);
-        player.addToInventory(new Weapon("slimefork"));
-        player.addToInventory(new Consumable("pancake"));
-        player.addToInventory(new Armor("battletuxedo"));
+//        player.addToInventory(new Weapon("slimefork"));
+//        player.addToInventory(new Consumable("pancake"));
+//        player.addToInventory(new Armor("battletuxedo"));
         GAME_GUI.setCreature(player);
     }
 

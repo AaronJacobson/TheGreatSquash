@@ -68,6 +68,10 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
         LOCATION_X = x;
         LOCATION_Y = y;
     }
+    
+    public String getType(){
+        return TYPE;
+    }
 
     public String toServerData() {
         return " | " + LABEL + " " + LOCATION_Y + " " + LOCATION_X + " " + PASSABLE + " " + HEALTH + " " + SPRITE + " " + TYPE;

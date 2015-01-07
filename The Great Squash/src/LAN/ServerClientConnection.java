@@ -5,6 +5,7 @@ import gameworld.Board;
 import gameworld.Interactive;
 import gameworld.Obstacle;
 import gameworld.Player;
+import gameworld.obstacles.Door;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -22,7 +23,7 @@ class ServerClientConnection implements Runnable {
     Server THE_SERVER;
     String IP;
 
-    public ServerClientConnection(DataInputStream in, DataOutputStream out, ServerClientConnection[] serverClientConnections, ArrayList<String> ips, Board gameBoard, Server server, boolean[] inits,String ip) {
+    public ServerClientConnection(DataInputStream in, DataOutputStream out, ServerClientConnection[] serverClientConnections, ArrayList<String> ips, Board gameBoard, Server server, boolean[] inits, String ip) {
         SERVER_CLIENT_CONNECTIONS = serverClientConnections;
         THE_SERVER = server;
         STREAM_IN = in;
@@ -52,6 +53,9 @@ class ServerClientConnection implements Runnable {
         Scanner messageScanner = new Scanner(theMessage);
         String theCommand = messageScanner.next();
         if (theCommand.equals(CommandHolder.ASK_TO_MOVE)) {
+//            for (int currentObstacle = 0; currentObstacle < THE_SERVER.getBoard().getObstacles().size(); currentObstacle++) {
+//                System.out.println("ServerClientConnection: " + THE_SERVER.getBoard().getObstacles().get(currentObstacle).toServerData());
+//            }
             int y = messageScanner.nextInt();
             int x = messageScanner.nextInt();
             String creatureName = messageScanner.next();
@@ -79,8 +83,6 @@ class ServerClientConnection implements Runnable {
             sendCreatures();
         } else if (theCommand.equals(CommandHolder.INITIALIZE_OBSTACLES)) {
             sendObstacles();
-        } else if (theCommand.equals(CommandHolder.INITIALIZE_FLOORS)) {
-            sendFloors();
         } else if (theCommand.equals(CommandHolder.CREATE_CREATURE)) {
             messageScanner.next();
             String name = messageScanner.next();
@@ -99,26 +101,27 @@ class ServerClientConnection implements Runnable {
         } else if (theCommand.equals(CommandHolder.SEND_THE_BOARD_PARAMETERS)) {
             String theParameters = CommandHolder.BOARD_SIZE + " " + THE_SERVER.getBoard().getY() + " " + THE_SERVER.getBoard().getX();
             sendBoardInit(theParameters);
-        } else if (theCommand.equals(CommandHolder.INTERACT_WITH)){
-            System.out.println("ServerClientConnection: Recieved the interaction command");
+        } else if (theCommand.equals(CommandHolder.INTERACT_WITH)) {
             String creatureName = messageScanner.next();
             String obstacleName = messageScanner.next();
-            if(THE_SERVER.getBoard().getObstacle(obstacleName) instanceof Interactive){
+            if (THE_SERVER.getBoard().getObstacle(obstacleName) instanceof Interactive) {
+                System.out.println("ServerClientConnection: wubz");
                 Interactive toInteract = (Interactive) THE_SERVER.getBoard().getObstacle(obstacleName);
                 toInteract.interact(THE_SERVER.getBoard().getCreature(creatureName));
                 System.out.println("ServerClientConnection: Successful interaction.");
+            } else {
+                System.out.println("ServerClientConnection: " + THE_SERVER.getBoard().getObstacle(obstacleName).toServerData());
             }
         }
 
     }
-
-    public void sendFloors() {
-    }
-
     public void sendObstacles() {
         String toSend = CommandHolder.THE_OBSTACLES + " " + THE_SERVER.getBoard().getObstacles().size();
         for (int currentObstacle = 0; currentObstacle < THE_SERVER.getBoard().getObstacles().size(); currentObstacle++) {
             toSend += THE_SERVER.getBoard().getObstacles().get(currentObstacle).toServerData();
+            if(THE_SERVER.getBoard().getObstacles().get(currentObstacle) instanceof Door){
+                System.out.println("ServerClientConnection: It's a door! " + THE_SERVER.getBoard().getObstacles().get(currentObstacle).getType());
+            }
         }
         sendBoardInit(toSend);
     }

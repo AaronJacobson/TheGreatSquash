@@ -21,10 +21,8 @@ public class CommandHolder {
     public static final String SPELL_BOOK = "THIS_IS_A_SPELL_BOOK";
     public static final String INITIALIZE_CREATURES = "GIVE_ME_THE_CREATURES";
     public static final String INITIALIZE_OBSTACLES = "GIVE_ME_THE_OBSTACLES";
-    public static final String INITIALIZE_FLOORS = "GIVE_ME_THE_FLOORS";
     public static final String THE_CREATURES = "HERE_ARE_THE_CREATURES_TAKE_THEM_I_DON'T_WANT_THEM_I_NEVER_LIKED_YOU_ANYWAYS";
     public static final String THE_OBSTACLES = "HERE_ARE_THE_OBSTACLES";
-    public static final String THE_FLOORS = "HERE_ARE_THE_FLOORS";
     public static final String CREATE_CREATURE = "CREATE_THIS_CREATURE";
     public static final String BOARD_SIZE = "HERE_ARE_THE_BOARD_PARAMETERS";
     public static final String SEND_THE_BOARD_PARAMETERS = "MAY_I_HAVE_THE_BOARD_PARAMETERS";
