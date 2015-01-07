@@ -38,7 +38,6 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
         PASSABLE = passable;
     }
 
-    @Override
     public void setSprite(char sprite) {
         SPRITE = sprite;
     }

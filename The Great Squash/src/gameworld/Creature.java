@@ -73,7 +73,6 @@ public class Creature implements Displayable, Sendable {
         GameRunner.CLIENT.getHandler().sendMove(y, x, this);
     }
 
-    @Override
     public void setSprite(char sprite) {
         SPRITE = sprite;
     }

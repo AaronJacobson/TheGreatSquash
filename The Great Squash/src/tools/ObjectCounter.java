@@ -22,8 +22,8 @@ import java.util.logging.Logger;
  */
 public class ObjectCounter {
 
-    private static final File CREATURE_FILE = new File("src\\gameworld\\tools\\creaturelog.tgs");
-    private static final File OBSTACLE_FILE = new File("src\\gameworld\\tools\\obstaclelog.tgs");
+    private static final File CREATURE_FILE = new File("src\\tools\\creaturelog.tgs");
+    private static final File OBSTACLE_FILE = new File("src\\tools\\obstaclelog.tgs");
     private static String NAME = "";
 
     public static String getCreatureCount(String type) {
@@ -93,7 +93,9 @@ public class ObjectCounter {
         try {
             fileWriter = new PrintWriter(file, "UTF-8");
         } catch (FileNotFoundException ex) {
+            System.err.println("Yo bitch, I couldn't find your fucking file:\n   -" + file);
         } catch (UnsupportedEncodingException ex) {
+            System.err.println("Yo bitch, the encoding was unsupported... or something");
         }
 
         fileWriter.println(text);
