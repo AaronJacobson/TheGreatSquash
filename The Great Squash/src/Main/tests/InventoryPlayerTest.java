@@ -29,6 +29,12 @@ public class InventoryPlayerTest {
         Armor armor = new Armor("battletuxedo");
         System.out.println(armor.getName());
         System.out.println(armor.getSprite());
-        System.out.println(armor.getAC());
+        System.out.println(armor.getAC() + "\n");
+        
+        Consumable consumable = new Consumable("pancake");
+        System.out.println(consumable.getName());
+        System.out.println(consumable.getSprite());
+        System.out.println(consumable.getHealthAdded());
+        System.out.println(consumable.getManaAdded());
     }
 }
