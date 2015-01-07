@@ -36,6 +36,7 @@ public class Chest extends Obstacle implements Interactive, HasInventory {
     }
 
     public void interact(Creature creature) {
+        
     }
 
     public Inventory getInventory() {

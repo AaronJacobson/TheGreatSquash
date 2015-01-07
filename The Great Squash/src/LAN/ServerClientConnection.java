@@ -1,6 +1,5 @@
 package LAN;
 
-import tools.TypeHolder;
 import tools.CommandHolder;
 import gameworld.Board;
 import gameworld.Interactive;
@@ -9,9 +8,9 @@ import gameworld.Player;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import tools.TypeHolder;
 
 class ServerClientConnection implements Runnable {
 
@@ -108,8 +107,6 @@ class ServerClientConnection implements Runnable {
                 Interactive toInteract = (Interactive) THE_SERVER.getBoard().getObstacle(obstacleName);
                 toInteract.interact(THE_SERVER.getBoard().getCreature(creatureName));
                 System.out.println("ServerClientConnection: Successful interaction.");
-            }else {
-                System.out.println("ServerClientConnection: It's not an Interactive");
             }
         }
 
