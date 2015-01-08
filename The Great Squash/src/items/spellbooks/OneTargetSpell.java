@@ -5,6 +5,8 @@
  */
 package items.spellbooks;
 
+import java.util.Scanner;
+
 /**
  *
  * @author ros_aljacobson001
@@ -23,5 +25,10 @@ public class OneTargetSpell extends SpellBook {
 
     public String toServerData() {
         return super.toServerData() + " " + RANGE;
+    }
+
+    @Override
+    public void loadFromFile(Scanner fileScanner) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

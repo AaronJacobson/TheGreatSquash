@@ -105,23 +105,19 @@ class ServerClientConnection implements Runnable {
             String creatureName = messageScanner.next();
             String obstacleName = messageScanner.next();
             if (THE_SERVER.getBoard().getObstacle(obstacleName) instanceof Interactive) {
-                System.out.println("ServerClientConnection: wubz");
                 Interactive toInteract = (Interactive) THE_SERVER.getBoard().getObstacle(obstacleName);
                 toInteract.interact(THE_SERVER.getBoard().getCreature(creatureName));
                 System.out.println("ServerClientConnection: Successful interaction.");
             } else {
-                System.out.println("ServerClientConnection: " + THE_SERVER.getBoard().getObstacle(obstacleName).toServerData());
+                System.out.println("ServerClientConnection: " + THE_SERVER.getBoard().getObstacle(obstacleName));
             }
         }
 
     }
     public void sendObstacles() {
         String toSend = CommandHolder.THE_OBSTACLES + " " + THE_SERVER.getBoard().getObstacles().size();
-        for (int currentObstacle = 0; currentObstacle < THE_SERVER.getBoard().getObstacles().size(); currentObstacle++) {
+        for(int currentObstacle = 0;currentObstacle < THE_SERVER.getBoard().getObstacles().size();currentObstacle++){
             toSend += THE_SERVER.getBoard().getObstacles().get(currentObstacle).toServerData();
-            if(THE_SERVER.getBoard().getObstacles().get(currentObstacle) instanceof Door){
-                System.out.println("ServerClientConnection: It's a door! " + THE_SERVER.getBoard().getObstacles().get(currentObstacle).getType());
-            }
         }
         sendBoardInit(toSend);
     }

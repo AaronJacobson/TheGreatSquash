@@ -104,15 +104,21 @@ public class ServerDataHandler implements Runnable {
                 String type = messageScanner.next();
                 if (type.equals(TypeHolder.OB_CHEST)) {
                     Chest chest = new Chest(GameRunner.getBoard(), newY, newX);
+                    chest.setLabel(label);
                     GameRunner.getBoard().addObstacle(chest);
                 } else if (type.equals(TypeHolder.OB_DOOR)) {
+                    System.out.println("ServerDataHandler: " + passable);
                     Door door = new Door(GameRunner.getBoard(), passable, newY, newX);
+                    door.setLabel(label);
+                    door.setSprite(sprite);
                     GameRunner.getBoard().addObstacle(door);
                 } else if (type.equals(TypeHolder.OB_WALL)) {
                     Wall wall = new Wall(GameRunner.getBoard(), newY, newX);
+                    wall.setLabel(label);
                     GameRunner.getBoard().addObstacle(wall);
                 } else if (type.equals(TypeHolder.OB_START)) {
                     StartTile startTile = new StartTile(GameRunner.getBoard(), newY, newX);
+                    startTile.setLabel(label);
                     GameRunner.getBoard().addObstacle(startTile);
                     GameRunner.GAME_BOARD.getStartTiles().add(startTile);
                 }

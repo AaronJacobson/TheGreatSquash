@@ -29,6 +29,10 @@ public abstract class Obstacle implements Displayable, Sendable, Cloneable {
     public String getLabel() {
         return LABEL;
     }
+    
+    public void setLabel(String toSet){
+        LABEL = toSet;
+    }
 
     public boolean getPassable() {
         return PASSABLE;
