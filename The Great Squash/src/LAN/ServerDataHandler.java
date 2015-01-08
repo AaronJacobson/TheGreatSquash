@@ -23,7 +23,6 @@ public class ServerDataHandler implements Runnable {
     private DataInputStream STREAM_IN;
     private DataOutputStream STREAM_OUT;
     private boolean WAIT_FOR_PARAMETERS = true;
-    private boolean WAIT_FOR_FLOORS = true;
     private boolean WAIT_FOR_OBSTACLES = true;
     private boolean WAIT_FOR_CREATURES = true;
 
@@ -119,7 +118,6 @@ public class ServerDataHandler implements Runnable {
                 }
             }
             GameRunner.updateBoard();
-        } else if (theCommand.equals(CommandHolder.THE_FLOORS)) {
         } else if (theCommand.equals(CommandHolder.CREATE_CREATURE)) {
             messageScanner.next();
             String name = messageScanner.next();
@@ -148,6 +146,7 @@ public class ServerDataHandler implements Runnable {
             if(GameRunner.GAME_BOARD.getObstacle(obstacleName) instanceof Interactive){
                 Interactive toInteract = (Interactive) GameRunner.GAME_BOARD.getObstacle(obstacleName);
                 toInteract.interact(GameRunner.GAME_BOARD.getCreature(creatureName));
+                System.out.println("ServerDataHandler: Successful interaction");
             }
             GameRunner.updateBoard();
         }

@@ -12,12 +12,10 @@ public class Tile {
 
     private char EMPTY_SPACE_SPRITE = '.';
     private Obstacle OBSTACLE;
-    private Floor FLOOR;
     private Creature CREATURE;
 
-    public Tile(Obstacle obstacle, Floor floor, Creature creature) {
+    public Tile(Obstacle obstacle, Creature creature) {
         OBSTACLE = obstacle;
-        FLOOR = floor;
         CREATURE = creature;
     }
 
@@ -44,8 +42,6 @@ public class Tile {
             output += CREATURE.getSprite();
         } else if (OBSTACLE != null) {
             output += OBSTACLE.getSprite();
-        } else if (FLOOR != null) {
-            output += FLOOR.getSprite();
         } else {
             output += EMPTY_SPACE_SPRITE;
         }

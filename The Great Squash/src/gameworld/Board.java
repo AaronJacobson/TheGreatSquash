@@ -57,7 +57,7 @@ public class Board {
     public void setBoardTilesNull() {
         for (int i = 0; i < SIZE_X; i++) {
             for (int j = 0; j < SIZE_Y; j++) {
-                GAME_BOARD[j][i] = new Tile(null, null, null);
+                GAME_BOARD[j][i] = new Tile(null, null);
             }
         }
     }
