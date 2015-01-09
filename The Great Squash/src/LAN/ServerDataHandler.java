@@ -150,8 +150,9 @@ public class ServerDataHandler implements Runnable {
             String obstacleName = messageScanner.next();
             if(GameRunner.GAME_BOARD.getObstacle(obstacleName) instanceof Interactive){
                 Interactive toInteract = (Interactive) GameRunner.GAME_BOARD.getObstacle(obstacleName);
+                System.out.println("ServerDataHandler: " + GameRunner.GAME_BOARD.getObstacle(obstacleName).toServerData());
                 toInteract.interact(GameRunner.GAME_BOARD.getCreature(creatureName));
-                System.out.println("ServerDataHandler: Successful interaction");
+                System.out.println("ServerDataHandler: " + GameRunner.GAME_BOARD.getObstacle(obstacleName).toServerData());
             }
             GameRunner.updateBoard();
         }

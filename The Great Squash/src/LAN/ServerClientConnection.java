@@ -53,9 +53,6 @@ class ServerClientConnection implements Runnable {
         Scanner messageScanner = new Scanner(theMessage);
         String theCommand = messageScanner.next();
         if (theCommand.equals(CommandHolder.ASK_TO_MOVE)) {
-//            for (int currentObstacle = 0; currentObstacle < THE_SERVER.getBoard().getObstacles().size(); currentObstacle++) {
-//                System.out.println("ServerClientConnection: " + THE_SERVER.getBoard().getObstacles().get(currentObstacle).toServerData());
-//            }
             int y = messageScanner.nextInt();
             int x = messageScanner.nextInt();
             String creatureName = messageScanner.next();
@@ -63,6 +60,7 @@ class ServerClientConnection implements Runnable {
                 try {
                     try {
                         Obstacle moveTo = THE_SERVER.getBoard().getTileObstacle(y, x);
+                        System.out.println("ServerClientConnection: " + moveTo.toServerData());
                         if (moveTo.getPassable()) {
                             sendCommand(CommandHolder.MOVE_CREATURE + " " + y + " " + x + " " + creatureName + " " + THE_SERVER.getBoard().getCreature(creatureName).getY() + " " + THE_SERVER.getBoard().getCreature(creatureName).getX());
                             THE_SERVER.getBoard().moveCreature(y, x, THE_SERVER.getBoard().getCreature(creatureName));
@@ -107,16 +105,16 @@ class ServerClientConnection implements Runnable {
             if (THE_SERVER.getBoard().getObstacle(obstacleName) instanceof Interactive) {
                 Interactive toInteract = (Interactive) THE_SERVER.getBoard().getObstacle(obstacleName);
                 toInteract.interact(THE_SERVER.getBoard().getCreature(creatureName));
-                System.out.println("ServerClientConnection: Successful interaction.");
             } else {
                 System.out.println("ServerClientConnection: " + THE_SERVER.getBoard().getObstacle(obstacleName));
             }
         }
 
     }
+
     public void sendObstacles() {
         String toSend = CommandHolder.THE_OBSTACLES + " " + THE_SERVER.getBoard().getObstacles().size();
-        for(int currentObstacle = 0;currentObstacle < THE_SERVER.getBoard().getObstacles().size();currentObstacle++){
+        for (int currentObstacle = 0; currentObstacle < THE_SERVER.getBoard().getObstacles().size(); currentObstacle++) {
             toSend += THE_SERVER.getBoard().getObstacles().get(currentObstacle).toServerData();
         }
         sendBoardInit(toSend);
