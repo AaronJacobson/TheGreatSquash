@@ -44,10 +44,12 @@ public class Door extends Obstacle implements Interactive, Cloneable {
         if (DOOR_POSITION) {
             //Close door
             SPRITE = SpriteHolder.OB_CLOSED_DOOR;
+            System.out.println("Door: I have been closed!");
             PASSABLE = false;
         } else {
             //Open door
             SPRITE = SpriteHolder.OB_OPEN_DOOR;
+            System.out.println("Door: I have been opened!");
             PASSABLE = true;
         }
     }
