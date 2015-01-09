@@ -107,7 +107,6 @@ public class ServerDataHandler implements Runnable {
                     chest.setLabel(label);
                     GameRunner.getBoard().addObstacle(chest);
                 } else if (type.equals(TypeHolder.OB_DOOR)) {
-                    System.out.println("ServerDataHandler: " + passable);
                     Door door = new Door(GameRunner.getBoard(), passable, newY, newX);
                     door.setLabel(label);
                     door.setSprite(sprite);
@@ -198,6 +197,7 @@ public class ServerDataHandler implements Runnable {
             }
             System.out.println("ServerDataHandler: Obstacles have been initialized");
             STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_CREATURES);
+            System.out.println("ServerDataHandler: I have sent for the creatures.");
             while (WAIT_FOR_CREATURES) {
             }
             System.out.println("ServerDataHandler: The creatures have been initialized");
