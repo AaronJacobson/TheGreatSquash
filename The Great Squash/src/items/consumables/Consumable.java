@@ -33,18 +33,19 @@ public class Consumable implements Item, Displayable, Sendable {
         String fileDirectory = "src/items/consumables/" + name + ".consumable";
         try {
             Scanner fileScanner = new Scanner(new File(fileDirectory));
-            loadFromFile(fileScanner);
+            loadFromFile(CreateFromDocument.getNextFileElement(fileScanner));
         } catch (FileNotFoundException ex) {
             System.out.println("Consumable: File not found at this location:");
             System.out.println(fileDirectory);
         }
     }
 
-    public void loadFromFile(Scanner fileScanner) {
-        NAME = CreateFromDocument.getLineElement(fileScanner.nextLine());
-        SPRITE = CreateFromDocument.getLineElement(fileScanner.nextLine()).charAt(0);
-        HEALTH_ADDED = Integer.parseInt(CreateFromDocument.getLineElement(fileScanner.nextLine()));
-        MANA_ADDED = Integer.parseInt(CreateFromDocument.getLineElement(fileScanner.nextLine()));
+    public void loadFromFile(String fileElement) {
+        Scanner elementScanner = new Scanner(fileElement);
+        NAME = CreateFromDocument.getLineElement(elementScanner.nextLine());
+        SPRITE = CreateFromDocument.getLineElement(elementScanner.nextLine()).charAt(0);
+        HEALTH_ADDED = Integer.parseInt(CreateFromDocument.getLineElement(elementScanner.nextLine()));
+        MANA_ADDED = Integer.parseInt(CreateFromDocument.getLineElement(elementScanner.nextLine()));
     }
 
     public String getName() {

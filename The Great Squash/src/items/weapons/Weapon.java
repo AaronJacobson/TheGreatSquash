@@ -20,7 +20,7 @@ import tools.CreateFromDocument;
  * @author ros_dmlamarca
  */
 public class Weapon implements Item, Displayable, Sendable {
-
+    private String FILE_NAME;
     private String NAME = "UNITIALIZED_WEAPON";
     private char SPRITE = (char) (167);// 167 = §
     private String DAMAGE_STAT = "UNITIALIZED_STAT";
@@ -30,7 +30,7 @@ public class Weapon implements Item, Displayable, Sendable {
     private ArrayList<Enchantment> ENCHANTMENTS;
 
     public class DamageStats {
-
+        
         public static final String DEXTERITY = "DAMAGE_IS_DONE_WITH_DEXTERITY";
         public static final String STRENGTH = "DAMAGE_IS_DONE_WITH_STRENGTH";
         public static final String INTELLIGENCE = "DAMAGE_IS_DONE_WITH_INTELLIGENCE";
@@ -52,20 +52,21 @@ public class Weapon implements Item, Displayable, Sendable {
         String fileDirectory = "src/items/weapons/" + name + ".weapon";
         try {
             Scanner fileScanner = new Scanner(new File(fileDirectory));
-            loadFromFile(fileScanner);
+            loadFromFile(CreateFromDocument.getNextFileElement(fileScanner));
         } catch (FileNotFoundException ex) {
             System.out.println("Weapon: Unable to load file from: ");
             System.out.println(fileDirectory);
         }
     }
 
-    public void loadFromFile(Scanner fileScanner) {
-        NAME = CreateFromDocument.getLineElement(fileScanner.nextLine());
-        SPRITE = CreateFromDocument.getLineElement(fileScanner.nextLine()).charAt(0);
-        DAMAGE_STAT = CreateFromDocument.getLineElement(fileScanner.nextLine());
-        ATTACK = Integer.parseInt(CreateFromDocument.getLineElement(fileScanner.nextLine()));
-        DEFENSE = Integer.parseInt(CreateFromDocument.getLineElement(fileScanner.nextLine()));
-        RANGE = Integer.parseInt(CreateFromDocument.getLineElement(fileScanner.nextLine()));
+    public void loadFromFile(String fileElement) {
+        Scanner elementScanner = new Scanner(fileElement);
+        NAME = CreateFromDocument.getLineElement(elementScanner.nextLine());
+        SPRITE = CreateFromDocument.getLineElement(elementScanner.nextLine()).charAt(0);
+        DAMAGE_STAT = CreateFromDocument.getLineElement(elementScanner.nextLine());
+        ATTACK = Integer.parseInt(CreateFromDocument.getLineElement(elementScanner.nextLine()));
+        DEFENSE = Integer.parseInt(CreateFromDocument.getLineElement(elementScanner.nextLine()));
+        RANGE = Integer.parseInt(CreateFromDocument.getLineElement(elementScanner.nextLine()));
     }
 
     public void addEnchantment(Enchantment bonusToAdd) {

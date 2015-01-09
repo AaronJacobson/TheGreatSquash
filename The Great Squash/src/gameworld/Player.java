@@ -49,7 +49,7 @@ public class Player extends Creature {
     }
 
     public Player(String name) {
-        super(name);
+        NAME = name;
         String fileDirectory = "src/gameworld/players/" + name + ".player";
         try {
             Scanner fileScanner = new Scanner(new File(fileDirectory));
@@ -109,7 +109,7 @@ public class Player extends Creature {
         super.setName(CreateFromDocument.getLineElement(playerScanner.nextLine()));
         this.SPECIES = CreateFromDocument.getLineElement(playerScanner.nextLine());
         this.CLASS = CreateFromDocument.getLineElement(playerScanner.nextLine());
-        super.setSprite(CreateFromDocument.getLineElement(playerScanner.nextLine()).charAt(0));
+        super.SPRITE = (CreateFromDocument.getLineElement(playerScanner.nextLine()).charAt(0));
         super.setMaxHealth(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
         super.setSpeed(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
         super.setEndurance(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));

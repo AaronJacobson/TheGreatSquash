@@ -28,13 +28,11 @@ public class CreateFromDocument {
         } else {
             filePath = "src/gameworld/maps/" + mapName;
         }
-        //filePath = "src/gameworld/maps/";
         Board board = createBoard(filePath);
         return board;
     }
 
     public static Board createBoard(String filePath) {
-//        System.out.println(filePath);
         Board board = null;
         try {
             File textFile = new File(filePath);
@@ -57,42 +55,10 @@ public class CreateFromDocument {
 //        System.out.println(board);
         return board;
     }
-
-    private static Hashtable<String, Displayable> getCreatorTable(String input) {
-        Hashtable<String, Displayable> hashTable = new Hashtable<String, Displayable>();
-        Scanner inputScanner = new Scanner(input);
-
-        while (inputScanner.hasNextLine()) {
-            Scanner lineScanner = new Scanner(inputScanner.nextLine());
-
-            String key = lineScanner.next();
-            String objectName = lineScanner.next();
-
-            Displayable object = createDisplayable(objectName);
-
-            hashTable.put(key, object);
-        }
-
-        return hashTable;
-    }
-
-    private static Displayable createDisplayable(String objectName) {
-        Displayable object = null;
-
-        if (objectName.equals("wall")) {
-            object = new Wall();
-        } else if (objectName.equals("closeddoor")) {
-            object = new Door(false);
-        } else if (objectName.equals("opendoor")) {
-            object = new Door(true);
-        } else if (objectName.equals("starttile")) {
-            object = new StartTile();
-        }
-
-        return object;
-    }
-
-    private static String getNextFileElement(Scanner readFile) {
+    
+//----------------------------------------------------------------------------------------
+ 
+    public static String getNextFileElement(Scanner readFile) {
         String string = "";
         while (readFile.hasNextLine()) {
             String line = readFile.nextLine();
@@ -125,7 +91,17 @@ public class CreateFromDocument {
         }
         return output;
     }
-
+    
+    public static int generateStat(String line) {
+        Scanner readLine = new Scanner(line);
+        int lowEdge = readLine.nextInt();
+        int highEdge = readLine.nextInt();
+        int randomStat = (int) (Math.random() * (highEdge - lowEdge + 1) + lowEdge);
+        return randomStat;
+    }
+    
+//----------------------------------------------------------------------------------------
+ 
     private static Board makeBoard(Hashtable<String, Displayable> creatorTable, String stringBoard) {
         Scanner getSize = new Scanner(stringBoard);
         int sizeX = 0;
@@ -180,7 +156,37 @@ public class CreateFromDocument {
         }
     }
     
-//=================================================================================================
+    private static Displayable createDisplayable(String objectName) {
+        Displayable object = null;
+
+        if (objectName.equals("wall")) {
+            object = new Wall();
+        } else if (objectName.equals("closeddoor")) {
+            object = new Door(false);
+        } else if (objectName.equals("opendoor")) {
+            object = new Door(true);
+        } else if (objectName.equals("starttile")) {
+            object = new StartTile();
+        }
+
+        return object;
+    }
     
-    
+    private static Hashtable<String, Displayable> getCreatorTable(String input) {
+        Hashtable<String, Displayable> hashTable = new Hashtable<String, Displayable>();
+        Scanner inputScanner = new Scanner(input);
+
+        while (inputScanner.hasNextLine()) {
+            Scanner lineScanner = new Scanner(inputScanner.nextLine());
+
+            String key = lineScanner.next();
+            String objectName = lineScanner.next();
+
+            Displayable object = createDisplayable(objectName);
+
+            hashTable.put(key, object);
+        }
+
+        return hashTable;
+    }
 }

@@ -11,8 +11,7 @@ import java.util.Scanner;
  * @author ros_dmlamarca
  */
 public interface Item {
-
     public String toString();
     
-    public void loadFromFile(Scanner fileScanner);
+    public void loadFromFile(String fileElement);
 }

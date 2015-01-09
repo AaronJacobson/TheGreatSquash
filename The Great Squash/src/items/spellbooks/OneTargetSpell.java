@@ -28,7 +28,7 @@ public class OneTargetSpell extends SpellBook {
     }
 
     @Override
-    public void loadFromFile(Scanner fileScanner) {
+    public void loadFromFile(String fileElement) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

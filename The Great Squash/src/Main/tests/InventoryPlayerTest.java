@@ -18,7 +18,7 @@ import items.weapons.Weapon;
  */
 public class InventoryPlayerTest {
     public static void main(String[] args) {
-        Weapon weapon = new Weapon("slimefork");
+        Weapon weapon = new Weapon("quarterstaff");
         System.out.println(weapon.getName());
         System.out.println(weapon.getSprite());
         System.out.println(weapon.getAttack());

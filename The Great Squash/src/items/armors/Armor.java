@@ -42,17 +42,18 @@ public class Armor implements Item, Displayable, Sendable {
         String fileDirectory = "src/items/armors/" + name + ".armor";
         try {
             Scanner fileScanner = new Scanner(new File(fileDirectory));
-            loadFromFile(fileScanner);
+            loadFromFile(CreateFromDocument.getNextFileElement(fileScanner));
         } catch (FileNotFoundException ex) {
             System.out.println("Armor: Unable to load the file with the directory of: ");
             System.out.println(fileDirectory);
         }
     }
 
-    public void loadFromFile(Scanner fileScanner) {
-        NAME = CreateFromDocument.getLineElement(fileScanner.nextLine());
-        SPRITE = CreateFromDocument.getLineElement(fileScanner.nextLine()).charAt(0);
-        ARMOR_CLASS = Integer.parseInt(CreateFromDocument.getLineElement(fileScanner.nextLine()));
+    public void loadFromFile(String fileElement) {
+        Scanner elementScanner = new Scanner(fileElement);
+        NAME = CreateFromDocument.getLineElement(elementScanner.nextLine());
+        SPRITE = CreateFromDocument.getLineElement(elementScanner.nextLine()).charAt(0);
+        ARMOR_CLASS = Integer.parseInt(CreateFromDocument.getLineElement(elementScanner.nextLine()));
     }
 
     public String getName() {

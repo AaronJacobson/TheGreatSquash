@@ -7,6 +7,7 @@ package gameworld;
 import LAN.Sendable;
 import Main.GameRunner;
 import items.Item;
+import items.weapons.Weapon;
 import java.util.ArrayList;
 
 /**
@@ -21,21 +22,17 @@ public class Creature implements Displayable, Sendable {
     protected String NAME = "Creature";
     protected String TYPE = "abstract";
     protected Inventory INVENTORY = new Inventory(25);
+    protected Weapon EQUIPT_WEAPON;
     protected int LOCATION_X;
     protected int LOCATION_Y;
     protected int LEVEL;
     protected int XP;
     protected int MAX_HEALTH = 0;
-    protected double CURRENT_HEALTH;
-    protected int ENDURANCE_MODIFIER;
+    protected int CURRENT_HEALTH;
     protected int ENDURANCE;
-    protected int SPEED_MODIFIER;
     protected int SPEED;
-    protected int STRENGTH_MODIFIER;
     protected int STRENGTH;
-    protected int INTELLIGENCE_MODIFIER;
     protected int INTELLIGENCE;
-    protected int DEXTERITY_MODIFIER;
     protected int DEXTERITY;
 
     public Creature(char sprite, Board board, int y, int x, String name, String type) {
@@ -47,31 +44,11 @@ public class Creature implements Displayable, Sendable {
         BOARD = board;
     }
 
-    public Creature(String name, char sprite, int health, int level, int speed, int endurance, int strength, int intelligence, int dexterity) {
-        NAME = name;
-        SPRITE = sprite;
-        LEVEL = level;
-        MAX_HEALTH = health;
-        SPEED = speed;
-        ENDURANCE = endurance;
-        STRENGTH = strength;
-        INTELLIGENCE = intelligence;
-        DEXTERITY = dexterity;
-    }
-
-    public Creature(String name) {
-        NAME = name;
-    }
-
     public Creature() {
     }
 
     public void moveSelf(int y, int x) {
         GameRunner.CLIENT.getHandler().sendMove(y, x, this);
-    }
-
-    public void setSprite(char sprite) {
-        SPRITE = sprite;
     }
 
     public void interactWithSurroundings() {
@@ -88,10 +65,10 @@ public class Creature implements Displayable, Sendable {
             }
         }
     }
-    
-    public void interactWith(Tile tile){
-        if(tile.getObstacle() != null){
-            if(tile.getObstacle() instanceof Interactive){
+
+    public void interactWith(Tile tile) {
+        if (tile.getObstacle() != null) {
+            if (tile.getObstacle() instanceof Interactive) {
                 GameRunner.CLIENT.getHandler().sendInteract(this.getName(), tile.getObstacle().getLabel());
             }
         }
@@ -121,11 +98,11 @@ public class Creature implements Displayable, Sendable {
         INVENTORY.addToInventory(item);
     }
 
-    public void changeLevel(int change) {
-        LEVEL += change;
-        updateStats();
+    public void setEquipt(Weapon weapon) {
+        EQUIPT_WEAPON = weapon;
     }
 
+//----------------------------------------------------------------------------------------
     public int getLevel() {
         return LEVEL;
     }
@@ -134,15 +111,26 @@ public class Creature implements Displayable, Sendable {
         LEVEL = level;
     }
 
-    private void updateStats() {
-        SPEED = (int) (SPEED_MODIFIER + (LEVEL * ((double) (SPEED_MODIFIER) / 8)));
-        ENDURANCE = (int) (ENDURANCE_MODIFIER + (LEVEL * ((double) (ENDURANCE_MODIFIER) / 2)));
-        STRENGTH = (int) (STRENGTH_MODIFIER + (LEVEL * ((double) (STRENGTH_MODIFIER) / 3)));
-        INTELLIGENCE = (int) (INTELLIGENCE_MODIFIER + (LEVEL * ((double) (INTELLIGENCE_MODIFIER) / 3)));
-        DEXTERITY = (int) (DEXTERITY_MODIFIER + (LEVEL * ((double) (DEXTERITY_MODIFIER) / 2)));
+    public void changeLevel(int change) {
+        LEVEL += change;
     }
 
-    @Override
+//----------------------------------------------------------------------------------------
+    
+    public int getXP() {
+        return XP;
+    }
+
+    public void setXP(int xp) {
+        XP = xp;
+    }
+
+    public void changeXP(int change) {
+        XP += change;
+    }
+
+//----------------------------------------------------------------------------------------  
+    
     public char getSprite() {
         return SPRITE;
     }
@@ -151,121 +139,94 @@ public class Creature implements Displayable, Sendable {
         BOARD = board;
     }
 
+//----------------------------------------------------------------------------------------  
+    
     public int getX() {
         return LOCATION_X;
-    }
-
-    public int getY() {
-        return LOCATION_Y;
     }
 
     public void setX(int x) {
         LOCATION_X = x;
     }
 
+    public int getY() {
+        return LOCATION_Y;
+    }
+
     public void setY(int y) {
         LOCATION_Y = y;
     }
 
+//----------------------------------------------------------------------------------------  
+    
+     public String getName() {
+        return NAME;
+    }
+    
     public void setName(String toSet) {
         NAME = toSet;
     }
 
-    public String getName() {
-        return NAME;
-    }
-
-    public void setType(String type) {
-        TYPE = type;
-    }
+//----------------------------------------------------------------------------------------   
 
     public String getType() {
         return TYPE;
     }
-
-    public void setDexterityMod(int dexterityMod) {
-        DEXTERITY_MODIFIER = dexterityMod;
+    
+    public void setType(String type) {
+        TYPE = type;
     }
-
-    public int getDexterityMod() {
-        return DEXTERITY_MODIFIER;
+    
+//----------------------------------------------------------------------------------------
+    
+    public double getDexterity() {
+        return DEXTERITY;
     }
-
-    public void setIntelligenceMod(int intelligenceMod) {
-        INTELLIGENCE_MODIFIER = intelligenceMod;
-    }
-
-    public int getIntelligenceMod() {
-        return INTELLIGENCE_MODIFIER;
-    }
-
-    public void setStrengthMod(int strengthMod) {
-        STRENGTH_MODIFIER = strengthMod;
-    }
-
-    public int getStrengthMod() {
-        return STRENGTH_MODIFIER;
-    }
-
-    public void setSpeedMod(int speedMod) {
-        SPEED_MODIFIER = speedMod;
-    }
-
-    public int getSpeedMod() {
-        return SPEED_MODIFIER;
-    }
-
-    public void setEnduranceMod(int enduranceMod) {
-        ENDURANCE_MODIFIER = enduranceMod;
-    }
-
-    public int getEnduranceMod() {
-        return ENDURANCE_MODIFIER;
-    }
-
     public void setDexterity(int dexterity) {
         DEXTERITY = dexterity;
     }
+    
+//----------------------------------------------------------------------------------------
 
-    public double getDexterity() {
-        return DEXTERITY;
+    public double getIntelligence() {
+        return INTELLIGENCE;
     }
 
     public void setIntelligence(int intelligence) {
         INTELLIGENCE = intelligence;
     }
 
-    public double getIntelligence() {
-        return INTELLIGENCE;
+//----------------------------------------------------------------------------------------    
+    
+    public double getStrength() {
+        return STRENGTH;
     }
-
+    
     public void setStrength(int strength) {
         STRENGTH = strength;
     }
 
-    public double getStrength() {
-        return STRENGTH;
+//----------------------------------------------------------------------------------------    
+    
+    public double getSpeed() {
+        return SPEED;
     }
-
+    
     public void setSpeed(int speed) {
         SPEED = speed;
     }
 
-    public double getSpeed() {
-        return SPEED;
+//----------------------------------------------------------------------------------------
+    
+    public double getEndurance() {
+        return ENDURANCE;
     }
-
+    
     public void setEndurance(int endurance) {
         ENDURANCE = endurance;
     }
 
-    public double getEndurance() {
-        return ENDURANCE;
-    }
-
-    public String toServerData() {
-        return " | " + NAME + " " + LOCATION_Y + " " + LOCATION_X + " " + MAX_HEALTH + " " + TYPE + " " + SPRITE;
-    }
+//----------------------------------------------------------------------------------------
 
     public int getMaxHealth() {
         return MAX_HEALTH;
@@ -279,15 +240,13 @@ public class Creature implements Displayable, Sendable {
         return CURRENT_HEALTH;
     }
 
-    public void setCurrentHealth(double newHealth) {
+    public void setCurrentHealth(int newHealth) {
         CURRENT_HEALTH = newHealth;
     }
-
-    public int getXP() {
-        return XP;
-    }
-
-    public void setXP(int newXp) {
-        XP = newXp;
+    
+//----------------------------------------------------------------------------------------
+ 
+    public String toServerData() {
+        return " | " + NAME + " " + LOCATION_Y + " " + LOCATION_X + " " + MAX_HEALTH + " " + TYPE + " " + SPRITE;
     }
 }

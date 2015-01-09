@@ -2,17 +2,12 @@ package gameworld.monsters;
 
 import gameworld.Board;
 import gameworld.Creature;
-import tools.ObjectCounter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import tools.CreateFromDocument;
+import tools.ObjectCounter;
 
-/**
- *
- * @author ros_Dmlamarca
- */
 public class Monster extends Creature {
 
     public Monster(String type) {
@@ -44,20 +39,12 @@ public class Monster extends Creature {
         String type = scanFile.nextLine();
         super.setType(type);
         super.setName(ObjectCounter.getCreatureCount(type));
-        super.setSprite(scanFile.nextLine().charAt(0));
-        super.setSpeedMod(generateStat(scanFile.nextLine()));
-        super.setEnduranceMod(generateStat(scanFile.nextLine()));
-        super.setStrengthMod(generateStat(scanFile.nextLine()));
-        super.setIntelligenceMod(generateStat(scanFile.nextLine()));
-        super.setDexterityMod(generateStat(scanFile.nextLine()));
-    }
-
-    private int generateStat(String line) {
-        Scanner readLine = new Scanner(line);
-        int lowEdge = readLine.nextInt();
-        int highEdge = readLine.nextInt();
-        int randomStat = (int) (Math.random() * (highEdge - lowEdge + 1) + lowEdge);
-        return randomStat;
+        super.SPRITE = (scanFile.nextLine().charAt(0));
+        super.setSpeed(CreateFromDocument.generateStat(scanFile.nextLine()));
+        super.setEndurance(CreateFromDocument.generateStat(scanFile.nextLine()));
+        super.setStrength(CreateFromDocument.generateStat(scanFile.nextLine()));
+        super.setIntelligence(CreateFromDocument.generateStat(scanFile.nextLine()));
+        super.setDexterity(CreateFromDocument.generateStat(scanFile.nextLine()));
     }
 
     private File getFile(String name) {
@@ -68,7 +55,6 @@ public class Monster extends Creature {
         } else {
             filePath = "src/gameworld/monsters/" + name;
         }
-        //filePath = "src/gameworld/maps/";
         File file = new File(filePath);
         return file;
     }

@@ -23,10 +23,6 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
-/**
- *
- * @author ros_Dmlamarca
- */
 public class GameGUI {
 
     private Border PANEL_BORDER = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
@@ -37,7 +33,17 @@ public class GameGUI {
     private MovementListener MOVEMENT_LISTENER;
     private JTextArea INVENTORY_DISPLAY;
     private JPanel INVENTORY_PANEL;
-    private JPanel BUTTONS_PANEL;
+    private JPanel CREATURE_PANEL;
+    
+    private JTextArea CREATURE_LEVEL;
+    private JTextArea CREATURE_XP;
+    private JTextArea CREATURE_HEALTH;
+    private JTextArea CREATURE_ENDURANCE;
+    private JTextArea CREATURE_SPEED;
+    private JTextArea CREATURE_STRENGTH;
+    private JTextArea CREATURE_INTELLIGENCE;
+    private JTextArea CREATURE_DEXTERITY;
+    
     private JTextArea BOARD_DISPLAY;
     private JPanel BOARD_PANEL;
     private JTextArea CHAT_DISPLAY;
@@ -53,7 +59,7 @@ public class GameGUI {
         CURRENT_CREATURE = 0;
         MOVEMENT_LISTENER = new MovementListener();
         formatInventory();
-        formatButtons();
+        formatCreature();
         formatBoard();
         formatChat();
 
@@ -106,12 +112,12 @@ public class GameGUI {
         INVENTORY_DISPLAY.setText(creatureInventory.toString());
     }
 
-    private void formatButtons() {
-        BUTTONS_PANEL = new JPanel();
+    private void formatCreature() {
+        CREATURE_PANEL = new JPanel();
         //BUTTONS_PANEL.setBackground(Color.BLUE);
-        BUTTONS_PANEL.setBounds(204, 2, 738, 50);
-        BUTTONS_PANEL.setBorder(PANEL_BORDER);
-        BUTTONS_PANEL.addKeyListener(MOVEMENT_LISTENER);
+        CREATURE_PANEL.setBounds(204, 2, 738, 50);
+        CREATURE_PANEL.setBorder(PANEL_BORDER);
+        CREATURE_PANEL.addKeyListener(MOVEMENT_LISTENER);
     }
 
     private void formatBoard() {
@@ -158,7 +164,7 @@ public class GameGUI {
 
     private void formatFrame() {
         FRAME.add(INVENTORY_PANEL);
-        FRAME.add(BUTTONS_PANEL);
+        FRAME.add(CREATURE_PANEL);
         FRAME.add(BOARD_PANEL);
         FRAME.add(CHAT_PANEL);
         FRAME.addKeyListener(MOVEMENT_LISTENER);
