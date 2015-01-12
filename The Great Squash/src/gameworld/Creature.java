@@ -27,6 +27,7 @@ public class Creature implements Displayable, Sendable {
     protected int LOCATION_Y;
     protected int LEVEL;
     protected int XP;
+    protected int MOVEMENT_POINTS;
     protected int MAX_HEALTH = 0;
     protected int CURRENT_HEALTH;
     protected int ENDURANCE;
@@ -34,6 +35,7 @@ public class Creature implements Displayable, Sendable {
     protected int STRENGTH;
     protected int INTELLIGENCE;
     protected int DEXTERITY;
+    protected boolean DONE_WITH_TURN;
 
     public Creature(char sprite, Board board, int y, int x, String name, String type) {
         TYPE = type;
@@ -42,6 +44,8 @@ public class Creature implements Displayable, Sendable {
         LOCATION_X = x;
         LOCATION_Y = y;
         BOARD = board;
+        MOVEMENT_POINTS = SPEED;
+        DONE_WITH_TURN = false;
     }
 
     public Creature() {
@@ -243,10 +247,29 @@ public class Creature implements Displayable, Sendable {
     public void setCurrentHealth(int newHealth) {
         CURRENT_HEALTH = newHealth;
     }
+//----------------------------------------------------------------------------------------
+    
+    public void setMovementPoints(int movementPoints){
+        MOVEMENT_POINTS = movementPoints;
+    }
+    
+    public int getMovementPoints(){
+        return MOVEMENT_POINTS;
+    }
+    
+//----------------------------------------------------------------------------------------
+    
+    public void setDoneTurn(boolean doneWith){
+        DONE_WITH_TURN = doneWith;
+    }
+    
+    public boolean getDoneTurn(){
+        return DONE_WITH_TURN;
+    }
     
 //----------------------------------------------------------------------------------------
  
     public String toServerData() {
-        return " | " + NAME + " " + LOCATION_Y + " " + LOCATION_X + " " + MAX_HEALTH + " " + TYPE + " " + SPRITE;
+        return " | " + NAME + " " + LOCATION_Y + " " + LOCATION_X + " " + MAX_HEALTH + " " + TYPE + " " + SPRITE + " " + SPEED;
     }
 }

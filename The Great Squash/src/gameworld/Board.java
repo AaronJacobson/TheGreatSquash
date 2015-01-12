@@ -4,10 +4,8 @@
  */
 package gameworld;
 
-import gameworld.obstacles.StartTile;
 import LAN.Client;
-import tools.CommandHolder;
-import LAN.Server;
+import gameworld.obstacles.StartTile;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -104,6 +102,8 @@ public class Board {
         creature.setY(y);
         creature.setX(x);
         setTileCreature(creature, y, x);
+        creature.setMovementPoints(creature.getMovementPoints()-1);
+        System.out.println("Board: " + creature.getName() + " has " + creature.getMovementPoints() + " movement points left.");
     }
 
     public void removeCreature(int y, int x) {

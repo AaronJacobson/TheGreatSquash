@@ -1,16 +1,15 @@
 package LAN;
 
-import tools.CommandHolder;
 import gameworld.Board;
 import gameworld.Interactive;
 import gameworld.Obstacle;
 import gameworld.Player;
-import gameworld.obstacles.Door;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import tools.CommandHolder;
 import tools.TypeHolder;
 
 class ServerClientConnection implements Runnable {
@@ -57,22 +56,26 @@ class ServerClientConnection implements Runnable {
             int x = messageScanner.nextInt();
             String creatureName = messageScanner.next();
             if (THE_SERVER.getBoard().hasCreature(creatureName)) {
-                try {
+                if (THE_SERVER.getBoard().getCreature(creatureName).getMovementPoints() > 0) {
                     try {
-                        Obstacle moveTo = THE_SERVER.getBoard().getTileObstacle(y, x);
-                        System.out.println("ServerClientConnection: " + moveTo.toServerData());
-                        if (moveTo.getPassable()) {
+                        try {
+                            Obstacle moveTo = THE_SERVER.getBoard().getTileObstacle(y, x);
+                            System.out.println("ServerClientConnection: " + moveTo.toServerData());
+                            if (moveTo.getPassable()) {
+                                sendCommand(CommandHolder.MOVE_CREATURE + " " + y + " " + x + " " + creatureName + " " + THE_SERVER.getBoard().getCreature(creatureName).getY() + " " + THE_SERVER.getBoard().getCreature(creatureName).getX());
+                                THE_SERVER.getBoard().moveCreature(y, x, THE_SERVER.getBoard().getCreature(creatureName));
+                            } else {
+                                System.out.println("ServerClientConnection: Inpassable");
+                            }
+                        } catch (NullPointerException e) {
                             sendCommand(CommandHolder.MOVE_CREATURE + " " + y + " " + x + " " + creatureName + " " + THE_SERVER.getBoard().getCreature(creatureName).getY() + " " + THE_SERVER.getBoard().getCreature(creatureName).getX());
                             THE_SERVER.getBoard().moveCreature(y, x, THE_SERVER.getBoard().getCreature(creatureName));
-                        } else {
-                            System.out.println("ServerClientConnection: Inpassable");
                         }
-                    } catch (NullPointerException e) {
-                        sendCommand(CommandHolder.MOVE_CREATURE + " " + y + " " + x + " " + creatureName + " " + THE_SERVER.getBoard().getCreature(creatureName).getY() + " " + THE_SERVER.getBoard().getCreature(creatureName).getX());
-                        THE_SERVER.getBoard().moveCreature(y, x, THE_SERVER.getBoard().getCreature(creatureName));
+                    } catch (ArrayIndexOutOfBoundsException ex) {
+                        System.out.println("ServerClientConnection: Out of bounds");
                     }
-                } catch (ArrayIndexOutOfBoundsException ex) {
-                    System.out.println("ServerClientConnection: Out of bounds");
+                }else{
+                    System.out.println("ServerClientConnection: You are trying to move a creature which cannot move.");
                 }
             } else {
                 System.out.println("ServerClientConnection: Error, I have been given a creature whom I don't have. Why do you hate me so?");
@@ -89,9 +92,12 @@ class ServerClientConnection implements Runnable {
             double health = messageScanner.nextDouble();
             String type = messageScanner.next();
             char sprite = messageScanner.next().charAt(0);
+            int speed = messageScanner.nextInt();
             if (!THE_SERVER.getBoard().hasCreature(name)) {
                 if (type.equals(TypeHolder.PLAYER)) {
                     Player player = new Player(sprite, THE_SERVER.getBoard(), locY, locX, name);
+                    player.setSpeed(speed);
+                    player.setMovementPoints(speed);
                     THE_SERVER.getBoard().placePlayer(player);
                     sendCommand(CommandHolder.MOVE_CREATURE + " " + player.getY() + " " + player.getX() + " " + name + " " + locY + " " + locX);
                 }
@@ -136,6 +142,7 @@ class ServerClientConnection implements Runnable {
             double health = messageScanner.nextDouble();
             String type = messageScanner.next();
             char sprite = messageScanner.next().charAt(0);
+            int speed = messageScanner.nextInt();
             if (type.equals(TypeHolder.PLAYER)) {
                 Player john = new Player(sprite, THE_SERVER.getBoard(), newY, newX, label);
                 THE_SERVER.getBoard().getCreatures().add(john);
