@@ -20,6 +20,7 @@ import tools.CreateFromDocument;
 public class Consumable implements Item, Displayable, Sendable {
 
     private char SPRITE = (char) (164);// 164 = ¤
+    private String FILE_NAME;
     private String NAME = "UNITIALIZED_CONSUMABLE";
     private int HEALTH_ADDED = 0;
     private int MANA_ADDED = 0;
@@ -30,6 +31,7 @@ public class Consumable implements Item, Displayable, Sendable {
 //    private int BONUS_LENGTH = 1;
 
     public Consumable(String name) {
+        FILE_NAME = name;
         String fileDirectory = "src/items/consumables/" + name + ".consumable";
         try {
             Scanner fileScanner = new Scanner(new File(fileDirectory));

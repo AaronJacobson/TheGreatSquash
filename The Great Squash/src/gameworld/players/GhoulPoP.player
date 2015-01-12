@@ -14,9 +14,14 @@ Wizard *Class*
 WEAPON
 
 quarterstaff
+longsword
 
 ARMOR
 
-
+simplerobe
+battletuxedo
 
 CONSUMABLES
+
+smallhealthpotion
+pancake

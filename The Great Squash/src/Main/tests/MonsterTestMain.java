@@ -14,13 +14,6 @@ public class MonsterTestMain {
 
     public static void main(String[] args) {
         Monster lolita = new Monster("human");
-        System.out.println(lolita.getType());
-        System.out.println(lolita.getSprite());
-        System.out.println("Spd: " + lolita.getSpeedMod());
-        System.out.println("End: " + lolita.getEnduranceMod());
-        System.out.println("Str: " + lolita.getStrengthMod());
-        System.out.println("Int: " + lolita.getIntelligenceMod());
-        System.out.println("Dex: " + lolita.getDexterityMod());
 
         for (int i = 0; i < 10; i++) {
             lolita.changeLevel(1);

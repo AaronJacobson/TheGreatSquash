@@ -21,7 +21,7 @@ public class Creature implements Displayable, Sendable {
     protected Board BOARD;
     protected String NAME = "Creature";
     protected String TYPE = "abstract";
-    protected Inventory INVENTORY = new Inventory(25);
+    protected Inventory INVENTORY = new Inventory(6);
     protected Weapon EQUIPT_WEAPON;
     protected int LOCATION_X;
     protected int LOCATION_Y;

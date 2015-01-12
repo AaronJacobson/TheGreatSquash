@@ -207,7 +207,7 @@ public class StartMenu {
         File playerFile = new File(fileName);
 
         if (playerFile.getTotalSpace() != 0) {
-            Player player = new Player(playerFile);
+            Player player = new Player(fileName);
             PLAYER = player;
         } else {
             PLAYER = null;

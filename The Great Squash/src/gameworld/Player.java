@@ -4,6 +4,9 @@
  */
 package gameworld;
 
+import items.armors.Armor;
+import items.consumables.Consumable;
+import items.weapons.Weapon;
 import tools.TypeHolder;
 import tools.CreateFromDocument;
 import java.io.File;
@@ -36,47 +39,31 @@ public class Player extends Creature {
         NAME = name;
     }
 
-    public Player(File theFile) {
-        super();
-        TYPE = TypeHolder.PLAYER;
-        try {
-            Scanner fileScanner = new Scanner(theFile);
-            loadFromFile(fileScanner);
-        } catch (FileNotFoundException ex) {
-            System.out.println("Player: The file that was given isn't working.");
-        }
-
-    }
-
     public Player(String name) {
         NAME = name;
         String fileDirectory = "src/gameworld/players/" + name + ".player";
-        try {
-            Scanner fileScanner = new Scanner(new File(fileDirectory));
-            loadFromFile(fileScanner);
-        } catch (FileNotFoundException ex) {
-            System.out.println("Player: File not found: " + fileDirectory);
-        }
+        loadFromFile(fileDirectory);
     }
 
-    public void loadFromFile(Scanner playerScanner) {
-        boolean statsLoaded = false;
-        boolean equipmentLoaded = false;
-        boolean inventoryLoaded = false;
-        boolean spellsLoaded = false;
-        loadStats(playerScanner);
-//        while(playerScanner.hasNext()){
-//            if(!statsLoaded){
-//                loadStats(playerScanner);
-//                statsLoaded = true;
-//            }else if(!equipmentLoaded){
-//                
-//            }else if(!inventoryLoaded){
-//                
-//            }else if(!spellsLoaded){
-//                //we need to implement spells
-//            }
-//        }
+    public void loadFromFile(String name) {
+        try {
+            Scanner fileScanner = new Scanner(new File(name));
+            loadStats(CreateFromDocument.getNextFileElement(fileScanner));
+            
+            CreateFromDocument.getNextFileElement(fileScanner);
+            String weaponElement = CreateFromDocument.getNextFileElement(fileScanner);
+            
+            CreateFromDocument.getNextFileElement(fileScanner);
+            String armourElement = CreateFromDocument.getNextFileElement(fileScanner);
+            
+            CreateFromDocument.getNextFileElement(fileScanner);
+            String consumableElement = CreateFromDocument.getNextFileElement(fileScanner);
+            
+            loadInventory(weaponElement, armourElement, consumableElement);
+        } catch (FileNotFoundException ex) {
+            System.out.println("Player: File not found: " + name);
+        }
+
     }
 
     public void saveToFile() {
@@ -105,7 +92,8 @@ public class Player extends Creature {
         }
     }
 
-    private void loadStats(Scanner playerScanner) {
+    private void loadStats(String statElement) {
+        Scanner playerScanner = new Scanner(statElement);
         super.setName(CreateFromDocument.getLineElement(playerScanner.nextLine()));
         this.SPECIES = CreateFromDocument.getLineElement(playerScanner.nextLine());
         this.CLASS = CreateFromDocument.getLineElement(playerScanner.nextLine());
@@ -118,6 +106,26 @@ public class Player extends Creature {
         super.setDexterity(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
         super.setLevel(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
         super.setXP(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
+    }
+    
+    private void loadInventory(String weaponElement, String armourElement, String consumableElement) {
+        Scanner weaponScanner = new Scanner(weaponElement);
+        while(weaponScanner.hasNext()) {
+            Weapon currentWeapon = new Weapon(CreateFromDocument.getLineElement(weaponScanner.nextLine()));
+            INVENTORY.addToInventory(currentWeapon);
+        }
+        
+        Scanner armourScanner = new Scanner(armourElement);
+        while(armourScanner.hasNext()) {
+            Armor currentArmour = new Armor(CreateFromDocument.getLineElement(armourScanner.nextLine()));
+            INVENTORY.addToInventory(currentArmour);
+        }
+        
+        Scanner consumableScanner = new Scanner(consumableElement);
+        while(consumableScanner.hasNext()) {
+            Consumable currentConsumable = new Consumable(CreateFromDocument.getLineElement(consumableScanner.nextLine()));
+            INVENTORY.addToInventory(currentConsumable);
+        }
     }
 
     public void initateStats(int speed, int endurance, int strength, int intelligence, int dexterity) {
@@ -160,6 +168,7 @@ public class Player extends Creature {
         output += "Str: " + STRENGTH + "\n";
         output += "Int: " + INTELLIGENCE + "\n";
         output += "Dex: " + DEXTERITY + "\n";
+        output += "\n" + INVENTORY;
         return output;
     }
 }

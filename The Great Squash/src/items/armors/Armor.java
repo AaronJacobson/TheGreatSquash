@@ -23,6 +23,7 @@ import tools.CreateFromDocument;
 public class Armor implements Item, Displayable, Sendable {
 
     private String NAME = "UNITIALIZED_ARMOR";
+    private String FILE_NAME;
     private char SPRITE = (char) (177); // 177 = ±
     private int ARMOR_CLASS = 10;
     private ArrayList<Enchantment> ENCHANTMENTS;
@@ -32,6 +33,7 @@ public class Armor implements Item, Displayable, Sendable {
         ENCHANTMENTS = new ArrayList<Enchantment>();
         AURAS = new ArrayList<Aura>();
         NAME = name;
+        FILE_NAME = name;
         SPRITE = sprite;
         ARMOR_CLASS = ac;
     }
@@ -39,6 +41,7 @@ public class Armor implements Item, Displayable, Sendable {
     public Armor(String name) {
         ENCHANTMENTS = new ArrayList<Enchantment>();
         AURAS = new ArrayList<Aura>();
+        FILE_NAME = name;
         String fileDirectory = "src/items/armors/" + name + ".armor";
         try {
             Scanner fileScanner = new Scanner(new File(fileDirectory));
