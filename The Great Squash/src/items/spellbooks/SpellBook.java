@@ -4,8 +4,9 @@
  */
 package items.spellbooks;
 
-import tools.CommandHolder;
+import tools.NetworkInfo;
 import LAN.Sendable;
+import LAN.Server;
 import gameworld.Displayable;
 import items.Item;
 
@@ -29,7 +30,7 @@ public abstract class SpellBook implements Item, Displayable, Sendable {
     }
 
     public String toServerData() {
-        String serverData = CommandHolder.SPELL_BOOK + " " + NAME + " " + SPRITE + " " + SCHOOL + " " + MANA_COST;
+        String serverData = Server.SPELL_BOOK + " " + NAME + " " + SPRITE + " " + SCHOOL + " " + MANA_COST;
         return serverData;
     }
 }

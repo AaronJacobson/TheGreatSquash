@@ -4,7 +4,7 @@
  */
 package items.consumables;
 
-import tools.CommandHolder;
+import tools.NetworkInfo;
 import LAN.Sendable;
 import gameworld.Displayable;
 import items.Item;
@@ -71,7 +71,7 @@ public class Consumable implements Item, Displayable, Sendable {
     }
 
     public String toServerData() {
-        //return CommandHolder.CONSUMABLE + NAME + " " + SPRITE + " " + HEALTH_ADDED + " " + MANA_ADDED + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS + " " + BONUS_LENGTH;
+        //return NetworkInfo.CONSUMABLE + NAME + " " + SPRITE + " " + HEALTH_ADDED + " " + MANA_ADDED + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS + " " + BONUS_LENGTH;
         return "(.)(.)";
     }
 }

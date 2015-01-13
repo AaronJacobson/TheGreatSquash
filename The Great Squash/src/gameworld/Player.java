@@ -23,6 +23,7 @@ public class Player extends Creature {
 
     private String SPECIES;
     private String CLASS;
+    private boolean ENDED_TURN;
 
     public Player(char sprite, Board board, int y, int x, String name) {
         super(sprite, board, y, x, name, TypeHolder.PLAYER);
@@ -35,6 +36,7 @@ public class Player extends Creature {
         SPRITE = sprite;
         SPECIES = species;
         NAME = name;
+        ENDED_TURN = false;
     }
 
     public Player(String name) {
@@ -141,6 +143,14 @@ public class Player extends Creature {
     
     public String getPlayerClass() {
         return CLASS;
+    }
+    
+    public void setEnded(boolean ended){
+        ENDED_TURN = ended;
+    }
+    
+    public boolean getEnded(){
+        return ENDED_TURN;
     }
 
     public void loadTest(Scanner playerScanner) {

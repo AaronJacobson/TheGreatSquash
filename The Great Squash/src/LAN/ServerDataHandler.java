@@ -1,22 +1,22 @@
 package LAN;
 
-import tools.TypeHolder;
-import tools.CommandHolder;
 import Main.GameRunner;
 import gameworld.Board;
-import gameworld.obstacles.Chest;
 import gameworld.Creature;
 import gameworld.Displayable;
 import gameworld.Interactive;
-import gameworld.obstacles.Door;
 import gameworld.Obstacle;
 import gameworld.Player;
+import gameworld.obstacles.Chest;
+import gameworld.obstacles.Door;
 import gameworld.obstacles.StartTile;
 import gameworld.obstacles.Wall;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
+import tools.NetworkInfo;
+import tools.TypeHolder;
 
 public class ServerDataHandler implements Runnable {
 
@@ -50,7 +50,7 @@ public class ServerDataHandler implements Runnable {
     public void interpretServerData(String serverData) throws IOException {
         Scanner messageScanner = new Scanner(serverData);
         String theCommand = messageScanner.next();
-        if (theCommand.equals(CommandHolder.MOVE_CREATURE)) {
+        if (theCommand.equals(Server.MOVE_CREATURE)) {
             int newY = messageScanner.nextInt();
             int newX = messageScanner.nextInt();
             String name = messageScanner.next();
@@ -65,7 +65,7 @@ public class ServerDataHandler implements Runnable {
             System.out.println("ServerDataHandler: " + newY + " " + newX);
             System.out.println("ServerDataHandler: " + GameRunner.GAME_GUI.getCreature().getY() + " " + GameRunner.GAME_GUI.getCreature().getX());
             GameRunner.GAME_GUI.updateCreatures();
-        } else if (theCommand.equals(CommandHolder.THE_CREATURES)) {
+        } else if (theCommand.equals(Server.THE_CREATURES)) {
             System.out.println("ServerDataHandler: Recieved the creatures.");
             int numberOfCreatures = messageScanner.nextInt();
             for (int currentCreature = 0; currentCreature < numberOfCreatures; currentCreature++) {
@@ -91,7 +91,7 @@ public class ServerDataHandler implements Runnable {
             WAIT_FOR_CREATURES = false;
             GameRunner.getBoard().setShouldPlayer(true);
             GameRunner.updateBoard();
-        } else if (theCommand.equals(CommandHolder.THE_OBSTACLES)) {
+        } else if (theCommand.equals(Server.THE_OBSTACLES)) {
             WAIT_FOR_OBSTACLES = false;
             System.out.println("ServerDataHandler: Recieved the obstacles.");
             int numberOfObstacles = messageScanner.nextInt();
@@ -126,7 +126,7 @@ public class ServerDataHandler implements Runnable {
                 }
             }
             GameRunner.updateBoard();
-        } else if (theCommand.equals(CommandHolder.CREATE_CREATURE)) {
+        } else if (theCommand.equals(Server.CREATE_CREATURE)) {
             messageScanner.next();
             String name = messageScanner.next();
             int locY = messageScanner.nextInt();
@@ -143,12 +143,12 @@ public class ServerDataHandler implements Runnable {
                 }
             }
             GameRunner.updateBoard();
-        } else if (theCommand.equals(CommandHolder.BOARD_SIZE)) {
+        } else if (theCommand.equals(Server.BOARD_SIZE)) {
             int boardx = messageScanner.nextInt();
             int boardy = messageScanner.nextInt();
             GameRunner.setBoard(new Board(boardy, boardx));
             WAIT_FOR_PARAMETERS = false;
-        } else if(theCommand.equals(CommandHolder.INTERACT_WITH)){
+        } else if(theCommand.equals(Server.INTERACT_WITH)){
             String creatureName = messageScanner.next();
             String obstacleName = messageScanner.next();
             if(GameRunner.GAME_BOARD.getObstacle(obstacleName) instanceof Interactive){
@@ -158,11 +158,13 @@ public class ServerDataHandler implements Runnable {
                 System.out.println("ServerDataHandler: " + GameRunner.GAME_BOARD.getObstacle(obstacleName).toServerData());
             }
             GameRunner.updateBoard();
+        } else if(theCommand.equals(Server.BEGIN_TURN)){
+            GameRunner.GAME_GUI.getCreature().setMovementPoints(GameRunner.GAME_GUI.getCreature().getSpeed());
         }
     }
 
     public void sendCreature(Creature toSend) {
-        String commandToSend = CommandHolder.CREATE_CREATURE + toSend.toServerData();
+        String commandToSend = Server.CREATE_CREATURE + toSend.toServerData();
         sendCommand(commandToSend);
     }
 
@@ -175,32 +177,36 @@ public class ServerDataHandler implements Runnable {
     }
     
     public void sendInteract(String creatureName,String obstacleName){
-        sendCommand(CommandHolder.INTERACT_WITH + " " + creatureName + " " + obstacleName);
+        sendCommand(Server.INTERACT_WITH + " " + creatureName + " " + obstacleName);
     }
 
     public void sendMove(int newY, int newX, Creature theCreature) {
-        sendCommand(CommandHolder.ASK_TO_MOVE + " " + newY + " " + newX + " " + theCreature.getName());
+        sendCommand(Server.ASK_TO_MOVE + " " + newY + " " + newX + " " + theCreature.getName());
     }
 
     public void sendLocation(Displayable displayable) {
         String toSend = "";
         if (displayable instanceof Obstacle) {
             Obstacle obstacle = (Obstacle) (displayable);
-            toSend = CommandHolder.MOVE_CREATURE + " " + obstacle.getY() + " " + obstacle.getX() + " " + obstacle.getLabel() + obstacle.getPassable();
+            toSend = Server.MOVE_CREATURE + " " + obstacle.getY() + " " + obstacle.getX() + " " + obstacle.getLabel() + obstacle.getPassable();
         }
+    }
+    
+    public void sendDoneTurn(String playerName){
+        sendCommand(Server.DONE_TURN + " " + playerName);
     }
 
     public void initEverything() {
         try {
-            STREAM_OUT.writeUTF(CommandHolder.SEND_THE_BOARD_PARAMETERS);
+            STREAM_OUT.writeUTF(Server.SEND_THE_BOARD_PARAMETERS);
             while (WAIT_FOR_PARAMETERS) {
             }
             System.out.println("ServerDataHandler: Board parameters have been initialized.");
-            STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_OBSTACLES);
+            STREAM_OUT.writeUTF(Server.INITIALIZE_OBSTACLES);
             while (WAIT_FOR_OBSTACLES) {
             }
             System.out.println("ServerDataHandler: Obstacles have been initialized");
-            STREAM_OUT.writeUTF(CommandHolder.INITIALIZE_CREATURES);
+            STREAM_OUT.writeUTF(Server.INITIALIZE_CREATURES);
             System.out.println("ServerDataHandler: I have sent for the creatures.");
             while (WAIT_FOR_CREATURES) {
             }

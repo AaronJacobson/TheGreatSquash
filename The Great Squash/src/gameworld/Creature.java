@@ -212,7 +212,7 @@ public class Creature implements Displayable, Sendable {
 
 //----------------------------------------------------------------------------------------    
     
-    public double getSpeed() {
+    public int getSpeed() {
         return SPEED;
     }
     

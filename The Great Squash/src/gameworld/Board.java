@@ -8,6 +8,7 @@ import LAN.Client;
 import gameworld.obstacles.StartTile;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import tools.TypeHolder;
 
 /**
  * The board stores everything on the level
@@ -21,10 +22,10 @@ public class Board {
     private int SIZE_Y;
     private Graphics GRAPHICS;
     private ArrayList<Creature> CREATURES = new ArrayList<Creature>();
+    private ArrayList<Player> PLAYERS = new ArrayList<>();
     private ArrayList<Obstacle> OBSTACLES = new ArrayList<Obstacle>();
     private ArrayList<StartTile> START_TILES = new ArrayList<StartTile>();
     private int START_TILE_NUMBER = 0;
-    private Client MY_CLIENT;
     private boolean SHOULD_PLAYER = false;
 
     public Board(int y, int x, Graphics graphics) {
@@ -89,6 +90,9 @@ public class Board {
 
     public void addCreature(Creature creature) {
         getTile(creature.getY(), creature.getX()).setCreature(creature);
+        if(creature instanceof Player){
+            PLAYERS.add((Player) creature);
+        }
         CREATURES.add(creature);
     }
 
@@ -168,17 +172,26 @@ public class Board {
         }
         return null;
     }
+    
+    public Player getPlayer(String name){
+        for(int i = 0;i < PLAYERS.size();i++){
+            if(PLAYERS.get(i).getName().equalsIgnoreCase(name)){
+                return PLAYERS.get(i);
+            }
+        }
+        return null;
+    }
 
     public ArrayList<Creature> getCreatures() {
         return CREATURES;
     }
 
-    public Client getClient() {
-        return MY_CLIENT;
-    }
-
     public ArrayList<Obstacle> getObstacles() {
         return OBSTACLES;
+    }
+    
+    public ArrayList<Player> getPlayers(){
+        return PLAYERS;
     }
 
     public void setShouldPlayer(boolean toSet) {

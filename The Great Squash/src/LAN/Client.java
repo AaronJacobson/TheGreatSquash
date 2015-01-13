@@ -4,7 +4,7 @@
  */
 package LAN;
 
-import tools.CommandHolder;
+import tools.NetworkInfo;
 import GUI.GameGUI;
 import gameworld.Board;
 import java.io.DataInputStream;
@@ -42,7 +42,7 @@ public class Client {
     }
 
     public void connectToServerBackEnd(String ip) {
-        int portNumber = CommandHolder.COMMAND_PORT_NUMBER;
+        int portNumber = NetworkInfo.COMMAND_PORT_NUMBER;
         System.out.println("Connecting to server at " + ip);
         while (true) {
             try {

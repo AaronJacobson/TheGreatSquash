@@ -9,7 +9,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import tools.CommandHolder;
+import tools.NetworkInfo;
 import tools.TypeHolder;
 
 class ServerClientConnection implements Runnable {
@@ -51,7 +51,7 @@ class ServerClientConnection implements Runnable {
     public void interpretMessage(String theMessage) {
         Scanner messageScanner = new Scanner(theMessage);
         String theCommand = messageScanner.next();
-        if (theCommand.equals(CommandHolder.ASK_TO_MOVE)) {
+        if (theCommand.equals(Server.ASK_TO_MOVE)) {
             int y = messageScanner.nextInt();
             int x = messageScanner.nextInt();
             String creatureName = messageScanner.next();
@@ -62,13 +62,13 @@ class ServerClientConnection implements Runnable {
                             Obstacle moveTo = THE_SERVER.getBoard().getTileObstacle(y, x);
                             System.out.println("ServerClientConnection: " + moveTo.toServerData());
                             if (moveTo.getPassable()) {
-                                sendCommand(CommandHolder.MOVE_CREATURE + " " + y + " " + x + " " + creatureName + " " + THE_SERVER.getBoard().getCreature(creatureName).getY() + " " + THE_SERVER.getBoard().getCreature(creatureName).getX());
+                                sendCommand(Server.MOVE_CREATURE + " " + y + " " + x + " " + creatureName + " " + THE_SERVER.getBoard().getCreature(creatureName).getY() + " " + THE_SERVER.getBoard().getCreature(creatureName).getX());
                                 THE_SERVER.getBoard().moveCreature(y, x, THE_SERVER.getBoard().getCreature(creatureName));
                             } else {
                                 System.out.println("ServerClientConnection: Inpassable");
                             }
                         } catch (NullPointerException e) {
-                            sendCommand(CommandHolder.MOVE_CREATURE + " " + y + " " + x + " " + creatureName + " " + THE_SERVER.getBoard().getCreature(creatureName).getY() + " " + THE_SERVER.getBoard().getCreature(creatureName).getX());
+                            sendCommand(Server.MOVE_CREATURE + " " + y + " " + x + " " + creatureName + " " + THE_SERVER.getBoard().getCreature(creatureName).getY() + " " + THE_SERVER.getBoard().getCreature(creatureName).getX());
                             THE_SERVER.getBoard().moveCreature(y, x, THE_SERVER.getBoard().getCreature(creatureName));
                         }
                     } catch (ArrayIndexOutOfBoundsException ex) {
@@ -80,11 +80,11 @@ class ServerClientConnection implements Runnable {
             } else {
                 System.out.println("ServerClientConnection: Error, I have been given a creature whom I don't have. Why do you hate me so?");
             }
-        } else if (theCommand.equals(CommandHolder.INITIALIZE_CREATURES)) {
+        } else if (theCommand.equals(Server.INITIALIZE_CREATURES)) {
             sendCreatures();
-        } else if (theCommand.equals(CommandHolder.INITIALIZE_OBSTACLES)) {
+        } else if (theCommand.equals(Server.INITIALIZE_OBSTACLES)) {
             sendObstacles();
-        } else if (theCommand.equals(CommandHolder.CREATE_CREATURE)) {
+        } else if (theCommand.equals(Server.CREATE_CREATURE)) {
             messageScanner.next();
             String name = messageScanner.next();
             int locY = messageScanner.nextInt();
@@ -99,13 +99,13 @@ class ServerClientConnection implements Runnable {
                     player.setSpeed(speed);
                     player.setMovementPoints(speed);
                     THE_SERVER.getBoard().placePlayer(player);
-                    sendCommand(CommandHolder.MOVE_CREATURE + " " + player.getY() + " " + player.getX() + " " + name + " " + locY + " " + locX);
+                    sendCommand(Server.MOVE_CREATURE + " " + player.getY() + " " + player.getX() + " " + name + " " + locY + " " + locX);
                 }
             }
-        } else if (theCommand.equals(CommandHolder.SEND_THE_BOARD_PARAMETERS)) {
-            String theParameters = CommandHolder.BOARD_SIZE + " " + THE_SERVER.getBoard().getY() + " " + THE_SERVER.getBoard().getX();
+        } else if (theCommand.equals(Server.SEND_THE_BOARD_PARAMETERS)) {
+            String theParameters = Server.BOARD_SIZE + " " + THE_SERVER.getBoard().getY() + " " + THE_SERVER.getBoard().getX();
             sendBoardInit(theParameters);
-        } else if (theCommand.equals(CommandHolder.INTERACT_WITH)) {
+        } else if (theCommand.equals(Server.INTERACT_WITH)) {
             String creatureName = messageScanner.next();
             String obstacleName = messageScanner.next();
             if (THE_SERVER.getBoard().getObstacle(obstacleName) instanceof Interactive) {
@@ -114,12 +114,14 @@ class ServerClientConnection implements Runnable {
             } else {
                 System.out.println("ServerClientConnection: " + THE_SERVER.getBoard().getObstacle(obstacleName));
             }
+        } else if(theCommand.equals(Server.DONE_TURN)){
+            THE_SERVER.getBoard().getPlayer(messageScanner.next()).setEnded(true);
         }
 
     }
 
     public void sendObstacles() {
-        String toSend = CommandHolder.THE_OBSTACLES + " " + THE_SERVER.getBoard().getObstacles().size();
+        String toSend = Server.THE_OBSTACLES + " " + THE_SERVER.getBoard().getObstacles().size();
         for (int currentObstacle = 0; currentObstacle < THE_SERVER.getBoard().getObstacles().size(); currentObstacle++) {
             toSend += THE_SERVER.getBoard().getObstacles().get(currentObstacle).toServerData();
         }
@@ -127,7 +129,7 @@ class ServerClientConnection implements Runnable {
     }
 
     public void sendCreatures() {
-        String toSend = CommandHolder.THE_CREATURES + " " + THE_SERVER.getBoard().getCreatures().size();
+        String toSend = Server.THE_CREATURES + " " + THE_SERVER.getBoard().getCreatures().size();
         for (int currentCreature = 0; currentCreature < THE_SERVER.getBoard().getCreatures().size(); currentCreature++) {
             toSend += THE_SERVER.getBoard().getCreatures().get(currentCreature).toServerData();
         }
