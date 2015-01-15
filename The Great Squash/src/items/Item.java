@@ -14,4 +14,5 @@ public interface Item {
     public String toString();
     
     public void loadFromFile(String fileElement);
+    public String getFileName();
 }

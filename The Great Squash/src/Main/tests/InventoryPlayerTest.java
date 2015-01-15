@@ -39,5 +39,7 @@ public class InventoryPlayerTest {
         
         Player player = new Player("GhoulPoP");
         System.out.println(player);
+        
+        player.saveToFile();
     }
 }

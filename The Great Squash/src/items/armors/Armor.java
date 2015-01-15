@@ -62,6 +62,10 @@ public class Armor implements Item, Displayable, Sendable {
     public String getName() {
         return NAME;
     }
+    
+    public String getFileName() {
+        return FILE_NAME;
+    }
 
     public char getSprite() {
         return SPRITE;

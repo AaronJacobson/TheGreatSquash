@@ -199,20 +199,20 @@ public class StartMenu {
     }
 
     private void createPlayer() {
-        String fileName = PLAYER_FIND.getText();
-        if (!fileName.contains(".player") && !fileName.contains("\\")) {
-            fileName = "src\\gameworld\\players\\" + fileName + ".player";
+        String playerName = PLAYER_FIND.getText();
+        String fileDirectory = playerName;
+        if (!playerName.contains(".player") && !playerName.contains("\\")) {
+            fileDirectory = "src\\gameworld\\players\\" + playerName + ".player";
         }
 
-        File playerFile = new File(fileName);
-
+        File playerFile = new File(fileDirectory);
+        
         if (playerFile.getTotalSpace() != 0) {
-            Player player = new Player(fileName);
+            Player player = new Player(playerName);
             PLAYER = player;
         } else {
             PLAYER = null;
         }
-        
         updatePlayerStats();
     }
 

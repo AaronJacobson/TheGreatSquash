@@ -286,7 +286,6 @@ public class CreateCharacter implements ActionListener, KeyListener {
         FRAME.setSize(707, 179);
         FRAME.setVisible(true);
         FRAME.setResizable(false);
-        FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         NAME_DISPLAY.requestFocusInWindow();
         GameGUI.centerWindow(FRAME);

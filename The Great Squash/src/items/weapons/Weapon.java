@@ -49,6 +49,7 @@ public class Weapon implements Item, Displayable, Sendable {
 
     public Weapon(String name) {
         ENCHANTMENTS = new ArrayList<Enchantment>();
+        FILE_NAME = name;
         String fileDirectory = "src/items/weapons/" + name + ".weapon";
         try {
             Scanner fileScanner = new Scanner(new File(fileDirectory));
@@ -89,6 +90,10 @@ public class Weapon implements Item, Displayable, Sendable {
     
     public String getName() {
         return NAME;
+    }
+    
+    public String getFileName() {
+        return FILE_NAME;
     }
     
     public String getDamageStat() {

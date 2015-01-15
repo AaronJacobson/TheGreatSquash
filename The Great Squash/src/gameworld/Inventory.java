@@ -13,9 +13,10 @@ import java.util.Scanner;
  * @author ros_dmlamarca
  */
 public class Inventory {
-
-    ArrayList<Item> ITEM_LIST;
-    int INVENTORY_SIZE;
+    private int PRINT_LINE_COUNT;
+    private ArrayList<Item> ITEM_LIST;
+    private int INVENTORY_SIZE;
+    
 
     public Inventory(int inventorySize) {
         ITEM_LIST = new ArrayList<Item>();
@@ -56,12 +57,9 @@ public class Inventory {
         String output = type.toUpperCase() + ": ";
         if(list.size() > 0) {
             for(int count = 0; count < list.size(); count++) {
-                try {
-                    Item current = list.get(count);
-                    output += "\n -" + current;
-                } catch(IndexOutOfBoundsException ex) {
-                    output += "\n  -[N/A]";
-                }
+                Item current = list.get(count);
+                output += "\n -" + current;
+                PRINT_LINE_COUNT++;
             }
         }
         return output;
@@ -78,16 +76,17 @@ public class Inventory {
     
     public String toString() {
         String output = "";
+        PRINT_LINE_COUNT = 0;
         output += printType("weapon");
         output += printType("armour");
         output += printType("consumable");
-//        if(output.length() > 1) {
-//            output += "\n";
-//        }
-        output += "EMPTY:";
-        for(int count = INVENTORY_SIZE; count > ITEM_LIST.size(); count--) {
-            output += "\n  -[N/A]";
+        if(PRINT_LINE_COUNT < INVENTORY_SIZE) {
+            output += "EMPTY:";
+            for(int count = INVENTORY_SIZE; count > ITEM_LIST.size(); count--) {
+                 output += "\n  -[N/A]";
+            }
         }
+        
         return output;
     }
     

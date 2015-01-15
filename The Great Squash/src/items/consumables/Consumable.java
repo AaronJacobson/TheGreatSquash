@@ -54,6 +54,10 @@ public class Consumable implements Item, Displayable, Sendable {
         return NAME;
     }
 
+    public String getFileName() {
+        return FILE_NAME;
+    }
+        
     public char getSprite() {
         return SPRITE;
     }

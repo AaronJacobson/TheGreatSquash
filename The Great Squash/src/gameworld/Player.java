@@ -4,6 +4,7 @@
  */
 package gameworld;
 
+import items.Item;
 import items.armors.Armor;
 import items.consumables.Consumable;
 import items.weapons.Weapon;
@@ -13,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -66,6 +68,9 @@ public class Player extends Creature {
 
     public void saveToFile() {
         PrintWriter writer = null;
+        ArrayList<Item> weapons = (INVENTORY.getItems("weapon"));
+        ArrayList<Item> armour = (INVENTORY.getItems("armour"));
+        ArrayList<Item> consumables = (INVENTORY.getItems("consumable"));
         try {
             writer = new PrintWriter("src/gameworld/players/" + NAME + ".player", "UTF-8");
             writer.println(NAME + " *Name*");
@@ -80,6 +85,12 @@ public class Player extends Creature {
             writer.println(DEXTERITY + " *Dexterity*");
             writer.println(LEVEL + " *Level");
             writer.println(XP + " *Experience Points*");
+            writer.println("\nWEAPON");
+            writer.println(writeInventorySection(weapons));
+            writer.println("\nARMOUR");
+            writer.println(writeInventorySection(armour));
+            writer.println("\nCONSUMABLES");
+            writer.println(writeInventorySection(consumables));
             writer.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Sorry bub, file wasn't there... even though I'm supposed to be making it");
@@ -88,6 +99,15 @@ public class Player extends Creature {
         } finally {
             writer.close();
         }
+    }
+    
+    private String writeInventorySection(ArrayList<Item> list) {
+        String output = "";
+        for(int count = 0; count < list.size(); count++) {
+            output += "\n" + list.get(count).getFileName();
+            System.out.println(list.get(count).getFileName());
+        }
+        return output;
     }
 
     private void loadStats(String statElement) {
