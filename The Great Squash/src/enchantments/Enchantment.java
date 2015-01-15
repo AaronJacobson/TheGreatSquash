@@ -4,8 +4,8 @@
  */
 package enchantments;
 
-import tools.CommandHolder;
 import LAN.Sendable;
+import LAN.Server;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -157,6 +157,6 @@ public class Enchantment implements Sendable {
 
     @Override
     public String toServerData() {
-        return CommandHolder.ENCHANTMENT + NAME + " " + DAMAGE_BONUS + " " + A_C_BONUS + " " + M_P_BONUS + " " + HEALTH_BONUS + " " + MANA_BONUS + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS;
+        return Server.ENCHANTMENT + NAME + " " + DAMAGE_BONUS + " " + A_C_BONUS + " " + M_P_BONUS + " " + HEALTH_BONUS + " " + MANA_BONUS + " " + STRENGTH_BONUS + " " + ENDURANCE_BONUS + " " + INTELLIGENCE_BONUS + " " + DEXTERITY_BONUS;
     }
 }

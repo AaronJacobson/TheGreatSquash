@@ -223,7 +223,7 @@ public class StartMenu {
             PLAYER_SPECIES.setText(PLAYER.getSpecies());
             PLAYER_LEVEL.setText(PLAYER.getLevel() + "");
             PLAYER_SPRITE.setText(PLAYER.getSprite() + "");
-            PLAYER_SPEED.setText((int) PLAYER.getSpeed() + "");
+            PLAYER_SPEED.setText(PLAYER.getSpeed() + "");
             PLAYER_ENDURANCE.setText((int) PLAYER.getEndurance() + "");
             PLAYER_HEALTH.setText(PLAYER.getMaxHealth() + "");
             PLAYER_STRENGTH.setText((int) PLAYER.getStrength() + "");

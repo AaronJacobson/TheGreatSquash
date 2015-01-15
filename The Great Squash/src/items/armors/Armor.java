@@ -5,7 +5,7 @@
 package items.armors;
 
 import Auras.Aura;
-import tools.CommandHolder;
+import tools.NetworkInfo;
 import LAN.Sendable;
 import enchantments.Enchantment;
 import gameworld.Displayable;
@@ -84,7 +84,7 @@ public class Armor implements Item, Displayable, Sendable {
     }
 
     public String toServerData() {
-//        return CommandHolder.ARMOR + NAME + " " + SPRITE + " " + ARMOR_CLASS + " " + DURABILITY + " " + enchantmentServerData();
+//        return NetworkInfo.ARMOR + NAME + " " + SPRITE + " " + ARMOR_CLASS + " " + DURABILITY + " " + enchantmentServerData();
         return "([{}])";
     }
 }

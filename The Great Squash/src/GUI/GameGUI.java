@@ -1,6 +1,3 @@
-/*
- * I'm watching you o_0
- */
 package GUI;
 
 import GUI.listeners.MessengerEnterKeyListener;

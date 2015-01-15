@@ -6,6 +6,7 @@ package GUI.listeners;
 
 import Main.GameRunner;
 import gameworld.Creature;
+import gameworld.Player;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -61,6 +62,12 @@ public class MovementListener extends KeyAdapter{
             if(LAST_KEY_CODE == KeyEvent.VK_SPACE){
                 System.out.println("MovementListener: Interacting with the tile below");
                 CREATURE.interactWith(GameRunner.GAME_BOARD.getTile(CREATURE.getY(), CREATURE.getX() + 1));
+            }
+        }else if(keyCode == KeyEvent.VK_ENTER){
+            if(CREATURE instanceof Player){
+                GameRunner.CLIENT.getHandler().sendDoneTurn(CREATURE.getName());
+            }else{
+                GameRunner.SERVER.setGMDone(true);
             }
         }
         LAST_KEY_CODE = keyCode;
