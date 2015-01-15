@@ -31,7 +31,6 @@ public class GameGUI {
     private JTextArea INVENTORY_DISPLAY;
     private JPanel INVENTORY_PANEL;
     private JPanel CREATURE_PANEL;
-    
     private JTextField CREATURE_LEVEL;
     private JTextField CREATURE_XP;
     private JTextField CREATURE_HEALTH;
@@ -40,7 +39,6 @@ public class GameGUI {
     private JTextField CREATURE_STRENGTH;
     private JTextField CREATURE_INTELLIGENCE;
     private JTextField CREATURE_DEXTERITY;
-    
     private JTextArea BOARD_DISPLAY;
     private JPanel BOARD_PANEL;
     private JTextArea CHAT_DISPLAY;
@@ -61,8 +59,6 @@ public class GameGUI {
         formatChat();
 
         formatFrame();
-        
-        updateCreateStats();
     }
 
     public static ArrayList<Creature> getControlledCreatures() {
@@ -71,6 +67,7 @@ public class GameGUI {
 
     public void addCreature(Creature creature) {
         CONTROLLED_CREATURES.add(creature);
+        updateCreateStats();
     }
 
     public void setCreature(int creatureNumber) {
@@ -79,6 +76,7 @@ public class GameGUI {
         INVENTORY_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, "Inventory - " + CONTROLLED_CREATURES.get(CURRENT_CREATURE).getName()));
         updateInventoryDisplay();
         MOVEMENT_LISTENER.setCreature(CONTROLLED_CREATURES.get(CURRENT_CREATURE));
+        updateCreateStats();
     }
 
     public void setCreature(Creature creature) {
@@ -88,6 +86,7 @@ public class GameGUI {
         INVENTORY_PANEL.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, "Inventory - " + CONTROLLED_CREATURES.get(CURRENT_CREATURE).getName()));
         updateInventoryDisplay();
         MOVEMENT_LISTENER.setCreature(CONTROLLED_CREATURES.get(CURRENT_CREATURE));
+        updateCreateStats();
     }
 
     private void formatInventory() {
@@ -113,32 +112,32 @@ public class GameGUI {
 
     private void formatCreature() {
         CREATURE_PANEL = new JPanel();
-        
+
         CREATURE_PANEL.setBounds(204, 2, 738, 50);
         CREATURE_PANEL.setBorder(PANEL_BORDER);
-        
+
         CREATURE_LEVEL = new JTextField();
-        formatCharcaterAspect(CREATURE_LEVEL,"Lvl",3);
+        formatCharcaterAspect(CREATURE_LEVEL, "Lvl", 3);
         CREATURE_XP = new JTextField();
-        formatCharcaterAspect(CREATURE_XP,"XP",4);
+        formatCharcaterAspect(CREATURE_XP, "XP", 4);
         CREATURE_HEALTH = new JTextField();
-        formatCharcaterAspect(CREATURE_HEALTH,"Health",6);
+        formatCharcaterAspect(CREATURE_HEALTH, "Health", 6);
         CREATURE_ENDURANCE = new JTextField();
-        formatCharcaterAspect(CREATURE_ENDURANCE,"End",3);
+        formatCharcaterAspect(CREATURE_ENDURANCE, "End", 3);
         CREATURE_SPEED = new JTextField();
-        formatCharcaterAspect(CREATURE_SPEED,"Spd",3);
+        formatCharcaterAspect(CREATURE_SPEED, "Spd", 3);
         CREATURE_STRENGTH = new JTextField();
-        formatCharcaterAspect(CREATURE_STRENGTH,"Str",3);
+        formatCharcaterAspect(CREATURE_STRENGTH, "Str", 3);
         CREATURE_INTELLIGENCE = new JTextField();
-        formatCharcaterAspect(CREATURE_INTELLIGENCE,"Int",3);
+        formatCharcaterAspect(CREATURE_INTELLIGENCE, "Int", 3);
         CREATURE_DEXTERITY = new JTextField();
-        formatCharcaterAspect(CREATURE_DEXTERITY,"Dex",3);
-        
+        formatCharcaterAspect(CREATURE_DEXTERITY, "Dex", 3);
+
         CREATURE_PANEL.addKeyListener(MOVEMENT_LISTENER);
     }
-    
+
     private void formatCharcaterAspect(JTextField field, String title, int size) {
-        field.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER,title));
+        field.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, title));
         field.setHorizontalAlignment(JTextField.CENTER);
         field.setColumns(size);
         CREATURE_PANEL.add(field);
@@ -224,7 +223,7 @@ public class GameGUI {
             }
         }
     }
-    
+
     public void updateCreateStats() {
         Creature player = CONTROLLED_CREATURES.get(CURRENT_CREATURE);
         CREATURE_LEVEL.setText(player.getLevel() + "");
