@@ -43,6 +43,7 @@ public class Player extends Creature {
 
     public Player(String name) {
         NAME = name;
+        TYPE = TypeHolder.PLAYER;
         String fileDirectory = "src/gameworld/players/" + name + ".player";
         loadFromFile(fileDirectory);
     }

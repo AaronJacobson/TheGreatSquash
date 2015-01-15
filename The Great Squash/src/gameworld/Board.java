@@ -4,11 +4,9 @@
  */
 package gameworld;
 
-import LAN.Client;
 import gameworld.obstacles.StartTile;
 import java.awt.Graphics;
 import java.util.ArrayList;
-import tools.TypeHolder;
 
 /**
  * The board stores everything on the level

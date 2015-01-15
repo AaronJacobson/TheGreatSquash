@@ -127,6 +127,10 @@ public class Server {
                 } else {
                     GM_DONE = true;
                     System.out.println("Server: The GM has finished their turn.");
+                    for(int currentPlayer = 0;currentPlayer < THE_BOARD.getPlayers().size();currentPlayer++){
+                        THE_BOARD.getPlayers().get(currentPlayer).setMovementPoints(THE_BOARD.getPlayers().get(currentPlayer).getSpeed());
+                        System.out.println("Server: Refreshed movement points.");
+                    }
                 }
             } else {
             }
@@ -135,6 +139,7 @@ public class Server {
 
     public boolean arePlayersDone() {
         for (int currentPlayer = 0; currentPlayer < THE_BOARD.getPlayers().size(); currentPlayer++) {
+//            System.out.println("Server: " + THE_BOARD.getPlayers().size());
             if (!THE_BOARD.getPlayers().get(currentPlayer).getEnded()) {
                 return false;
             }
