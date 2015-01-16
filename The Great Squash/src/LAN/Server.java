@@ -124,6 +124,7 @@ public class Server {
                     for (int i = 0; i < SERVER_CLIENT_CONNECTIONS.length; i++) {
                         SERVER_CLIENT_CONNECTIONS[i].sendCommand(BEGIN_TURN);
                     }
+                    GM_DONE = false;
                 } else {
                     GM_DONE = true;
                     System.out.println("Server: The GM has finished their turn.");

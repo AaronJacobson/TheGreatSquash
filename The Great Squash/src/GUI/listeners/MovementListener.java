@@ -67,6 +67,7 @@ public class MovementListener extends KeyAdapter{
             if(CREATURE instanceof Player){
                 GameRunner.CLIENT.getHandler().sendDoneTurn(CREATURE.getName());
             }else{
+                System.out.println("MovementListener: Setting the GM to done.");
                 GameRunner.SERVER.setGMDone(true);
             }
         }
