@@ -6,6 +6,7 @@ import Main.GameRunner;
 import gameworld.Board;
 import gameworld.Creature;
 import gameworld.Inventory;
+import gameworld.Player;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -19,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 public class GameGUI {
 
@@ -31,6 +33,8 @@ public class GameGUI {
     private JTextArea INVENTORY_DISPLAY;
     private JPanel INVENTORY_PANEL;
     private JPanel CREATURE_PANEL;
+    private JTextField CREATURE_CLASS;
+    private JTextField CREATURE_TYPE;
     private JTextField CREATURE_LEVEL;
     private JTextField CREATURE_XP;
     private JTextField CREATURE_HEALTH;
@@ -116,31 +120,65 @@ public class GameGUI {
         CREATURE_PANEL.setBounds(204, 2, 738, 50);
         CREATURE_PANEL.setBorder(PANEL_BORDER);
 
-        CREATURE_LEVEL = new JTextField();
-        formatCharcaterAspect(CREATURE_LEVEL, "Lvl", 3);
-        CREATURE_XP = new JTextField();
-        formatCharcaterAspect(CREATURE_XP, "XP", 4);
-        CREATURE_HEALTH = new JTextField();
-        formatCharcaterAspect(CREATURE_HEALTH, "Health", 6);
-        CREATURE_ENDURANCE = new JTextField();
-        formatCharcaterAspect(CREATURE_ENDURANCE, "End", 3);
-        CREATURE_SPEED = new JTextField();
-        formatCharcaterAspect(CREATURE_SPEED, "Spd", 3);
-        CREATURE_STRENGTH = new JTextField();
-        formatCharcaterAspect(CREATURE_STRENGTH, "Str", 3);
-        CREATURE_INTELLIGENCE = new JTextField();
-        formatCharcaterAspect(CREATURE_INTELLIGENCE, "Int", 3);
-        CREATURE_DEXTERITY = new JTextField();
-        formatCharcaterAspect(CREATURE_DEXTERITY, "Dex", 3);
-
         CREATURE_PANEL.addKeyListener(MOVEMENT_LISTENER);
     }
+    
+    private void formatCreatureStats() {
+        
+        CREATURE_TYPE = new JTextField();
+        formatCharcaterAspect(CREATURE_TYPE, "Type");
+        Creature creature = CONTROLLED_CREATURES.get(CURRENT_CREATURE);
+        String type = creature.getType();
+        if(creature instanceof Player) {
+            CREATURE_CLASS = new JTextField();
+            formatCharcaterAspect(CREATURE_CLASS, "Class");
+        }
+        CREATURE_LEVEL = new JTextField();
+        formatCharcaterAspect(CREATURE_LEVEL, "Lvl");
+        CREATURE_XP = new JTextField();
+        formatCharcaterAspect(CREATURE_XP, "XP");
+        CREATURE_HEALTH = new JTextField();
+        formatCharcaterAspect(CREATURE_HEALTH, "Health");
+        CREATURE_ENDURANCE = new JTextField();
+        formatCharcaterAspect(CREATURE_ENDURANCE, "End");
+        CREATURE_SPEED = new JTextField();
+        formatCharcaterAspect(CREATURE_SPEED, "Spd");
+        CREATURE_STRENGTH = new JTextField();
+        formatCharcaterAspect(CREATURE_STRENGTH, "Str");
+        CREATURE_INTELLIGENCE = new JTextField();
+        formatCharcaterAspect(CREATURE_INTELLIGENCE, "Int");
+        CREATURE_DEXTERITY = new JTextField();
+        formatCharcaterAspect(CREATURE_DEXTERITY, "Dex");
+    }
 
-    private void formatCharcaterAspect(JTextField field, String title, int size) {
+    private void formatCharcaterAspect(JTextField field, String title) {
         field.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, title));
         field.setHorizontalAlignment(JTextField.CENTER);
-        field.setColumns(size);
+//        field.setColumns();
         CREATURE_PANEL.add(field);
+    }
+    
+    
+    public void updateCreateStats() {
+        formatCreatureStats();
+        
+        Creature creature = CONTROLLED_CREATURES.get(CURRENT_CREATURE);
+        String type = creature.getType();
+        if(creature instanceof Player) {
+            Player player = (Player)(creature);
+            type = player.getSpecies();
+            CREATURE_CLASS.setText("     " + player.getPlayerClass() + "     ");
+        }
+        
+        CREATURE_TYPE.setText("     " + type + "     ");
+        CREATURE_LEVEL.setText("     " + creature.getLevel() + "     ");
+        CREATURE_XP.setText("     " + creature.getXP() + "     ");
+        CREATURE_HEALTH.setText("  " + creature.getCurrentHealth() + "/" + creature.getMaxHealth() + "  ");
+        CREATURE_ENDURANCE.setText("     " + creature.getEndurance() + "     ");
+        CREATURE_SPEED.setText("     " + creature.getSpeed() + "     ");
+        CREATURE_STRENGTH.setText("     " + creature.getStrength() + "     ");
+        CREATURE_INTELLIGENCE.setText("     " + creature.getIntelligence() + "     ");
+        CREATURE_DEXTERITY.setText("     " + creature.getDexterity() + "     ");
     }
 
     private void formatBoard() {
@@ -222,18 +260,6 @@ public class GameGUI {
                 System.out.println("GameGUI: Replaced creature: " + CONTROLLED_CREATURES.get(currentCreature).getName());
             }
         }
-    }
-
-    public void updateCreateStats() {
-        Creature player = CONTROLLED_CREATURES.get(CURRENT_CREATURE);
-        CREATURE_LEVEL.setText(player.getLevel() + "");
-        CREATURE_XP.setText(player.getXP() + "");
-        CREATURE_HEALTH.setText(player.getCurrentHealth() + "/" + player.getMaxHealth());
-        CREATURE_ENDURANCE.setText(player.getEndurance() + "");
-        CREATURE_SPEED.setText(player.getSpeed() + "");
-        CREATURE_STRENGTH.setText(player.getStrength() + "");
-        CREATURE_INTELLIGENCE.setText(player.getIntelligence() + "");
-        CREATURE_DEXTERITY.setText(player.getDexterity() + "");
     }
 
     public Creature getCreature() {
