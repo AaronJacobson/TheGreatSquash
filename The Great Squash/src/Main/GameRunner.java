@@ -7,6 +7,7 @@ import LAN.Server;
 import gameworld.Board;
 import gameworld.Player;
 import tools.ObjectCounter;
+import tools.TypeHolder;
 
 public class GameRunner {
 

@@ -50,7 +50,7 @@ public class GameGUI {
     private JPanel CHAT_PANEL;
     private JPanel BASE = new JPanel();
     private static ArrayList<Creature> CONTROLLED_CREATURES;
-    private static int CURRENT_CREATURE;
+    public static int CURRENT_CREATURE;
     private Board BOARD;
 
     public GameGUI() {
@@ -112,6 +112,10 @@ public class GameGUI {
     public void updateInventoryDisplay() {
         Inventory creatureInventory = CONTROLLED_CREATURES.get(CURRENT_CREATURE).getInventory();
         INVENTORY_DISPLAY.setText(creatureInventory.toString());
+    }
+    
+    public void setControlledCreatures(ArrayList<Creature> creatures){
+        CONTROLLED_CREATURES = creatures;
     }
 
     private void formatCreature() {
