@@ -115,6 +115,7 @@ class ServerClientConnection implements Runnable {
                 System.out.println("ServerClientConnection: " + THE_SERVER.getBoard().getObstacle(obstacleName));
             }
         } else if(theCommand.equals(Server.DONE_TURN)){
+            System.out.println("ServerClientConnection: Someone has ended their turn.");
             THE_SERVER.getBoard().getPlayer(messageScanner.next()).setEnded(true);
         }
 

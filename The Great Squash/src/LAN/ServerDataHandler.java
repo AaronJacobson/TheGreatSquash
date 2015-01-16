@@ -148,17 +148,17 @@ public class ServerDataHandler implements Runnable {
             int boardy = messageScanner.nextInt();
             GameRunner.setBoard(new Board(boardy, boardx));
             WAIT_FOR_PARAMETERS = false;
-        } else if(theCommand.equals(Server.INTERACT_WITH)){
+        } else if (theCommand.equals(Server.INTERACT_WITH)) {
             String creatureName = messageScanner.next();
             String obstacleName = messageScanner.next();
-            if(GameRunner.GAME_BOARD.getObstacle(obstacleName) instanceof Interactive){
+            if (GameRunner.GAME_BOARD.getObstacle(obstacleName) instanceof Interactive) {
                 Interactive toInteract = (Interactive) GameRunner.GAME_BOARD.getObstacle(obstacleName);
                 System.out.println("ServerDataHandler: " + GameRunner.GAME_BOARD.getObstacle(obstacleName).toServerData());
                 toInteract.interact(GameRunner.GAME_BOARD.getCreature(creatureName));
                 System.out.println("ServerDataHandler: " + GameRunner.GAME_BOARD.getObstacle(obstacleName).toServerData());
             }
             GameRunner.updateBoard();
-        } else if(theCommand.equals(Server.BEGIN_TURN)){
+        } else if (theCommand.equals(Server.BEGIN_TURN)) {
             GameRunner.GAME_GUI.getCreature().setMovementPoints(GameRunner.GAME_GUI.getCreature().getSpeed());
         }
     }
@@ -175,8 +175,8 @@ public class ServerDataHandler implements Runnable {
             System.out.println("ServerDataHandler: Connection with the server lost");
         }
     }
-    
-    public void sendInteract(String creatureName,String obstacleName){
+
+    public void sendInteract(String creatureName, String obstacleName) {
         sendCommand(Server.INTERACT_WITH + " " + creatureName + " " + obstacleName);
     }
 
@@ -191,8 +191,8 @@ public class ServerDataHandler implements Runnable {
             toSend = Server.MOVE_CREATURE + " " + obstacle.getY() + " " + obstacle.getX() + " " + obstacle.getLabel() + obstacle.getPassable();
         }
     }
-    
-    public void sendDoneTurn(String playerName){
+
+    public void sendDoneTurn(String playerName) {
         sendCommand(Server.DONE_TURN + " " + playerName);
     }
 
@@ -219,7 +219,11 @@ public class ServerDataHandler implements Runnable {
 
     public void sendCreatures() {
         for (int currentCreature = 0; currentCreature < GameRunner.GAME_GUI.getCreatures().size(); currentCreature++) {
-            sendCreature(GameRunner.GAME_GUI.getCreatures().get(currentCreature));
+            if (GameRunner.GAME_GUI.getCreatures().get(currentCreature) instanceof Player) {
+                sendCreature((Player) GameRunner.GAME_GUI.getCreatures().get(currentCreature));
+            } else {
+                sendCreature(GameRunner.GAME_GUI.getCreatures().get(currentCreature));
+            }
         }
     }
 }
