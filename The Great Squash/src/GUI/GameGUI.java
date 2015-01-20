@@ -193,6 +193,7 @@ public class GameGUI {
         BOARD_DISPLAY.setBorder(DISPLAY_BORDER);
         BOARD_DISPLAY.setEditable(false);
         BOARD_DISPLAY.addKeyListener(MOVEMENT_LISTENER);
+        BOARD_DISPLAY.setFocusTraversalKeysEnabled(false);
 
         BOARD_PANEL = new JPanel();
         //BOARD_PANEL.setBackground(Color.RED);
