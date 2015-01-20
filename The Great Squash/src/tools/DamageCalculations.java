@@ -12,6 +12,7 @@ import gameworld.Creature;
  */
 public class DamageCalculations {
     public static void attackMelee(Creature attacker, int attackStat, Creature defender) {
-        //attacker
+        defender.setCurrentHealth(0);
+        defender.updateLife();
     }
 }
