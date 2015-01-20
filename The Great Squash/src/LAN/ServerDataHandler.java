@@ -15,7 +15,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
-import tools.NetworkInfo;
 import tools.TypeHolder;
 
 public class ServerDataHandler implements Runnable {
@@ -212,6 +211,9 @@ public class ServerDataHandler implements Runnable {
             }
             System.out.println("ServerDataHandler: The creatures have been initialized");
             sendCreatures();
+            if(GameRunner.SERVER != null){
+                GameRunner.GAME_GUI.setControlledCreatures(GameRunner.GAME_BOARD.getCreatures());
+            }
         } catch (IOException ex) {
             System.out.println("ServerDataHandler to communicate with the server");
         }

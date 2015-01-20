@@ -125,13 +125,17 @@ public class Server {
                         SERVER_CLIENT_CONNECTIONS[i].sendCommand(BEGIN_TURN);
                     }
                     GM_DONE = false;
+                    for (int currentCreature = 0; currentCreature < THE_BOARD.getCreatures().hashCode(); currentCreature++) {
+                        THE_BOARD.getCreatures().get(currentCreature).setMovementPoints(THE_BOARD.getCreatures().get(currentCreature).getSpeed());
+                    }
+                    System.out.println("Server: Refreshed creature movement points.");
                 } else {
                     GM_DONE = true;
                     System.out.println("Server: The GM has finished their turn.");
-                    for(int currentPlayer = 0;currentPlayer < THE_BOARD.getPlayers().size();currentPlayer++){
+                    for (int currentPlayer = 0; currentPlayer < THE_BOARD.getPlayers().size(); currentPlayer++) {
                         THE_BOARD.getPlayers().get(currentPlayer).setMovementPoints(THE_BOARD.getPlayers().get(currentPlayer).getSpeed());
-                        System.out.println("Server: Refreshed movement points.");
                     }
+                    System.out.println("Server: Refreshed player movement points.");
                 }
             } else {
             }
@@ -157,11 +161,11 @@ public class Server {
             THE_BOARD.getPlayers().get(currentPlayer).setEnded(false);
         }
     }
-    
-    public void refreshPlayerMovement(){
-        for(Player P : THE_BOARD.getPlayers()){
-            for(Creature C : THE_BOARD.getCreatures()){
-                if(P.getName().equals(C.getName())){
+
+    public void refreshPlayerMovement() {
+        for (Player P : THE_BOARD.getPlayers()) {
+            for (Creature C : THE_BOARD.getCreatures()) {
+                if (P.getName().equals(C.getName())) {
                     C.setMovementPoints(P.getSpeed());
                     System.out.println("Server: Refreshed " + C.getName() + "'s movement points. The now have " + C.getMovementPoints() + " movement points.");
                 }

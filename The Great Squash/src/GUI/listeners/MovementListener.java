@@ -70,6 +70,13 @@ public class MovementListener extends KeyAdapter{
                 System.out.println("MovementListener: Setting the GM to done.");
                 GameRunner.SERVER.setGMDone(true);
             }
+        }else if(keyCode == KeyEvent.VK_TAB){
+            System.out.println("MovementListener: Switching controlled creature.");
+            if(GameRunner.GAME_GUI.CURRENT_CREATURE == GameRunner.GAME_GUI.getCreatures().size()-1){
+                GameRunner.GAME_GUI.setCreature(0);
+            }else{
+                GameRunner.GAME_GUI.setCreature(GameRunner.GAME_GUI.CURRENT_CREATURE + 1);
+            }
         }
         LAST_KEY_CODE = keyCode;
     }
