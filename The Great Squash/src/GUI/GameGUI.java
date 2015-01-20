@@ -154,7 +154,7 @@ public class GameGUI {
     private void formatCharcaterAspect(JTextField field, String title) {
         field.setBorder(BorderFactory.createTitledBorder(PANEL_BORDER, title));
         field.setHorizontalAlignment(JTextField.CENTER);
-//        field.setColumns();
+        field.setEditable(false);
         CREATURE_PANEL.add(field);
     }
     

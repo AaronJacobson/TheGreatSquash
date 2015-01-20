@@ -34,6 +34,25 @@ public class Tile {
     public Obstacle getObstacle() {
         return OBSTACLE;
     }
+    
+    public boolean getPassable() {
+        boolean creaturePassable = true;
+        boolean obstaclePassable = true;
+        
+        try {
+            if(!CREATURE.getPassable()) {
+                creaturePassable = false;
+            }
+        } catch(NullPointerException ex) {}
+        
+        try {
+            if(!OBSTACLE.getPassable()) {
+                creaturePassable = false;
+            }
+        } catch(NullPointerException ex) {}
+        
+        return creaturePassable && obstaclePassable;
+    }
 
     @Override
     public String toString() {

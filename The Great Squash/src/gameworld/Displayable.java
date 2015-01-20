@@ -11,7 +11,7 @@ package gameworld;
 public interface Displayable {
 
     char SPRITE = '.';
-
+    boolean PASSABLE = true;
 //    void setSprite(char sprite);
 
     char getSprite();

@@ -23,6 +23,7 @@ public class Creature implements Displayable, Sendable {
     protected String TYPE = "abstract";
     protected Inventory INVENTORY = new Inventory(25);
     protected Weapon EQUIPT_WEAPON;
+    protected boolean PASSABLE;
     protected int LOCATION_X;
     protected int LOCATION_Y;
     protected int LEVEL;
@@ -44,6 +45,7 @@ public class Creature implements Displayable, Sendable {
         LOCATION_X = x;
         LOCATION_Y = y;
         BOARD = board;
+        PASSABLE = false;
         MOVEMENT_POINTS = SPEED;
         DONE_WITH_TURN = false;
     }
@@ -183,7 +185,7 @@ public class Creature implements Displayable, Sendable {
     
 //----------------------------------------------------------------------------------------
     
-    public double getDexterity() {
+    public int getDexterity() {
         return DEXTERITY;
     }
     public void setDexterity(int dexterity) {
@@ -192,7 +194,7 @@ public class Creature implements Displayable, Sendable {
     
 //----------------------------------------------------------------------------------------
 
-    public double getIntelligence() {
+    public int getIntelligence() {
         return INTELLIGENCE;
     }
 
@@ -202,7 +204,7 @@ public class Creature implements Displayable, Sendable {
 
 //----------------------------------------------------------------------------------------    
     
-    public double getStrength() {
+    public int getStrength() {
         return STRENGTH;
     }
     
@@ -222,7 +224,7 @@ public class Creature implements Displayable, Sendable {
 
 //----------------------------------------------------------------------------------------
     
-    public double getEndurance() {
+    public int getEndurance() {
         return ENDURANCE;
     }
     
@@ -249,22 +251,28 @@ public class Creature implements Displayable, Sendable {
     }
 //----------------------------------------------------------------------------------------
     
+    public int getMovementPoints(){
+        return MOVEMENT_POINTS;
+    }
+        
     public void setMovementPoints(int movementPoints){
         MOVEMENT_POINTS = movementPoints;
     }
     
-    public int getMovementPoints(){
-        return MOVEMENT_POINTS;
-    }
-    
 //----------------------------------------------------------------------------------------
     
+    public boolean getDoneTurn(){
+        return DONE_WITH_TURN;
+    }
+        
     public void setDoneTurn(boolean doneWith){
         DONE_WITH_TURN = doneWith;
     }
     
-    public boolean getDoneTurn(){
-        return DONE_WITH_TURN;
+//----------------------------------------------------------------------------------------
+    
+    public boolean getPassable() {
+        return PASSABLE;
     }
     
 //----------------------------------------------------------------------------------------

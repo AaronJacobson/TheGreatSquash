@@ -32,7 +32,6 @@ public class Monster extends Creature {
         super.setY(y);
         super.setX(x);
         board.addCreature(this);
-
     }
 
     private void makeFromFile(Scanner scanFile) {
@@ -42,6 +41,8 @@ public class Monster extends Creature {
         super.SPRITE = (scanFile.nextLine().charAt(0));
         super.setSpeed(CreateFromDocument.generateStat(scanFile.nextLine()));
         super.setEndurance(CreateFromDocument.generateStat(scanFile.nextLine()));
+        super.setMaxHealth(ENDURANCE * 5 + 5);
+        CURRENT_HEALTH = MAX_HEALTH;
         super.setStrength(CreateFromDocument.generateStat(scanFile.nextLine()));
         super.setIntelligence(CreateFromDocument.generateStat(scanFile.nextLine()));
         super.setDexterity(CreateFromDocument.generateStat(scanFile.nextLine()));

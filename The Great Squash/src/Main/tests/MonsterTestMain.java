@@ -15,15 +15,14 @@ public class MonsterTestMain {
     public static void main(String[] args) {
         Monster lolita = new Monster("human");
 
-        for (int i = 0; i < 10; i++) {
-            lolita.changeLevel(1);
-            System.out.println("Level: " + lolita.getLevel());
-            System.out.println("Spd: " + lolita.getSpeed());
-            System.out.println("End: " + lolita.getEndurance());
-            System.out.println("Str: " + lolita.getStrength());
-            System.out.println("Int: " + lolita.getIntelligence());
-            System.out.println("Dex: " + lolita.getDexterity());
-            System.out.println();
-        }
+
+        System.out.println("Level: " + lolita.getLevel());
+        System.out.println("Hlth: " + lolita.getCurrentHealth() + "/" + lolita.getMaxHealth());
+        System.out.println("Spd: " + lolita.getSpeed());
+        System.out.println("End: " + lolita.getEndurance());
+        System.out.println("Str: " + lolita.getStrength());
+        System.out.println("Int: " + lolita.getIntelligence());
+        System.out.println("Dex: " + lolita.getDexterity());
+        System.out.println();
     }
 }

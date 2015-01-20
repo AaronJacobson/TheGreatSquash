@@ -201,18 +201,23 @@ public class StartMenu {
     private void createPlayer() {
         String playerName = PLAYER_FIND.getText();
         String fileDirectory = playerName;
-        if (!playerName.contains(".player") && !playerName.contains("\\")) {
+        System.out.println(playerName);
+        if (playerName.contains(".player")) {
+            System.out.println("yep");
+            fileDirectory = "src\\gameworld\\players\\" + (playerName.substring(0,playerName.indexOf(".player")));
+        } else {
+            System.out.println("nope");
             fileDirectory = "src\\gameworld\\players\\" + playerName + ".player";
         }
+        System.out.println(fileDirectory);
 
         File playerFile = new File(fileDirectory);
         
         if (playerFile.getTotalSpace() != 0) {
             Player player = new Player(playerName);
             PLAYER = player;
-        } else {
-            PLAYER = null;
         }
+        
         updatePlayerStats();
     }
 
@@ -224,11 +229,11 @@ public class StartMenu {
             PLAYER_LEVEL.setText(PLAYER.getLevel() + "");
             PLAYER_SPRITE.setText(PLAYER.getSprite() + "");
             PLAYER_SPEED.setText(PLAYER.getSpeed() + "");
-            PLAYER_ENDURANCE.setText((int) PLAYER.getEndurance() + "");
+            PLAYER_ENDURANCE.setText(PLAYER.getEndurance() + "");
             PLAYER_HEALTH.setText(PLAYER.getMaxHealth() + "");
-            PLAYER_STRENGTH.setText((int) PLAYER.getStrength() + "");
-            PLAYER_INTELLIGENCE.setText((int) (PLAYER.getIntelligence()) + "");
-            PLAYER_DEXTERITY.setText((int) PLAYER.getDexterity() + "");
+            PLAYER_STRENGTH.setText(PLAYER.getStrength() + "");
+            PLAYER_INTELLIGENCE.setText((PLAYER.getIntelligence()) + "");
+            PLAYER_DEXTERITY.setText(PLAYER.getDexterity() + "");
         } catch (NullPointerException ex) {
             PLAYER_NAME.setText("");
             PLAYER_CLASS.setText("");
@@ -272,8 +277,8 @@ public class StartMenu {
                  chooser.setFileFilter(filter);
                  int returnVal = chooser.showOpenDialog(chooser);
                  if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    PLAYER_NAME.setText(chooser.getSelectedFile().getAbsoluteFile() + "");
-                    PLAYER_FIND.setText(chooser.getSelectedFile().getAbsoluteFile() + "");
+                    PLAYER_FIND.setText(chooser.getSelectedFile().getName() + "");
+                    System.out.println(chooser.getSelectedFile().getName() + "");
                     createPlayer();
                  }
             } else if(action.equals(PLAYER_CREATE.getActionCommand())) {

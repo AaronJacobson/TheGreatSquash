@@ -31,4 +31,9 @@ public class OneTargetSpell extends SpellBook {
     public void loadFromFile(String fileElement) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public String getFileName() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

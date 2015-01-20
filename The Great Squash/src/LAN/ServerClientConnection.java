@@ -4,6 +4,7 @@ import gameworld.Board;
 import gameworld.Interactive;
 import gameworld.Obstacle;
 import gameworld.Player;
+import gameworld.Tile;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -59,7 +60,7 @@ class ServerClientConnection implements Runnable {
                 if (THE_SERVER.getBoard().getCreature(creatureName).getMovementPoints() > 0) {
                     try {
                         try {
-                            Obstacle moveTo = THE_SERVER.getBoard().getTileObstacle(y, x);
+                            Tile moveTo = THE_SERVER.getBoard().getTile(y, x);
                             System.out.println("ServerClientConnection: " + moveTo.toServerData());
                             if (moveTo.getPassable()) {
                                 sendCommand(Server.MOVE_CREATURE + " " + y + " " + x + " " + creatureName + " " + THE_SERVER.getBoard().getCreature(creatureName).getY() + " " + THE_SERVER.getBoard().getCreature(creatureName).getX());
