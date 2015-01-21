@@ -48,7 +48,10 @@ public class GameRunner {
         clientConnectionsThread.start();
         CLIENT = new Client("127.0.0.1");
         CLIENT.connectToServer();
-        startGame(START_MENU.getPlayer());
+//        startGame(START_MENU.getPlayer());
+        GAME_BOARD = CLIENT.getBoard();
+        GAME_GUI = new GameGUI();
+        GAME_GUI.setBoard(GAME_BOARD);
         START_MENU.closeMenu();
     }
 

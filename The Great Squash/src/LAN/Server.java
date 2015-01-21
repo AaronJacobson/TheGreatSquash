@@ -125,10 +125,11 @@ public class Server {
                         SERVER_CLIENT_CONNECTIONS[i].sendCommand(BEGIN_TURN);
                     }
                     GM_DONE = false;
-                    for (int currentCreature = 0; currentCreature < THE_BOARD.getCreatures().hashCode(); currentCreature++) {
+                    for (int currentCreature = 0; currentCreature < THE_BOARD.getCreatures().size(); currentCreature++) {
                         THE_BOARD.getCreatures().get(currentCreature).setMovementPoints(THE_BOARD.getCreatures().get(currentCreature).getSpeed());
+                        System.out.println("Server: I have reset " + THE_BOARD.getCreatures().get(currentCreature).getName() + "'s movement points, it now has " + THE_BOARD.getCreatures().get(currentCreature).getMovementPoints() + " movement points left.");
                     }
-                    System.out.println("Server: Refreshed creature movement points.");
+                    System.out.println("Server: Refreshed creature movement pointss.");
                 } else {
                     GM_DONE = true;
                     System.out.println("Server: The GM has finished their turn.");
@@ -145,8 +146,12 @@ public class Server {
     public boolean arePlayersDone() {
         for (int currentPlayer = 0; currentPlayer < THE_BOARD.getPlayers().size(); currentPlayer++) {
 //            System.out.println("Server: " + THE_BOARD.getPlayers().size());
-            if (!THE_BOARD.getPlayers().get(currentPlayer).getEnded()) {
-                return false;
+            try {
+                if (!THE_BOARD.getPlayers().get(currentPlayer).getEnded()) {
+                    return false;
+                }
+            } catch (NullPointerException e) {
+                System.out.println("Server: null");
             }
         }
         if (THE_BOARD.getPlayers().isEmpty()) {

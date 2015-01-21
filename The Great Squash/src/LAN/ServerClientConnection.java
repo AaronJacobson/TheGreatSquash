@@ -76,7 +76,7 @@ class ServerClientConnection implements Runnable {
                         System.out.println("ServerClientConnection: Out of bounds");
                     }
                 }else{
-                    System.out.println("ServerClientConnection: You are trying to move a creature which cannot move.");
+                    System.out.println("ServerClientConnection: You are trying to move a creature which cannot move. Its name is " + creatureName);
                 }
             } else {
                 System.out.println("ServerClientConnection: Error, I have been given a creature whom I don't have. Why do you hate me so?");
