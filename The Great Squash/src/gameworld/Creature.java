@@ -24,6 +24,7 @@ public class Creature implements Displayable, Sendable {
     protected Inventory INVENTORY = new Inventory(25);
     protected Weapon EQUIPT_WEAPON;
     protected boolean PASSABLE;
+    protected boolean ALIVE;
     protected int LOCATION_X;
     protected int LOCATION_Y;
     protected int LEVEL;
@@ -39,6 +40,7 @@ public class Creature implements Displayable, Sendable {
     protected boolean DONE_WITH_TURN;
 
     public Creature(char sprite, Board board, int y, int x, String name, String type) {
+        this();
         TYPE = type;
         NAME = name;
         SPRITE = sprite;
@@ -51,6 +53,7 @@ public class Creature implements Displayable, Sendable {
     }
 
     public Creature() {
+        ALIVE = true;
     }
 
     public void moveSelf(int y, int x) {
@@ -96,16 +99,31 @@ public class Creature implements Displayable, Sendable {
         return surroundingTiles;
     }
 
+    public void updateLife() {
+        if(CURRENT_HEALTH <= 0) {
+            ALIVE = false;
+            PASSABLE = true;
+        } else {
+            ALIVE = true;
+            PASSABLE = false;
+        }
+    } 
+    
+    public boolean getLife() {
+        return ALIVE;
+    }
+//----------------------------------------------------------------------------------------
+    
     public Inventory getInventory() {
         return INVENTORY;
+    }
+    
+    public void setEquipt(Weapon weapon) {
+        EQUIPT_WEAPON = weapon;
     }
 
     public void addToInventory(Item item) {
         INVENTORY.addToInventory(item);
-    }
-
-    public void setEquipt(Weapon weapon) {
-        EQUIPT_WEAPON = weapon;
     }
 
 //----------------------------------------------------------------------------------------
