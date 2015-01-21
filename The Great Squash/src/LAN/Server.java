@@ -43,6 +43,7 @@ public class Server {
     public static final String SEND_THE_BOARD_PARAMETERS = "MAY_I_HAVE_THE_BOARD_PARAMETERS";
     public static final String DISCONNECT_ME = "PLS_DISCONNECT_ME_FROM_THE_SERVER";
     public static final String INTERACT_WITH = "I_WANT_TO_INTERACT";
+    public static final String ATTACK = "ATTACK";
     public static final String DONE_TURN = "I_AM_DONE_WITH_MY_TURN";
     public static final String BEGIN_TURN = "BEGIN_YOUR_TURN";
     //Other stuff

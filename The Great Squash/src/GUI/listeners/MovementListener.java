@@ -42,26 +42,39 @@ public class MovementListener extends KeyAdapter{
             //move up
             CREATURE.moveSelf(CREATURE.getY(), CREATURE.getX() - 1);
         }else if(keyCode == KeyEvent.VK_SPACE){
-            System.out.println("MovementListener: Space has been pressed.");
+//            System.out.println("MovementListener: Space has been pressed.");
         }else if(keyCode == KeyEvent.VK_UP){
             if(LAST_KEY_CODE == KeyEvent.VK_SPACE){
                 System.out.println("MovementListener: Interacting with the tile above");
                 CREATURE.interactWith(GameRunner.GAME_BOARD.getTile(CREATURE.getY(), CREATURE.getX() - 1));
+            } else if(LAST_KEY_CODE == KeyEvent.VK_1) {
+                System.out.println("MovementListener: Attacking the creature above");
+                CREATURE.attackCreature(GameRunner.GAME_BOARD.getTile(CREATURE.getY(), CREATURE.getX() - 1));
             }
         }else if(keyCode == KeyEvent.VK_RIGHT){
             if(LAST_KEY_CODE == KeyEvent.VK_SPACE){
                 System.out.println("MovementListener: Interacting with the tile to the right");
                 CREATURE.interactWith(GameRunner.GAME_BOARD.getTile(CREATURE.getY() + 1, CREATURE.getX()));
+            } else if(LAST_KEY_CODE == KeyEvent.VK_1) {
+                System.out.println("MovementListener: Attacking the creature to the right");
+                CREATURE.attackCreature(GameRunner.GAME_BOARD.getTile(CREATURE.getY() + 1, CREATURE.getX()));
             }
         }else if(keyCode == KeyEvent.VK_LEFT){
             if(LAST_KEY_CODE == KeyEvent.VK_SPACE){
                 System.out.println("MovementListener: Interacting with the tile to the left");
                 CREATURE.interactWith(GameRunner.GAME_BOARD.getTile(CREATURE.getY() - 1, CREATURE.getX()));
+            } else if(LAST_KEY_CODE == KeyEvent.VK_1) {
+                System.out.println("MovementListener: Attacking the creature to the left");
+                CREATURE.attackCreature(GameRunner.GAME_BOARD.getTile(CREATURE.getY() - 1, CREATURE.getX()));
             }
         }else if(keyCode == KeyEvent.VK_DOWN){
+            System.out.println(keyCode + " " + KeyEvent.VK_1);
             if(LAST_KEY_CODE == KeyEvent.VK_SPACE){
                 System.out.println("MovementListener: Interacting with the tile below");
                 CREATURE.interactWith(GameRunner.GAME_BOARD.getTile(CREATURE.getY(), CREATURE.getX() + 1));
+            } else if(LAST_KEY_CODE == KeyEvent.VK_1) {
+                System.out.println("MovementListener: Attacking the creature below");
+                CREATURE.attackCreature(GameRunner.GAME_BOARD.getTile(CREATURE.getY(), CREATURE.getX() + 1));
             }
         }else if(keyCode == KeyEvent.VK_ENTER){
             if(CREATURE instanceof Player){
