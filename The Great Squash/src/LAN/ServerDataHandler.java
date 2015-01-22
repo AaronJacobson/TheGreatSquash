@@ -15,6 +15,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
+import tools.DamageCalculations;
 import tools.TypeHolder;
 
 public class ServerDataHandler implements Runnable {
@@ -155,9 +156,19 @@ public class ServerDataHandler implements Runnable {
                 System.out.println("ServerDataHandler: " + GameRunner.GAME_BOARD.getObstacle(obstacleName).toServerData());
                 toInteract.interact(GameRunner.GAME_BOARD.getCreature(creatureName));
                 System.out.println("ServerDataHandler: " + GameRunner.GAME_BOARD.getObstacle(obstacleName).toServerData());
-            }
+            
+            GameRunner.updateBoard();
+            } 
+        }else if (theCommand.equals(Server.ATTACK)) {
+            Creature attacker = GameRunner.GAME_BOARD.getCreature(messageScanner.next());
+            Creature defender = GameRunner.GAME_BOARD.getCreature(messageScanner.next());
+            System.out.println(defender.getCurrentHealth());
+            DamageCalculations.attackMelee(attacker, attacker.getStrength(), defender);
+            System.out.println(defender.getCurrentHealth());
+            GameRunner.GAME_GUI.updateCreateStats();
             GameRunner.updateBoard();
         } else if (theCommand.equals(Server.BEGIN_TURN)) {
+            
             GameRunner.GAME_GUI.getCreature().setMovementPoints(GameRunner.GAME_GUI.getCreature().getSpeed());
         }
     }
@@ -177,6 +188,10 @@ public class ServerDataHandler implements Runnable {
 
     public void sendInteract(String creatureName, String obstacleName) {
         sendCommand(Server.INTERACT_WITH + " " + creatureName + " " + obstacleName);
+    }
+    
+    public void sendAttack(String attackerName, String defenderName) {
+        sendCommand(Server.ATTACK + " " + attackerName + " " + defenderName);
     }
 
     public void sendMove(int newY, int newX, Creature theCreature) {

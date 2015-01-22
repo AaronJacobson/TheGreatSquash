@@ -21,7 +21,7 @@ public class Creature implements Displayable, Sendable {
     protected Board BOARD;
     protected String NAME = "Creature";
     protected String TYPE = "abstract";
-    protected Inventory INVENTORY = new Inventory(25);
+    protected Inventory INVENTORY = new Inventory(22);
     protected Weapon EQUIPT_WEAPON;
     protected boolean PASSABLE;
     protected boolean ALIVE;
@@ -80,6 +80,12 @@ public class Creature implements Displayable, Sendable {
             if (tile.getObstacle() instanceof Interactive) {
                 GameRunner.CLIENT.getHandler().sendInteract(this.getName(), tile.getObstacle().getLabel());
             }
+        }
+    }
+    
+    public void attackCreature(Tile tile) {
+        if (tile.getCreature() != null) {
+            GameRunner.CLIENT.getHandler().sendAttack(NAME, tile.getCreature().getName());
         }
     }
 
