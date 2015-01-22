@@ -33,7 +33,6 @@ public class GameGUI {
     private JTextArea INVENTORY_DISPLAY;
     private JPanel INVENTORY_PANEL;
     private JPanel CREATURE_PANEL;
-    private JTextField CREATURE_CLASS;
     private JTextField CREATURE_TYPE;
     private JTextField CREATURE_LEVEL;
     private JTextField CREATURE_XP;
@@ -71,7 +70,8 @@ public class GameGUI {
 
     public void addCreature(Creature creature) {
         CONTROLLED_CREATURES.add(creature);
-        updateCreateStats();
+        System.err.println("I am an asshole");
+        System.out.println(creature.getName() + ": " + creature.getCurrentHealth() + "/" + creature.getMaxHealth());
     }
 
     public void setCreature(int creatureNumber) {
@@ -131,12 +131,6 @@ public class GameGUI {
         
         CREATURE_TYPE = new JTextField();
         formatCharcaterAspect(CREATURE_TYPE, "Type");
-        Creature creature = CONTROLLED_CREATURES.get(CURRENT_CREATURE);
-        String type = creature.getType();
-        if(creature instanceof Player) {
-            CREATURE_CLASS = new JTextField();
-            formatCharcaterAspect(CREATURE_CLASS, "Class");
-        }
         CREATURE_LEVEL = new JTextField();
         formatCharcaterAspect(CREATURE_LEVEL, "Lvl");
         CREATURE_XP = new JTextField();
@@ -171,7 +165,6 @@ public class GameGUI {
         if(creature instanceof Player) {
             Player player = (Player)(creature);
             type = player.getSpecies();
-            CREATURE_CLASS.setText("     " + player.getPlayerClass() + "     ");
         }
         
         CREATURE_TYPE.setText("     " + type + "     ");

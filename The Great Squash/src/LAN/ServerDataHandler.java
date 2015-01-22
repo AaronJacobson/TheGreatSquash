@@ -131,15 +131,21 @@ public class ServerDataHandler implements Runnable {
             String name = messageScanner.next();
             int locY = messageScanner.nextInt();
             int locX = messageScanner.nextInt();
-            double health = messageScanner.nextDouble();
+            double currentHealth = messageScanner.nextDouble();
+            double maxHealth = messageScanner.nextInt();
             String type = messageScanner.next();
             char sprite = messageScanner.next().charAt(0);
+            int speed = messageScanner.nextInt();
+            int endurance = messageScanner.nextInt();
+            int strength = messageScanner.nextInt();
+            int intelligence = messageScanner.nextInt();
+            int dexterity = messageScanner.nextInt();
             if (!GameRunner.getBoard().hasCreature(name)) {
                 if (type.equals(TypeHolder.PLAYER)) {
                     Player player = new Player(sprite, GameRunner.getBoard(), locY, locX, name);
                     GameRunner.GAME_BOARD.placePlayer(player);
                 } else {
-                    //Where other types of creatures would be created
+                    Creature creature = new Creature(sprite,GameRunner.getBoard(),locY,locX,name,type,currentHealth,maxHealth,speed,endurance,strength,intelligence,dexterity);
                 }
             }
             GameRunner.updateBoard();
@@ -162,9 +168,9 @@ public class ServerDataHandler implements Runnable {
         }else if (theCommand.equals(Server.ATTACK)) {
             Creature attacker = GameRunner.GAME_BOARD.getCreature(messageScanner.next());
             Creature defender = GameRunner.GAME_BOARD.getCreature(messageScanner.next());
-            System.out.println(defender.getCurrentHealth());
+            System.out.println(defender.getName() + ": " + defender.getCurrentHealth() + "/" + defender.getMaxHealth());
             DamageCalculations.attackMelee(attacker, attacker.getStrength(), defender);
-            System.out.println(defender.getCurrentHealth());
+            System.out.println(defender.getName() + ": " + defender.getCurrentHealth() + "/" + defender.getMaxHealth());
             GameRunner.GAME_GUI.updateCreateStats();
             GameRunner.updateBoard();
         } else if (theCommand.equals(Server.BEGIN_TURN)) {

@@ -21,7 +21,7 @@ public class Creature implements Displayable, Sendable {
     protected Board BOARD;
     protected String NAME = "Creature";
     protected String TYPE = "abstract";
-    protected Inventory INVENTORY = new Inventory(22);
+    protected Inventory INVENTORY = new Inventory(23);
     protected Weapon EQUIPT_WEAPON;
     protected boolean PASSABLE;
     protected boolean ALIVE;
@@ -32,8 +32,8 @@ public class Creature implements Displayable, Sendable {
     protected int MOVEMENT_POINTS;
     protected int MAX_HEALTH = 0;
     protected int CURRENT_HEALTH;
-    protected int ENDURANCE;
     protected int SPEED;
+    protected int ENDURANCE;
     protected int STRENGTH;
     protected int INTELLIGENCE;
     protected int DEXTERITY;
@@ -48,6 +48,26 @@ public class Creature implements Displayable, Sendable {
         LOCATION_Y = y;
         BOARD = board;
         PASSABLE = false;
+        MOVEMENT_POINTS = SPEED;
+        DONE_WITH_TURN = false;
+    }
+    
+    public Creature(char sprite, Board board, int y, int x, String name, String type, int currentHealth, int maxHealth, int speed, int endurance, int strength, int intelligence, int dexterity) {
+        this();
+        TYPE = type;
+        NAME = name;
+        SPRITE = sprite;
+        LOCATION_X = x;
+        LOCATION_Y = y;
+        BOARD = board;
+        PASSABLE = false;
+        CURRENT_HEALTH = currentHealth;
+        MAX_HEALTH = maxHealth;
+        SPEED = speed;
+        ENDURANCE = endurance;
+        STRENGTH = strength;
+        INTELLIGENCE = intelligence;
+        DEXTERITY = dexterity;
         MOVEMENT_POINTS = SPEED;
         DONE_WITH_TURN = false;
     }
@@ -302,6 +322,20 @@ public class Creature implements Displayable, Sendable {
 //----------------------------------------------------------------------------------------
  
     public String toServerData() {
-        return " | " + NAME + " " + LOCATION_Y + " " + LOCATION_X + " " + MAX_HEALTH + " " + TYPE + " " + SPRITE + " " + SPEED;
+        String output = " | ";
+        output += NAME + " ";
+        output += LOCATION_Y + " ";
+        output += LOCATION_X + " ";
+        output += CURRENT_HEALTH + " ";
+        output += MAX_HEALTH + " ";
+        output += TYPE + " ";
+        output += SPRITE + " ";
+        output += SPEED + " ";
+        output += SPEED + " ";
+        output += ENDURANCE + " ";
+        output += STRENGTH + " ";
+        output += INTELLIGENCE + " ";
+        output += DEXTERITY;
+        return output;
     }
 }
