@@ -18,6 +18,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import tools.NetworkInfo;
 import tools.CreateFromDocument;
+import tools.TypeHolder;
 
 /**
  *
@@ -59,7 +60,7 @@ public class Server {
     private ArrayList<Boolean> INITS;
     private ArrayList<ServerClientConnection> SERVER_CLIENT_CONNECTIONS;
 //    private ServerClientConnection[] SERVER_CLIENT_CONNECTIONS;
-    private ServerClientChat[] SERVER_CHAT_CONNECTIONS;
+    private ArrayList<ServerClientChat> SERVER_CHAT_CONNECTIONS;
     private int PORT_NUMBER = NetworkInfo.COMMAND_PORT_NUMBER;
     private int CHAT_PORT_NUMBER = NetworkInfo.CHAT_PORT_NUMBER;
     private Board THE_BOARD;
@@ -75,7 +76,7 @@ public class Server {
         }
 //        System.out.println("Server: \n" + THE_BOARD);
         SERVER_CLIENT_CONNECTIONS = new ArrayList<>();
-        SERVER_CHAT_CONNECTIONS = new ServerClientChat[CONNECTIONS];
+        SERVER_CHAT_CONNECTIONS = new ArrayList<>();
     }
 
     public void makeServer() {
@@ -100,25 +101,8 @@ public class Server {
 
     public void waitForClientConnections() {
         //waits for all the clients to connect
-        Thread connectionThread = new Thread(new Runnable() {
-            public void run() {
-                while (true) {
-                    try {
-                        SOCKET = SERVER_SOCKET.accept();
-                        DATA_OUT = new DataOutputStream(SOCKET.getOutputStream());
-                        DATA_IN = new DataInputStream(SOCKET.getInputStream());
-                        IPS.add(SOCKET.getInetAddress().toString());
-                        System.out.println("Server: Connection from " + IPS.get(currentConnection));
-                        ServerClientConnection newConnect = new ServerClientConnection(DATA_IN, DATA_OUT, SERVER_CLIENT_CONNECTIONS, IPS, THE_BOARD, this, IPS.get(currentConnection));
-                        SERVER_CLIENT_CONNECTIONS.add(newConnect);
-                        Thread CurrentConnection = new Thread(newConnect);
-                        CurrentConnection.start();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-        });
+        ClientConnectionThread clientConnections = new ClientConnectionThread(SOCKET,SERVER_SOCKET,DATA_OUT,DATA_IN,IPS,SERVER_CLIENT_CONNECTIONS,this);
+        clientConnections.start();
     }
 
     public void runGame() {
@@ -127,23 +111,18 @@ public class Server {
         while (true) {
             if (arePlayersDone()) {
                 if (GM_DONE) {
+                    GM_DONE = false;
+                    System.out.println("Server: The GM has finished their turn.");
                     setPlayersBegin();
+                    refreshPlayerMovement();
+                    System.out.println("Server: Refreshed player movement points.");
                     for (int i = 0; i < SERVER_CLIENT_CONNECTIONS.size(); i++) {
                         SERVER_CLIENT_CONNECTIONS.get(i).sendCommand(BEGIN_TURN);
                     }
-                    GM_DONE = false;
-                    for (int currentCreature = 0; currentCreature < THE_BOARD.getCreatures().size(); currentCreature++) {
-                        THE_BOARD.getCreatures().get(currentCreature).setMovementPoints(THE_BOARD.getCreatures().get(currentCreature).getSpeed());
-                        System.out.println("Server: I have reset " + THE_BOARD.getCreatures().get(currentCreature).getName() + "'s movement points, it now has " + THE_BOARD.getCreatures().get(currentCreature).getMovementPoints() + " movement points left.");
-                    }
-                    System.out.println("Server: Refreshed creature movement pointss.");
                 } else {
                     GM_DONE = true;
-                    System.out.println("Server: The GM has finished their turn.");
-                    for (int currentPlayer = 0; currentPlayer < THE_BOARD.getPlayers().size(); currentPlayer++) {
-                        THE_BOARD.getPlayers().get(currentPlayer).setMovementPoints(THE_BOARD.getPlayers().get(currentPlayer).getSpeed());
-                    }
-                    System.out.println("Server: Refreshed player movement points.");
+                    refreshMonsterMovement();
+                    System.out.println("Server: Refreshed monster movement pointss.");
                 }
             } else {
             }
@@ -152,7 +131,7 @@ public class Server {
 
     public boolean arePlayersDone() {
         for (int currentPlayer = 0; currentPlayer < THE_BOARD.getPlayers().size(); currentPlayer++) {
-//            System.out.println("Server: " + THE_BOARD.getPlayers().size());
+            System.out.println("Server: " + THE_BOARD.getPlayers().size());
             try {
                 if (!THE_BOARD.getPlayers().get(currentPlayer).getEnded()) {
                     return false;
@@ -173,13 +152,22 @@ public class Server {
             THE_BOARD.getPlayers().get(currentPlayer).setEnded(false);
         }
     }
+    
+    public void refreshMonsterMovement(){
+        for(Creature C : THE_BOARD.getCreatures()){
+            if(!C.getType().equals(TypeHolder.PLAYER)){
+                C.setMovementPoints(C.getDexterity());
+                System.out.println("Server: Refreshed " + C.getName() + "'s movement points. They now have " + C.getName() + " movement points.");
+            }
+        }
+    }
 
     public void refreshPlayerMovement() {
         for (Player P : THE_BOARD.getPlayers()) {
             for (Creature C : THE_BOARD.getCreatures()) {
                 if (P.getName().equals(C.getName())) {
                     C.setMovementPoints(P.getSpeed());
-                    System.out.println("Server: Refreshed " + C.getName() + "'s movement points. The now have " + C.getMovementPoints() + " movement points.");
+                    System.out.println("Server: Refreshed " + C.getName() + "'s movement points. They now have " + C.getMovementPoints() + " movement points.");
                 }
             }
         }
@@ -215,6 +203,43 @@ public class Server {
 
     public void removeConnection(String IP) {
         IPS.remove(IP);
+    }
+}
+
+class ClientConnectionThread extends Thread {
+    
+    private Socket SOCKET;
+    private ServerSocket SERVER_SOCKET;
+    private DataOutputStream DATA_OUT;
+    private DataInputStream DATA_IN;
+    private ArrayList<String> IPS;
+    private ArrayList<ServerClientConnection> SERVER_CLIENT_CONNECTIONS;
+    private Server SERVER;
+    public ClientConnectionThread(Socket socket,ServerSocket serverSocket,DataOutputStream out,DataInputStream in,ArrayList<String> ips,ArrayList<ServerClientConnection> connections,Server server){
+        SOCKET = socket;
+        SERVER_SOCKET = serverSocket;
+        DATA_OUT = out;
+        DATA_IN = in;
+        IPS = ips;
+        SERVER_CLIENT_CONNECTIONS = connections;
+        SERVER = server;
+    }
+    public void run() {
+        while (true) {
+            try {
+                SOCKET = SERVER_SOCKET.accept();
+                DATA_OUT = new DataOutputStream(SOCKET.getOutputStream());
+                DATA_IN = new DataInputStream(SOCKET.getInputStream());
+                IPS.add(SOCKET.getInetAddress().toString());
+                System.out.println("Server: Connection from " + IPS.get(IPS.size() - 1));
+                ServerClientConnection newConnect = new ServerClientConnection(DATA_IN, DATA_OUT, SERVER_CLIENT_CONNECTIONS, IPS, SERVER.getBoard(),SERVER, IPS.get(IPS.size() - 1));
+                SERVER_CLIENT_CONNECTIONS.add(newConnect);
+                Thread CurrentConnection = new Thread(newConnect);
+                CurrentConnection.start();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }
 
