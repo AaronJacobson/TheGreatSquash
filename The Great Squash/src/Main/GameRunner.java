@@ -41,7 +41,7 @@ public class GameRunner {
 
     public static void createServer(String mapName) {
         System.out.println("Map: " + mapName);
-        SERVER = new Server(1, mapName);
+        SERVER = new Server(mapName);
         SERVER.makeServer();
         ClientConnectionsThread clientConnections = new ClientConnectionsThread(SERVER);
         Thread clientConnectionsThread = new Thread(clientConnections);
