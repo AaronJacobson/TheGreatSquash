@@ -56,26 +56,25 @@ public class Server {
     private DataOutputStream DATA_OUT;
     private DataInputStream DATA_IN;
     private ArrayList<String> IPS;
-    private boolean[] INITS;
-    private ServerClientConnection[] SERVER_CLIENT_CONNECTIONS;
+    private ArrayList<Boolean> INITS;
+    private ArrayList<ServerClientConnection> SERVER_CLIENT_CONNECTIONS;
+//    private ServerClientConnection[] SERVER_CLIENT_CONNECTIONS;
     private ServerClientChat[] SERVER_CHAT_CONNECTIONS;
     private int PORT_NUMBER = NetworkInfo.COMMAND_PORT_NUMBER;
     private int CHAT_PORT_NUMBER = NetworkInfo.CHAT_PORT_NUMBER;
     private Board THE_BOARD;
-    private int CONNECTIONS;
     private String SERVER_NAME = "";
     private boolean GM_DONE;
 
-    public Server(int connections, String mapName) {
-        CONNECTIONS = connections;
+    public Server(String mapName) {
         THE_BOARD = CreateFromDocument.createFromMaps(mapName);
         IPS = new ArrayList<String>();
-        INITS = new boolean[connections];
-        for (int currentInit = 0; currentInit < CONNECTIONS; currentInit++) {
-            INITS[currentInit] = false;
+        INITS = new ArrayList<>();;
+        for (int currentInit = 0; currentInit < INITS.size(); currentInit++) {
+            INITS.set(currentInit, false);
         }
 //        System.out.println("Server: \n" + THE_BOARD);
-        SERVER_CLIENT_CONNECTIONS = new ServerClientConnection[CONNECTIONS];
+        SERVER_CLIENT_CONNECTIONS = new ArrayList<>();
         SERVER_CHAT_CONNECTIONS = new ServerClientChat[CONNECTIONS];
     }
 
@@ -101,29 +100,36 @@ public class Server {
 
     public void waitForClientConnections() {
         //waits for all the clients to connect
-        for (int currentConnection = 0; currentConnection < CONNECTIONS; currentConnection++) {
-            try {
-                SOCKET = SERVER_SOCKET.accept();
-                DATA_OUT = new DataOutputStream(SOCKET.getOutputStream());
-                DATA_IN = new DataInputStream(SOCKET.getInputStream());
-                IPS.add(SOCKET.getInetAddress().toString());
-                System.out.println("Server: Connection from " + IPS.get(currentConnection));
-                ServerClientConnection newConnect = new ServerClientConnection(DATA_IN, DATA_OUT, SERVER_CLIENT_CONNECTIONS, IPS, THE_BOARD, this, INITS, IPS.get(currentConnection));
-                SERVER_CLIENT_CONNECTIONS[currentConnection] = newConnect;
-                Thread CurrentConnection = new Thread(newConnect);
-                CurrentConnection.start();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+        Thread connectionThread = new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    try {
+                        SOCKET = SERVER_SOCKET.accept();
+                        DATA_OUT = new DataOutputStream(SOCKET.getOutputStream());
+                        DATA_IN = new DataInputStream(SOCKET.getInputStream());
+                        IPS.add(SOCKET.getInetAddress().toString());
+                        System.out.println("Server: Connection from " + IPS.get(currentConnection));
+                        ServerClientConnection newConnect = new ServerClientConnection(DATA_IN, DATA_OUT, SERVER_CLIENT_CONNECTIONS, IPS, THE_BOARD, this, IPS.get(currentConnection));
+                        SERVER_CLIENT_CONNECTIONS.add(newConnect);
+                        Thread CurrentConnection = new Thread(newConnect);
+                        CurrentConnection.start();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
             }
-        }
+        });
+    }
+
+    public void runGame() {
         //game starts
         System.out.println("Server: Starting game");
         while (true) {
             if (arePlayersDone()) {
                 if (GM_DONE) {
                     setPlayersBegin();
-                    for (int i = 0; i < SERVER_CLIENT_CONNECTIONS.length; i++) {
-                        SERVER_CLIENT_CONNECTIONS[i].sendCommand(BEGIN_TURN);
+                    for (int i = 0; i < SERVER_CLIENT_CONNECTIONS.size(); i++) {
+                        SERVER_CLIENT_CONNECTIONS.get(i).sendCommand(BEGIN_TURN);
                     }
                     GM_DONE = false;
                     for (int currentCreature = 0; currentCreature < THE_BOARD.getCreatures().size(); currentCreature++) {
@@ -201,10 +207,6 @@ public class Server {
 
     public String getServerName() {
         return SERVER_NAME;
-    }
-
-    public int getConnections() {
-        return CONNECTIONS;
     }
 
     public int getPortNumber() {

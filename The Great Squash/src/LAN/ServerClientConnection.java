@@ -17,20 +17,18 @@ class ServerClientConnection implements Runnable {
 
     DataInputStream STREAM_IN;
     DataOutputStream STREAM_OUT;
-    ServerClientConnection[] SERVER_CLIENT_CONNECTIONS;
+    ArrayList<ServerClientConnection> SERVER_CLIENT_CONNECTIONS;
     ArrayList<String> IPS;
-    boolean[] INITS;
     Server THE_SERVER;
     String IP;
 
-    public ServerClientConnection(DataInputStream in, DataOutputStream out, ServerClientConnection[] serverClientConnections, ArrayList<String> ips, Board gameBoard, Server server, boolean[] inits, String ip) {
+    public ServerClientConnection(DataInputStream in, DataOutputStream out,ArrayList<ServerClientConnection> serverClientConnections, ArrayList<String> ips, Board gameBoard, Server server, String ip) {
         SERVER_CLIENT_CONNECTIONS = serverClientConnections;
         THE_SERVER = server;
         STREAM_IN = in;
         STREAM_OUT = out;
         IPS = ips;
         IP = ip;
-        INITS = inits;
     }
 
     @Override
@@ -157,9 +155,9 @@ class ServerClientConnection implements Runnable {
     }
 
     public void sendBoardInit(String toSend) {
-        for (int currentConnection = 0; currentConnection < SERVER_CLIENT_CONNECTIONS.length; currentConnection++) {
+        for (int currentConnection = 0; currentConnection < SERVER_CLIENT_CONNECTIONS.size(); currentConnection++) {
             try {
-                SERVER_CLIENT_CONNECTIONS[currentConnection].STREAM_OUT.writeUTF(toSend);
+                SERVER_CLIENT_CONNECTIONS.get(currentConnection).STREAM_OUT.writeUTF(toSend);
             } catch (IOException ex) {
                 System.out.println("Server: Unable to connect to a client at: " + IPS.get(currentConnection));
             } catch (NullPointerException ex) {
@@ -168,10 +166,10 @@ class ServerClientConnection implements Runnable {
     }
 
     public void sendCommand(String toSend) {
-        for (int currentConnection = 0; currentConnection < SERVER_CLIENT_CONNECTIONS.length; currentConnection++) {
+        for (int currentConnection = 0; currentConnection < SERVER_CLIENT_CONNECTIONS.size(); currentConnection++) {
             try {
                 try {
-                    SERVER_CLIENT_CONNECTIONS[currentConnection].STREAM_OUT.writeUTF(toSend);
+                    SERVER_CLIENT_CONNECTIONS.get(currentConnection).STREAM_OUT.writeUTF(toSend);
                 } catch (IOException ex) {
                     System.out.println("Server: A client has disconnected: " + IPS.get(currentConnection));
                 }
