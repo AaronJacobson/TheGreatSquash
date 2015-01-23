@@ -110,6 +110,7 @@ public class Server {
         System.out.println("Server: Starting game");
         while (true) {
             if (arePlayersDone()) {
+                System.out.println("Server: The players are done.");
                 if (GM_DONE) {
                     GM_DONE = false;
                     System.out.println("Server: The GM has finished their turn.");
@@ -131,7 +132,6 @@ public class Server {
 
     public boolean arePlayersDone() {
         for (int currentPlayer = 0; currentPlayer < THE_BOARD.getPlayers().size(); currentPlayer++) {
-            System.out.println("Server: " + THE_BOARD.getPlayers().size());
             try {
                 if (!THE_BOARD.getPlayers().get(currentPlayer).getEnded()) {
                     return false;
@@ -157,7 +157,7 @@ public class Server {
         for(Creature C : THE_BOARD.getCreatures()){
             if(!C.getType().equals(TypeHolder.PLAYER)){
                 C.setMovementPoints(C.getDexterity());
-                System.out.println("Server: Refreshed " + C.getName() + "'s movement points. They now have " + C.getName() + " movement points.");
+                System.out.println("Server: Refreshed " + C.getName() + "'s movement points. They now have " + C.getMovementPoints() + " movement points.");
             }
         }
     }

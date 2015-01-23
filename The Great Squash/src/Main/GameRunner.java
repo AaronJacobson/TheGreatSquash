@@ -53,7 +53,7 @@ public class GameRunner {
         CLIENT.connectToServer();
         startGame(START_MENU.getPlayer());
         RunGameThread runGame = new RunGameThread(SERVER);
-        runGame.run();
+        runGame.start();
 //        GAME_BOARD = CLIENT.getBoard();
 //        GAME_GUI = new GameGUI();
 //        GAME_GUI.setBoard(GAME_BOARD);

@@ -1,6 +1,8 @@
 package LAN;
 
+import Main.GameRunner;
 import gameworld.Board;
+import gameworld.Creature;
 import gameworld.Interactive;
 import gameworld.Obstacle;
 import gameworld.Player;
@@ -88,17 +90,22 @@ class ServerClientConnection implements Runnable {
             String name = messageScanner.next();
             int locY = messageScanner.nextInt();
             int locX = messageScanner.nextInt();
-            double health = messageScanner.nextDouble();
+            int currentHealth = messageScanner.nextInt();
+            int maxHealth = messageScanner.nextInt();
             String type = messageScanner.next();
             char sprite = messageScanner.next().charAt(0);
             int speed = messageScanner.nextInt();
+            int endurance = messageScanner.nextInt();
+            int strength = messageScanner.nextInt();
+            int intelligence = messageScanner.nextInt();
+            int dexterity = messageScanner.nextInt();
             if (!THE_SERVER.getBoard().hasCreature(name)) {
                 if (type.equals(TypeHolder.PLAYER)) {
                     Player player = new Player(sprite, THE_SERVER.getBoard(), locY, locX, name);
-                    player.setSpeed(speed);
-                    player.setMovementPoints(speed);
                     THE_SERVER.getBoard().placePlayer(player);
-                    sendCommand(Server.MOVE_CREATURE + " " + player.getY() + " " + player.getX() + " " + name + " " + locY + " " + locX);
+                } else {
+                    Creature creature = new Creature(sprite, THE_SERVER.getBoard(), locY, locX, name, type, currentHealth, maxHealth, speed, endurance, strength, intelligence, dexterity);
+                    THE_SERVER.getBoard().addCreature(creature);
                 }
             }
         } else if (theCommand.equals(Server.SEND_THE_BOARD_PARAMETERS)) {
@@ -144,7 +151,8 @@ class ServerClientConnection implements Runnable {
             double health = messageScanner.nextDouble();
             String type = messageScanner.next();
             char sprite = messageScanner.next().charAt(0);
-            System.out.println("ServerClientConnection: " + messageScan)
+//            System.out.println("ServerClientConnection: " + messageScanner.next());
+            System.out.println("ServerClientConnection: The speed is trying to be set to " + messageScanner.next());
             int speed = messageScanner.nextInt();
             if (type.equals(TypeHolder.PLAYER)) {
                 Player john = new Player(sprite, THE_SERVER.getBoard(), newY, newX, label);
