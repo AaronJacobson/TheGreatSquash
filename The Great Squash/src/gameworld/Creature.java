@@ -52,7 +52,10 @@ public class Creature implements Displayable, Sendable {
         DONE_WITH_TURN = false;
     }
     
-    public Creature(char sprite, Board board, int y, int x, String name, String type, int currentHealth, int maxHealth, int speed, int endurance, int strength, int intelligence, int dexterity) {
+    public Creature(//<editor-fold defaultstate="collapsed" desc="comment">
+            char sprite, Board board, int y, int x, String name, String type, int currentHealth, int maxHealth, int speed, int endurance, int strength, int intelligence, int dexterity
+            //</editor-fold>
+) {
         this();
         TYPE = type;
         NAME = name;

@@ -131,8 +131,8 @@ public class ServerDataHandler implements Runnable {
             String name = messageScanner.next();
             int locY = messageScanner.nextInt();
             int locX = messageScanner.nextInt();
-            double currentHealth = messageScanner.nextDouble();
-            double maxHealth = messageScanner.nextInt();
+            int currentHealth = messageScanner.nextInt();
+            int maxHealth = messageScanner.nextInt();
             String type = messageScanner.next();
             char sprite = messageScanner.next().charAt(0);
             int speed = messageScanner.nextInt();
@@ -145,7 +145,8 @@ public class ServerDataHandler implements Runnable {
                     Player player = new Player(sprite, GameRunner.getBoard(), locY, locX, name);
                     GameRunner.GAME_BOARD.placePlayer(player);
                 } else {
-                    Creature creature = new Creature(sprite,GameRunner.getBoard(),locY,locX,name,type,currentHealth,maxHealth,speed,endurance,strength,intelligence,dexterity);
+                    Creature creature = new Creature(sprite, GameRunner.getBoard(), locY, locX, name, type, currentHealth, maxHealth, speed, endurance, strength, intelligence, dexterity);
+                    GameRunner.GAME_BOARD.addCreature(creature);
                 }
             }
             GameRunner.updateBoard();

@@ -120,7 +120,7 @@ public class Player extends Creature {
         this.CLASS = CreateFromDocument.getLineElement(playerScanner.nextLine());
         super.SPRITE = (CreateFromDocument.getLineElement(playerScanner.nextLine()).charAt(0));
         super.setMaxHealth(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
-        CURRENT_HEALTH = MAX_HEALTH;
+        super.CURRENT_HEALTH = (MAX_HEALTH);
         super.setSpeed(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
         super.setEndurance(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
         super.setStrength(Integer.parseInt(CreateFromDocument.getLineElement(playerScanner.nextLine())));
