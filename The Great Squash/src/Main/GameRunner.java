@@ -45,12 +45,15 @@ public class GameRunner {
         System.out.println("Map: " + mapName);
         SERVER = new Server(mapName);
         SERVER.makeServer();
+        SERVER.waitForClientConnections();
         ClientConnectionsThread clientConnections = new ClientConnectionsThread(SERVER);
         Thread clientConnectionsThread = new Thread(clientConnections);
         clientConnectionsThread.start();
         CLIENT = new Client("127.0.0.1");
         CLIENT.connectToServer();
         startGame(START_MENU.getPlayer());
+        RunGameThread runGame = new RunGameThread(SERVER);
+        runGame.run();
 //        GAME_BOARD = CLIENT.getBoard();
 //        GAME_GUI = new GameGUI();
 //        GAME_GUI.setBoard(GAME_BOARD);
@@ -87,5 +90,16 @@ class ClientConnectionsThread implements Runnable {
     @Override
     public void run() {
         SERVER.waitForClientConnections();
+    }
+}
+
+class RunGameThread extends Thread {
+    private Server SERVER;
+    public RunGameThread(Server server){
+        SERVER = server;
+    }
+    
+    public void run(){
+        SERVER.runGame();
     }
 }
