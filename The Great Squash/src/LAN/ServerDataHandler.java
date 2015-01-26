@@ -70,21 +70,26 @@ public class ServerDataHandler implements Runnable {
             int numberOfCreatures = messageScanner.nextInt();
             for (int currentCreature = 0; currentCreature < numberOfCreatures; currentCreature++) {
                 messageScanner.next();
-                String label = messageScanner.next();
-                int newY = messageScanner.nextInt();
-                int newX = messageScanner.nextInt();
-                double health = messageScanner.nextDouble();
+                String name = messageScanner.next();
+                int locY = messageScanner.nextInt();
+                int locX = messageScanner.nextInt();
+                int currentHealth = messageScanner.nextInt();
+                int maxHealth = messageScanner.nextInt();
                 String type = messageScanner.next();
                 char sprite = messageScanner.next().charAt(0);
                 int speed = messageScanner.nextInt();
-                if (type.equals(TypeHolder.PLAYER)) {
-                    Player john = new Player(sprite, GameRunner.getBoard(), newY, newX, label);
-                    john.setSpeed(speed);
-                    john.setMovementPoints(speed);
-                    GameRunner.getBoard().addCreature(john);
-                } else {
-                    Creature bill = new Creature(sprite, GameRunner.getBoard(), newY, newX, label, type);
-                    GameRunner.getBoard().addCreature(bill);
+                int endurance = messageScanner.nextInt();
+                int strength = messageScanner.nextInt();
+                int intelligence = messageScanner.nextInt();
+                int dexterity = messageScanner.nextInt();
+                if (!GameRunner.getBoard().hasCreature(name)) {
+                    if (type.equals(TypeHolder.PLAYER)) {
+                        Player player = new Player(sprite, GameRunner.getBoard(), locY, locX, name);
+                        GameRunner.GAME_BOARD.placePlayer(player);
+                    } else {
+                        Creature creature = new Creature(sprite, GameRunner.getBoard(), locY, locX, name, type, currentHealth, maxHealth, speed, endurance, strength, intelligence, dexterity);
+                        GameRunner.GAME_BOARD.addCreature(creature);
+                    }
                 }
                 //this is where other types of creatures go
             }
@@ -163,10 +168,10 @@ public class ServerDataHandler implements Runnable {
                 System.out.println("ServerDataHandler: " + GameRunner.GAME_BOARD.getObstacle(obstacleName).toServerData());
                 toInteract.interact(GameRunner.GAME_BOARD.getCreature(creatureName));
                 System.out.println("ServerDataHandler: " + GameRunner.GAME_BOARD.getObstacle(obstacleName).toServerData());
-            
-            GameRunner.updateBoard();
-            } 
-        }else if (theCommand.equals(Server.ATTACK)) {
+
+                GameRunner.updateBoard();
+            }
+        } else if (theCommand.equals(Server.ATTACK)) {
             Creature attacker = GameRunner.GAME_BOARD.getCreature(messageScanner.next());
             Creature defender = GameRunner.GAME_BOARD.getCreature(messageScanner.next());
             System.out.println(defender.getName() + ": " + defender.getCurrentHealth() + "/" + defender.getMaxHealth());
@@ -175,7 +180,7 @@ public class ServerDataHandler implements Runnable {
             GameRunner.GAME_GUI.updateCreateStats();
             GameRunner.updateBoard();
         } else if (theCommand.equals(Server.BEGIN_TURN)) {
-            
+
             GameRunner.GAME_GUI.getCreature().setMovementPoints(GameRunner.GAME_GUI.getCreature().getSpeed());
         }
     }
@@ -196,7 +201,7 @@ public class ServerDataHandler implements Runnable {
     public void sendInteract(String creatureName, String obstacleName) {
         sendCommand(Server.INTERACT_WITH + " " + creatureName + " " + obstacleName);
     }
-    
+
     public void sendAttack(String attackerName, String defenderName) {
         sendCommand(Server.ATTACK + " " + attackerName + " " + defenderName);
     }
@@ -233,7 +238,7 @@ public class ServerDataHandler implements Runnable {
             }
             System.out.println("ServerDataHandler: The creatures have been initialized");
             sendCreatures();
-            if(GameRunner.SERVER != null){
+            if (GameRunner.SERVER != null) {
                 GameRunner.GAME_GUI.setControlledCreatures(GameRunner.GAME_BOARD.getCreatures());
             }
         } catch (IOException ex) {

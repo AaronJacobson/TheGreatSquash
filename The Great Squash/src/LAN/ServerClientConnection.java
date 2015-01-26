@@ -145,18 +145,27 @@ class ServerClientConnection implements Runnable {
         int numberOfCreatures = messageScanner.nextInt();
         for (int currentCreature = 0; currentCreature < numberOfCreatures; currentCreature++) {
             messageScanner.next();
-            String label = messageScanner.next();
-            int newY = messageScanner.nextInt();
-            int newX = messageScanner.nextInt();
-            double health = messageScanner.nextDouble();
+            String name = messageScanner.next();
+            int locY = messageScanner.nextInt();
+            int locX = messageScanner.nextInt();
+            int currentHealth = messageScanner.nextInt();
+            int maxHealth = messageScanner.nextInt();
             String type = messageScanner.next();
             char sprite = messageScanner.next().charAt(0);
-//            System.out.println("ServerClientConnection: " + messageScanner.next());
-            System.out.println("ServerClientConnection: The speed is trying to be set to " + messageScanner.next());
             int speed = messageScanner.nextInt();
-            if (type.equals(TypeHolder.PLAYER)) {
-                Player john = new Player(sprite, THE_SERVER.getBoard(), newY, newX, label);
-                THE_SERVER.getBoard().getCreatures().add(john);
+            int endurance = messageScanner.nextInt();
+            int strength = messageScanner.nextInt();
+            int intelligence = messageScanner.nextInt();
+            int dexterity = messageScanner.nextInt();
+            if (!GameRunner.getBoard().hasCreature(name)) {
+                if (type.equals(TypeHolder.PLAYER)) {
+                    System.out.println("ServerClientConnection: z" + speed);
+                    Player player = new Player(sprite, GameRunner.getBoard(), locY, locX, name,type,currentHealth,maxHealth,speed,endurance,strength,intelligence,dexterity);
+                    THE_SERVER.getBoard().placePlayer(player);
+                } else {
+                    Creature creature = new Creature(sprite, GameRunner.getBoard(), locY, locX, name, type, currentHealth, maxHealth, speed, endurance, strength, intelligence, dexterity);
+                    THE_SERVER.getBoard().addCreature(creature);
+                }
             }
             //this is where other types of creatures go
         }

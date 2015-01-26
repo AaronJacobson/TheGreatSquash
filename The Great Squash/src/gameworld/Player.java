@@ -30,6 +30,10 @@ public class Player extends Creature {
     public Player(char sprite, Board board, int y, int x, String name) {
         super(sprite, board, y, x, name, TypeHolder.PLAYER);
     }
+    
+    public Player(char sprite, Board board, int y, int x, String name, String type, int currentHealth, int maxHealth, int speed, int endurance, int strength, int intelligence, int dexterity){
+        super(sprite,board,y,x,name,type,currentHealth,maxHealth,speed,endurance,strength,intelligence,dexterity);
+    }
 
     public Player(String name, String playerClass, String species, char sprite) {
         super();

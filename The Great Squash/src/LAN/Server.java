@@ -69,7 +69,7 @@ public class Server {
 
     public Server(String mapName) {
         THE_BOARD = CreateFromDocument.createFromMaps(mapName);
-        IPS = new ArrayList<String>();
+        IPS = new ArrayList<>();
         INITS = new ArrayList<>();;
         for (int currentInit = 0; currentInit < INITS.size(); currentInit++) {
             INITS.set(currentInit, false);
@@ -123,7 +123,7 @@ public class Server {
                 } else {
                     GM_DONE = true;
                     refreshMonsterMovement();
-                    System.out.println("Server: Refreshed monster movement pointss.");
+                    System.out.println("Server: Refreshed monster movement points.");
                 }
             } else {
             }

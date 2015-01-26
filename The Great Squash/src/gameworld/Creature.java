@@ -52,10 +52,7 @@ public class Creature implements Displayable, Sendable {
         DONE_WITH_TURN = false;
     }
     
-    public Creature(//<editor-fold defaultstate="collapsed" desc="comment">
-            char sprite, Board board, int y, int x, String name, String type, int currentHealth, int maxHealth, int speed, int endurance, int strength, int intelligence, int dexterity
-            //</editor-fold>
-) {
+    public Creature(char sprite, Board board, int y, int x, String name, String type, int currentHealth, int maxHealth, int speed, int endurance, int strength, int intelligence, int dexterity) {
         this();
         TYPE = type;
         NAME = name;
@@ -333,7 +330,6 @@ public class Creature implements Displayable, Sendable {
         output += MAX_HEALTH + " ";
         output += TYPE + " ";
         output += SPRITE + " ";
-        output += SPEED + " ";
         output += SPEED + " ";
         output += ENDURANCE + " ";
         output += STRENGTH + " ";
